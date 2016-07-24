@@ -1,0 +1,35 @@
+<body>
+	<div class="container" style="padding-top:50px">
+    	<div class="text-center">
+        	<h3>Cadastro</h3>
+        </div>
+    </div>
+    <div class="container" style="padding-top:50px">
+        <form style="margin:0px auto; max-width:30%" (ngSubmit)="onSubmit()" #loginForm="ngForm">
+            <div class="form-group">
+                <label >Nome</label>
+                <input type="text" class="form-control" required [(ngModel)]="developer.name" ngControl="name" maxlength="100"/>
+            </div>
+            <div class="form-group">
+                <label >E-mail</label>
+                <input type="email" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="email@mail.com" [(ngModel)]="developer.email"  ngControl="email" required/>
+            </div>
+            <div class="form-group">
+                <label >Sobre</label>
+                <textarea class="form-control" style="min-height:100px"required [(ngModel)]="developer.about" ngControl="about" minlength="50"></textarea>
+            </div>
+            <div class="form-group">
+                <label >Senha</label>
+                <input type="password" class="form-control" required [(ngModel)]="developer.password" ngControl="password" />
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-default" style="min-width:48%">Cadastrar</button>
+                <a class="btn btn-default" style="min-width:50%" routerLink="/login" routerLinkActive="active">Cancelar</a>  
+            </div>
+        </form>
+    </div>
+</body>
+
+
+
+
