@@ -10,17 +10,21 @@ export /**
  */
 class AuthenticateService {
 
-   currentSession: UserSession; 
+   currentSession: UserSession = null; 
 
    loginUrl = "http://localhost:8888/appcivico-server/loginform.php";
 
    constructor(private http: Http){}
 
-   authenticate(email: string, password: string): Observable<any> {
-        var headers = new Headers({'Content-Type' : 'application/x-www-form-urlencoded'});
+   authenticate(email: string, password: string): Observable<boolean> {
+        var headers = new Headers({'Content-Type' : 'application/x-www-form-urlencoded', 'accept' : 'application/json'});
         var body = 'email='+ email + '&password=' + password;
         return this.http.post(this.loginUrl,body, {headers: headers}).map(response => {
-            return (response.status == 200) ? response.json().data : {};
+            var token : string = response.headers.get('appToken');
+            var developer : Developer = response.json();;
+            this.currentSession = new UserSession(token,developer);
+
+            return true;
         });
     }
 
@@ -29,4 +33,7 @@ class AuthenticateService {
         this.currentSession = null;
     }
 
+    hasAuthenticatedUser(): boolean {
+        return this.currentSession != null;
+    }
 }

@@ -7,8 +7,6 @@ export class Developer{
     about: string;
     password: string;
     
-    constructor() {
-
-    }
+    constructor() {}
 
 }

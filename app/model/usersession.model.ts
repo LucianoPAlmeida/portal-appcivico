@@ -4,12 +4,10 @@ export /**
  */
 class UserSession {
     token: string;
-    expirationDate: Date;
     currentDeveloper: Developer; 
     
-    constructor(token: string, expirationDate: Date, developer: Developer) {
+    constructor(token: string, developer: Developer) {
         this.token = token;
-        this.expirationDate = expirationDate;
         this.currentDeveloper = developer;
     }
 

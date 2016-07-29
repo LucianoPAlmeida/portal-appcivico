@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import { NgForm }    from '@angular/common';
 import {AuthenticateService} from '../services/authenticate.service';
 import {HTTP_PROVIDERS} from '@angular/http';
-import {ROUTER_DIRECTIVES} from '@angular/router';
+import {ROUTER_DIRECTIVES, Router} from '@angular/router';
 
 @Component({
     selector: 'app-login',
@@ -17,14 +17,21 @@ export class LoginComponent {
     email: string;
     password: string;
 
-    showLoginFailMsg: boolean = false;
+    errorMessage: string = null;
 
 
-    constructor(private service: AuthenticateService){}
+    constructor(private service: AuthenticateService, private router: Router){}
 
     onSubmit() { 
+        this.errorMessage = null;
         this.service.authenticate(this.email, this.password).subscribe(data => {
-            console.log(data);
+                this.router.navigate(['/main']);
+        }, error => {
+            if(error.status == 401){
+                this.errorMessage = 'Falha ao autenticar, e-mail ou senha estão incorretos';
+            }else{
+                 this.errorMessage = 'Erro de conexão, falta de conexão com a internet ou servidor não está respondendo';
+            }
         });
     }
 

@@ -6,6 +6,9 @@
     </div>
     <div class="container" style="padding-top:50px">
         <form style="margin:0px auto; max-width:30%" (ngSubmit)="onSubmit()" #loginForm="ngForm">
+            <div class="alert alert-danger" [hidden] = "!errorMessage">
+                {{errorMessage}}
+            </div>
             <div class="form-group">
                 <label >Nome</label>
                 <input type="text" class="form-control" required [(ngModel)]="developer.name" ngControl="name" maxlength="100"/>

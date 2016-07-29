@@ -5,12 +5,10 @@
         	<h3>AppCivico</h3>
         </div>
     </div>
-    {{service.test}}
     <div class="container" style="padding-top:50px">
         <form style="margin:0px auto; max-width:30%" (ngSubmit)="onSubmit()" #loginForm="ngForm">
-            <div class="alert alert-danger" [hidden] = "!showLoginFailMsg">
-                Falha ao autenticar
-                E-mail ou senha estão incorretos
+            <div class="alert alert-danger" [hidden] = "!errorMessage">
+                {{errorMessage}}
             </div>
             <div class="form-group">
                 <label >Login</label>
@@ -22,7 +20,7 @@
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-default" style="min-width:48%">Entrar</button>
-                <a class="btn btn-default" style="min-width:50%" routerLink="/main" routerLinkActive="active">Cadastrar</a>
+                <a class="btn btn-default" style="min-width:50%" routerLink="/register" routerLinkActive="active">Cadastrar</a>
                 <!--<button type="button" class="btn btn-default" style="min-width:50%" formnovalidate >Cadastrar</button>-->
             </div>
         </form>
