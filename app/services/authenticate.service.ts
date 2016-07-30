@@ -13,7 +13,7 @@ export /**
  */
 class AuthenticateService {
 
-   currentSession: UserSession; 
+//    currentSession: UserSession; 
 
    loginUrl = "http://localhost:8888/appcivico-server/loginform.php";
 
@@ -25,20 +25,24 @@ class AuthenticateService {
         return this.http.post(this.loginUrl,body, {headers: headers}).map(response => {
             var token : string = response.headers.get('appToken');
             var developer : Developer = response.json();
-            this.currentSession = new UserSession(token,developer);
+            this.setLoggedUserSession(new UserSession(token,developer));
             return true;
         });
     }
 
-    setLoggedUser(){
-
+    setLoggedUserSession(currentSession: UserSession){
+        this.cookieService.putObject('user_session', currentSession);
     }
 
     logOut() {
-        this.currentSession = null;
+        this.cookieService.remove('user_session');
+    }
+
+    currentSession(): UserSession{
+        return this.cookieService.getObject('user_session') as UserSession;
     }
 
     hasAuthenticatedUser(): boolean {
-        return this.currentSession != null;
+        return this.currentSession() != null;
     }
 }

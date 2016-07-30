@@ -2,11 +2,14 @@ import {Component} from '@angular/core';
 import { NgForm }    from '@angular/common';
 import {AuthenticateService} from '../services/authenticate.service';
 import {ROUTER_DIRECTIVES, Router} from '@angular/router';
+import {CookieService} from 'angular2-cookie/core';
+import {HTTP_PROVIDERS} from '@angular/http';
 
 @Component({
     selector: 'app-login',
     templateUrl : 'app/components/login.component.html',
-    directives: [ROUTER_DIRECTIVES]
+    directives: [ROUTER_DIRECTIVES],
+    providers: [AuthenticateService, CookieService, HTTP_PROVIDERS]
 })
 
 export class LoginComponent { 
@@ -32,5 +35,7 @@ export class LoginComponent {
             }
         });
     }
+
+    
 
 }

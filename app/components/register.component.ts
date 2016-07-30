@@ -5,11 +5,12 @@ import {HTTP_PROVIDERS} from '@angular/http';
 import {AuthenticateService} from '../services/authenticate.service';
 import {Developer} from '../model/developer.model';
 import {ROUTER_DIRECTIVES} from '@angular/router';
+import {CookieService} from 'angular2-cookie/core';
 
 @Component({
     selector: 'app-register',
     templateUrl : 'app/components/register.component.html',
-    providers: [UserService, HTTP_PROVIDERS],
+    providers: [AuthenticateService, UserService, HTTP_PROVIDERS, CookieService],
     directives: [ROUTER_DIRECTIVES]
 })
 
@@ -26,4 +27,7 @@ class RegisterComponent {
 
     get diagnostic() { return JSON.stringify(this.developer); }
 
+    onSubmit() {
+        //this.service.registerDeveloper()
+    }
 }
