@@ -9,7 +9,7 @@ import {Observable} from 'rxjs/Observable';
 @Component({
     selector: 'list-apps',
     templateUrl : 'app/components/listapp.component.html',
-    providers: [AuthenticateService,ApplicationService, HTTP_PROVIDERS],
+    providers: [ApplicationService, HTTP_PROVIDERS],
     directives: [ROUTER_DIRECTIVES]
 })
 
@@ -25,7 +25,7 @@ class ListAppsComponent {
     constructor(private authService: AuthenticateService,private appservice: ApplicationService) {}
 
     getApps(){
-        this.appservice.getApps()
+        //this.appservice.getApps()
     }
 
 }

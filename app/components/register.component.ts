@@ -9,7 +9,7 @@ import {ROUTER_DIRECTIVES} from '@angular/router';
 @Component({
     selector: 'app-register',
     templateUrl : 'app/components/register.component.html',
-    providers: [AuthenticateService, UserService, HTTP_PROVIDERS],
+    providers: [UserService, HTTP_PROVIDERS],
     directives: [ROUTER_DIRECTIVES]
 })
 

@@ -13,6 +13,7 @@
     'rxjs':                       'node_modules/rxjs',
     'ng2-bootstrap/ng2-bootstrap':'node_modules/ng2-bootstrap/ng2-bootstrap',
     'moment': 'node_modules/moment/moment.js',
+    'angular2-cookie':            'node_modules/angular2-cookie'
 
 
   };
@@ -21,8 +22,10 @@
   var packages = {
     'app':                        { main: 'main.js',  defaultExtension: 'js' },
     'rxjs':                       { defaultExtension: 'js' },
+    'angular2-cookie':            { main: 'core.js',  defaultExtension: 'js' },
     'angular2-in-memory-web-api': { main: 'index.js', defaultExtension: 'js' },
-    "node_modules/ng2-bootstrap": { defaultExtension: 'js' }
+    "node_modules/ng2-bootstrap": { defaultExtension: 'js' },
+    
   };
 
   var ngPackageNames = [
