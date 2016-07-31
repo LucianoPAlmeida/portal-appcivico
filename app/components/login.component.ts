@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import { NgForm }    from '@angular/common';
-import {AuthenticateService} from '../services/authenticate.service';
+import {UserService} from '../services/user.service';
 import {ROUTER_DIRECTIVES, Router} from '@angular/router';
 import {CookieService} from 'angular2-cookie/core';
 import {HTTP_PROVIDERS} from '@angular/http';
@@ -9,7 +9,7 @@ import {HTTP_PROVIDERS} from '@angular/http';
     selector: 'app-login',
     templateUrl : 'app/components/login.component.html',
     directives: [ROUTER_DIRECTIVES],
-    providers: [AuthenticateService, CookieService, HTTP_PROVIDERS]
+    providers: [UserService, CookieService, HTTP_PROVIDERS]
 })
 
 export class LoginComponent { 
@@ -21,11 +21,12 @@ export class LoginComponent {
     errorMessage: string = null;
 
 
-    constructor(private service: AuthenticateService, private router: Router){}
+    constructor(private service: UserService, private router: Router){}
 
     onSubmit() { 
         this.errorMessage = null;
         this.service.authenticate(this.email, this.password).subscribe(data => {
+            console.log(this.service.currentSession().currentDeveloper);
                 this.router.navigate(['/main']);
         }, error => {
             if(error.status == 401){

@@ -1,8 +1,7 @@
 import {Component} from '@angular/core';
 import { NgForm }    from '@angular/common';
-import {UserService} from '../services/user.service';
 import {HTTP_PROVIDERS} from '@angular/http';
-import {AuthenticateService} from '../services/authenticate.service';
+import {UserService} from '../services/user.service';
 import {Developer} from '../model/developer.model';
 import {ROUTER_DIRECTIVES} from '@angular/router';
 import {CookieService} from 'angular2-cookie/core';
@@ -10,7 +9,7 @@ import {CookieService} from 'angular2-cookie/core';
 @Component({
     selector: 'app-register',
     templateUrl : 'app/components/register.component.html',
-    providers: [AuthenticateService, UserService, HTTP_PROVIDERS, CookieService],
+    providers: [UserService, HTTP_PROVIDERS, CookieService],
     directives: [ROUTER_DIRECTIVES]
 })
 
@@ -23,7 +22,7 @@ class RegisterComponent {
 
     errorMessage: string = null;
 
-    constructor(private service: UserService, private authservice: AuthenticateService) {}
+    constructor(private userService: UserService) {}
 
     get diagnostic() { return JSON.stringify(this.developer); }
 
