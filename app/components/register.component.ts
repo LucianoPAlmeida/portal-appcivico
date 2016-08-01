@@ -3,7 +3,7 @@ import { NgForm }    from '@angular/common';
 import {HTTP_PROVIDERS} from '@angular/http';
 import {UserService} from '../services/user.service';
 import {Developer} from '../model/developer.model';
-import {ROUTER_DIRECTIVES} from '@angular/router';
+import {ROUTER_DIRECTIVES, Router} from '@angular/router';
 import {CookieService} from 'angular2-cookie/core';
 
 @Component({
@@ -22,11 +22,21 @@ class RegisterComponent {
 
     errorMessage: string = null;
 
-    constructor(private userService: UserService) {}
+    constructor(private userService: UserService,private router: Router) {}
 
     get diagnostic() { return JSON.stringify(this.developer); }
 
     onSubmit() {
+        this.userService.registerDeveloper(this.developer).subscribe(sucess => {
+            console.log(this.userService.currentSession().currentDeveloper);
+
+            this.router.navigate(['/main']);
+        }, error => {
+            if(error.status == 400){
+                this.errorMessage = "O e-mail informado já encontra-se cadastrado, verifique se você já utiliza esse e-mail em algum aplicativo que utiliza a plataforma APP Cívico.";
+            }
+        });
         //this.service.registerDeveloper()
+
     }
 }

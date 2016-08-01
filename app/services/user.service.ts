@@ -11,14 +11,22 @@ export /**
  */
 class UserService {
 
-    pessoasURL = "http://mobile-aceite.tcu.gov.br/appCivicoRS/rest/pessoas";
+    registerDeveloperURL = "http://localhost:8888/appcivico-server/register.php";
     loginUrl = "http://localhost:8888/appcivico-server/loginform.php";
 
     constructor(private http: Http, private cookieService: CookieService){}
 
 
-    registerDeveloper(developer: Developer){
+    registerDeveloper(developer: Developer): Observable<boolean>{
+      var headers = new Headers({'Content-Type' : 'application/x-www-form-urlencoded', 'accept' : 'application/json'});
+      var body = 'email='+ developer.email + '&password=' + developer.password +'&name=' + developer.name + '&about=' + developer.about;
+      return this.http.post(this.registerDeveloperURL,body, {headers : headers}).map(response => {
+         var token : string = response.headers.get('appToken');
+         var developer : Developer = response.json();
 
+         this.setLoggedUserSession(new UserSession(token,developer));
+         return true;
+      });
       //  this.http.post(this.pessoasURL,)
     }
 
