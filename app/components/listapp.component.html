@@ -1,8 +1,20 @@
 <body>
     <navigation-bar></navigation-bar>  
-    <div class="container-fluid scroll">
-    	<div class="text-center">
-        	<h4>Dashboard</h4>
+    <div class="container">
+    	<div class="default-list">
+        	<button class="btn btn-default" >Novo Aplicativo</button><br/>
+            <div class="text-center">
+                <h4 *ngIf="isLoaded && (!apps || apps.length == 0)" > Não há aplicativos</h4>
+            </div>
+            <div class="" *ngFor="let application of apps" >
+                
+                <h4 class="">                 
+                    {{application.name}}
+                </h4>
+            </div>
+        </div>
+        <div class="default-list-form">
+        	<loading-indicator></loading-indicator>
         </div>
     </div>
 </body>

@@ -10,14 +10,18 @@ export /**
  */
 class ApplicationService {
 
-    getAppsURL: string = ""
+    getAppsURL: string = "http://localhost:8888/appcivico-server/getApps.php"
 
     constructor(private http: Http) {}
 
     getApps(codOwner: number): Observable<Application[]>{
        return this.http.get(this.getAppsURL).map((response: Response) => {
             let body = response.json();
-            return body.data || { };
+            return body || { };
        });
+    }
+
+    registerApp(codOwner: number, app: Application){
+
     }
 }

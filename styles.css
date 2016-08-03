@@ -136,10 +136,24 @@ nav a.router-link-active {
   border-radius: 4px 0 0 4px;
 }
 
+.default-list {
+    width: 30%; 
+    border: 2px solid #a94442;
+    float: left;
+}
+
+.default-list-form {
+    width: 70%; 
+    border: 2px solid #000000;
+    float: left;
+}
+
+
 /* everywhere else */
 * { 
   font-family: Arial, Helvetica, sans-serif; 
 }
+
 
 
 

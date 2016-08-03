@@ -2,8 +2,7 @@ export /**
  * Application
  */
 class Application {
-
-    codOwner: number;
+    cod: number;
     description: string;
     name: string;
 
