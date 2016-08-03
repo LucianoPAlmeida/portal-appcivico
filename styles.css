@@ -138,13 +138,13 @@ nav a.router-link-active {
 
 .default-list {
     width: 30%; 
-    border: 2px solid #a94442;
+    /*border: 2px solid #a94442;*/
     float: left;
 }
 
 .default-list-form {
     width: 70%; 
-    border: 2px solid #000000;
+    /*border: 2px solid #000000;*/
     float: left;
 }
 

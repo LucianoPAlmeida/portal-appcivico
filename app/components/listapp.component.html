@@ -6,15 +6,21 @@
             <div class="text-center">
                 <h4 *ngIf="isLoaded && (!apps || apps.length == 0)" > Não há aplicativos</h4>
             </div>
-            <div class="" *ngFor="let application of apps" >
-                
-                <h4 class="">                 
-                    {{application.name}}
-                </h4>
+            
+            <div style="top:200px;left:45%;height:30px;width:30px;position: relative;">
+                <loading-indicator></loading-indicator>
             </div>
+            
+            <ul class="list-group">
+                <li *ngFor="let application of apps; let i = index" (click)="selectApp(i)" class="list-group-item" >
+                    <button class="btn btn-primary" style="height:50px;width:250px">{{application.cod}} - {{application.name}} </button>
+                     <button style="height:50px;width:50px" class="btn btn-danger">
+                         <span class="glyphicon glyphicon-trash"></span>
+                     </button> </li>
+            </ul>
         </div>
         <div class="default-list-form">
-        	<loading-indicator></loading-indicator>
+            <app-form></app-form>
         </div>
     </div>
 </body>

@@ -18,9 +18,16 @@ export /**
  */
 class ApplicationForm {
     
-    errorMessage: string 
-    
+    errorMessage: string = null;
+    sucessMessage: string = null;
     currentApplication: Application = new Application();
 
+    isUpdating: boolean = false;
+
     constructor() {}
+
+    clear() {
+       this.currentApplication.name = "";
+       this.currentApplication.description = "";
+    }
 }

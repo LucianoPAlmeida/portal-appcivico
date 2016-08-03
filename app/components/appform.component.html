@@ -1,27 +1,31 @@
 <form>
-    <div class="container" style="padding-top:50px">
+    <div class="container" style="padding-top:50px;width:100%">
     	<div class="text-center">
         	<h3>Aplicativo</h3>
         </div>
     </div>
-    <div class="container" style="padding-top:50px">
-        <form style="margin:0px auto; max-width:30%" (ngSubmit)="onSubmit()" #loginForm="ngForm">
+    <div class="container" style="padding-top:50px; width:100%">
+        <form style="margin:0px auto; max-width:60%" (ngSubmit)="onSubmit()" #loginForm="ngForm">
             <div class="alert alert-danger" [hidden] = "!errorMessage">
                 {{errorMessage}}
             </div>
+            <div class="alert alert-success" [hidden] = "!sucessMessage">
+                {{sucessMessage}}
+            </div>
+            
             <div class="form-group">
                 <label >Nome</label>
-                <input type="text" class="form-control" placeholder="Digite o nome aplicativo" [(ngModel)]="currentApp.name"  ngControl="name" required/>
+                <input type="text" class="form-control" placeholder="Digite o nome aplicativo" [(ngModel)]="currentApplication.name"  ngControl="name" required/>
             </div>
             <div class="form-group">
                 <label >Descrição do Aplicativo</label>
-                <textarea class="form-control" style="min-height:100px" [(ngModel)]="currentApp.description" minlength="30" ngControl="description" required> 
+                <textarea class="form-control" style="min-height:100px" [(ngModel)]="currentApplication.description" minlength="30" ngControl="description" required> 
 
                 </textarea>
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-default" style="min-width:48%">Salvar</button>
-                <button class="btn btn-default" style="min-width:48%">Cancelar</button>
+                <button type="button" class="btn btn-default" style="min-width:48%" formnovalidate (click)= "clear()" >Limpar</button>
                 <!--<a class="btn btn-default" style="min-width:50%" routerLink="/main" routerLinkActive="active">Cancelar</a>-->
                 <!--<button type="button" class="btn btn-default" style="min-width:50%" formnovalidate >Cadastrar</button>-->
             </div>

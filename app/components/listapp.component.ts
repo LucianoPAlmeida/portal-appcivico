@@ -8,7 +8,7 @@ import {Observable} from 'rxjs/Observable';
 import {CookieService} from 'angular2-cookie/core';
 import {NavigationComponent} from './navigation.component';
 import {ApplicationForm} from './appform.component';
-import {LoadingPage, LoadingIndicator} from './loading.component';
+import {LoadingIndicator} from './loading.component';
 
 
 @Component({
@@ -30,7 +30,7 @@ class ListAppsComponent {
     private appForm: ApplicationForm;
 
     @ViewChild(LoadingIndicator)
-    private loadIndicator: ApplicationForm;
+    private loadIndicator: LoadingIndicator;
 
     apps: Application[] = [];
 
@@ -50,9 +50,8 @@ class ListAppsComponent {
         }
     }
 
-    getApps(){
-        
-        //this.appservice.getApps()
+    selectApp(index: number){
+        console.log(index);
     }
 
 }
