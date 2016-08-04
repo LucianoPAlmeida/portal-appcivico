@@ -8,7 +8,7 @@ import {Observable} from 'rxjs/Observable';
 import {CookieService} from 'angular2-cookie/core';
 import {NavigationComponent} from './navigation.component';
 import {ApplicationForm} from './appform.component';
-import {LoadingIndicator} from './loading.component';
+import {LoadingIndicator, LoadingPage} from './loading.component';
 
 
 @Component({
@@ -21,7 +21,7 @@ import {LoadingIndicator} from './loading.component';
 export /**
  * ListAppsComponent
  */
-class ListAppsComponent {
+class ListAppsComponent extends LoadingPage{
 
     @ViewChild(NavigationComponent)
     private navComponent: NavigationComponent;
@@ -29,29 +29,40 @@ class ListAppsComponent {
     @ViewChild(ApplicationForm)
     private appForm: ApplicationForm;
 
-    @ViewChild(LoadingIndicator)
-    private loadIndicator: LoadingIndicator;
-
     apps: Application[] = [];
 
     isLoaded: boolean = false;
 
-    constructor(private userService: UserService, private appservice: ApplicationService, private router: Router) {}
+    constructor(private userService: UserService, private appservice: ApplicationService, private router: Router) {
+        super(false);
+    }
+
 
     ngOnInit() {
         if(!this.userService.hasAuthenticatedUser()){
             this.router.navigate(['/']);
         }else{
+            this.standby();
             this.appservice.getApps(this.userService.currentSession().currentDeveloper.cod).subscribe(apps => {
+                this.ready();
                 this.apps = apps as Application[];
+                this.apps = this.apps.sort((a:Application,b: Application)=> {
+                    return a.cod - b.cod
+                });
             }, error => {
+                this.ready();
                 //TODO: Handle error.
             });
         }
     }
 
     selectApp(index: number){
+        this.appForm.currentApplication = this.apps[index].clone();
         console.log(index);
+    }
+
+    newAppClickAction(){
+        this.appForm.newApp();
     }
 
 }

@@ -10,14 +10,22 @@ export /**
  */
 class ApplicationService {
 
-    getAppsURL: string = "http://localhost:8888/appcivico-server/getApps.php"
+    getAppsURL: string = "http://mobile-aceite.tcu.gov.br/appCivicoRS/rest/aplicativos";
 
     constructor(private http: Http) {}
 
     getApps(codOwner: number): Observable<Application[]>{
        return this.http.get(this.getAppsURL).map((response: Response) => {
             let body = response.json();
-            return body || { };
+            var apps : Application[] = [];
+            for (let jsonApp of body) {
+                var app = new Application();
+                app.cod = jsonApp['cod'];
+                app.name = jsonApp['nome'];
+                app.description = jsonApp['descricao'];
+                apps.push(app);
+            }
+            return apps;
        });
     }
 

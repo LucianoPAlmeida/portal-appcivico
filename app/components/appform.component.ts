@@ -30,4 +30,8 @@ class ApplicationForm {
        this.currentApplication.name = "";
        this.currentApplication.description = "";
     }
+
+    newApp(){
+        this.currentApplication = new Application();
+    }
 }

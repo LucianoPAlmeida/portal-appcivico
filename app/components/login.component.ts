@@ -1,18 +1,19 @@
-import {Component} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import { NgForm }    from '@angular/common';
 import {UserService} from '../services/user.service';
 import {ROUTER_DIRECTIVES, Router} from '@angular/router';
 import {CookieService} from 'angular2-cookie/core';
 import {HTTP_PROVIDERS} from '@angular/http';
+import {LoadingIndicator, LoadingPage} from './loading.component';
 
 @Component({
     selector: 'app-login',
     templateUrl : 'app/components/login.component.html',
-    directives: [ROUTER_DIRECTIVES],
-    providers: [UserService, CookieService, HTTP_PROVIDERS]
+    providers: [UserService, CookieService, HTTP_PROVIDERS],
+    directives: [ROUTER_DIRECTIVES, LoadingIndicator]
 })
 
-export class LoginComponent { 
+export class LoginComponent extends LoadingPage{ 
 
 
     email: string;
@@ -21,14 +22,19 @@ export class LoginComponent {
     errorMessage: string = null;
 
 
-    constructor(private service: UserService, private router: Router){}
+    constructor(private service: UserService, private router: Router){
+        super(false)
+    }
 
     onSubmit() { 
         this.errorMessage = null;
+        this.standby();
         this.service.authenticate(this.email, this.password).subscribe(data => {
+            this.ready();
             console.log(this.service.currentSession().currentDeveloper);
                 this.router.navigate(['/main']);
         }, error => {
+            this.ready();
             if(error.status == 401){
                 this.errorMessage = 'Falha ao autenticar, e-mail ou senha estão incorretos';
             }else{
