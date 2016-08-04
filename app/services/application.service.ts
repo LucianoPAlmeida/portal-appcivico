@@ -10,12 +10,12 @@ export /**
  */
 class ApplicationService {
 
-    getAppsURL: string = "http://mobile-aceite.tcu.gov.br/appCivicoRS/rest/aplicativos";
+    appsURL: string = "http://mobile-aceite.tcu.gov.br/appCivicoRS/rest/aplicativos";
 
     constructor(private http: Http) {}
 
     getApps(codOwner: number): Observable<Application[]>{
-       return this.http.get(this.getAppsURL).map((response: Response) => {
+       return this.http.get(this.appsURL).map((response: Response) => {
             let body = response.json();
             var apps : Application[] = [];
             for (let jsonApp of body) {
@@ -29,7 +29,20 @@ class ApplicationService {
        });
     }
 
-    registerApp(codOwner: number, app: Application){
+    registerApp(appToken: string,codOwner: number, app: Application): Observable<any>{
+        var headers = new Headers({'appToken' : appToken});
+        console.log('start');
+        return this.http.post(this.appsURL,{codResponsavel: codOwner, nome: app.name, descricao: app.description},{headers: headers}).map((response: Response) => {
+            console.log('finish');
+            var location = response.headers.get('location');
+            var parts = location.split('/');
+            return (parts.length > 0) ? parts[parts.length - 1] : null;
+        });
+    }
 
+    updateApp(appToken: string,codOwner: number, app: Application): Observable<any>{
+        var url = this.appsURL+'/'+ codOwner;
+        var headers = new Headers({'appToken' : appToken});
+        return this.http.put(url,{codResponsavel: codOwner, nome: app.name, descricao: app.description}, {headers : headers});
     }
 }

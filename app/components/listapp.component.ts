@@ -58,7 +58,7 @@ class ListAppsComponent extends LoadingPage{
 
     selectApp(index: number){
         this.appForm.currentApplication = this.apps[index].clone();
-        console.log(index);
+        this.appForm.isUpdating = true;
     }
 
     newAppClickAction(){
