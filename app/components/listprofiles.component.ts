@@ -1,46 +1,48 @@
 import {Component, Input, ViewChild} from '@angular/core';
 import {ROUTER_DIRECTIVES, Router} from '@angular/router';
-import {ApplicationService} from '../services/application.service';
 import {UserService} from '../services/user.service';
-import {Application} from '../model/application.model';
+import {TypeProfile} from '../model/typeprofile.model';
 import {HTTP_PROVIDERS} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
-import {CookieService} from 'angular2-cookie/core';
 import {NavigationComponent} from './navigation.component';
-import {ApplicationForm} from './appform.component';
 import {LoadingIndicator, LoadingPage} from './loading.component';
-
+import {ProfileTypeService} from '../services/profiletype.service';
+import {CookieService} from 'angular2-cookie/core';
+import {Application} from '../model/application.model';
+import {ApplicationService} from '../services/application.service';
+import {ProfileTypeForm} from './profiletypeform.component'
 
 @Component({
-    selector: 'list-apps',
-    templateUrl : 'app/components/listapp.component.html',
-    providers: [UserService, ApplicationService, HTTP_PROVIDERS, CookieService],
-    directives: [ROUTER_DIRECTIVES, NavigationComponent, ApplicationForm, LoadingIndicator]
+    selector: 'list-profiles',
+    templateUrl : 'app/components/listprofiles.component.html',
+    providers: [UserService, ProfileTypeService, HTTP_PROVIDERS, CookieService, ApplicationService],
+    directives: [ROUTER_DIRECTIVES, NavigationComponent, LoadingIndicator, ProfileTypeForm]
 })
-
 export /**
- * ListAppsComponent
+ * ListProfiles
  */
-class ListAppsComponent extends LoadingPage{
+class ListProfiles extends LoadingPage{
 
     @ViewChild(NavigationComponent)
     private navComponent: NavigationComponent;
 
-    @ViewChild(ApplicationForm)
-    private appForm: ApplicationForm;
+    @ViewChild(ProfileTypeForm)
+    private profileTypeForm: ProfileTypeForm;
 
     apps: Application[] = [];
 
     isLoaded: boolean = false;
 
+    currentApp: Application = null;
+
     errorMessage: string = null;
 
-    constructor(private userService: UserService, private appservice: ApplicationService, private router: Router) {
+    constructor(private profileService: ProfileTypeService, private userService: UserService,private appservice: ApplicationService, private router: Router) {
         super(false);
+        
     }
 
-
-    ngOnInit() {
+     ngOnInit() {
         if(!this.userService.hasAuthenticatedUser()){
             this.router.navigate(['/']);
         }else{
@@ -52,6 +54,7 @@ class ListAppsComponent extends LoadingPage{
                 this.apps = this.apps.sort((a:Application,b: Application)=> {
                     return a.cod - b.cod
                 });
+                this.profileTypeForm.apps = this.apps;
             }, error => {
                 this.ready();
                 this.errorMessage = "Houve um erro ao carregar os aplicativos. Verifique sua conexão com a internet e recarregue a página.";
@@ -59,13 +62,7 @@ class ListAppsComponent extends LoadingPage{
         }
     }
 
-    selectApp(index: number){
-        this.appForm.currentApplication = this.apps[index].clone();
-        this.appForm.isUpdating = true;
-    }
+    newProfileTypeAction(){
 
-    newAppClickAction(){
-        this.appForm.newApp();
     }
-
-}
+} 
