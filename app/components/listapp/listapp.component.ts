@@ -1,19 +1,19 @@
 import {Component, Input, ViewChild} from '@angular/core';
 import {ROUTER_DIRECTIVES, Router} from '@angular/router';
-import {ApplicationService} from '../services/application.service';
-import {UserService} from '../services/user.service';
-import {Application} from '../model/application.model';
+import {ApplicationService} from '../../services/application.service';
+import {UserService} from '../../services/user.service';
+import {Application} from '../../model/application.model';
 import {HTTP_PROVIDERS} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import {CookieService} from 'angular2-cookie/core';
-import {NavigationComponent} from './navigation.component';
-import {ApplicationForm} from './appform.component';
-import {LoadingIndicator, LoadingPage} from './loading.component';
+import {NavigationComponent} from '../navigation/navigation.component';
+import {ApplicationForm} from '../appform/appform.component';
+import {LoadingIndicator, LoadingPage} from '../loading/loading.component';
 
 
 @Component({
     selector: 'list-apps',
-    templateUrl : 'app/components/listapp.component.html',
+    templateUrl : 'app/components/listapp/listapp.component.html',
     providers: [UserService, ApplicationService, HTTP_PROVIDERS, CookieService],
     directives: [ROUTER_DIRECTIVES, NavigationComponent, ApplicationForm, LoadingIndicator]
 })

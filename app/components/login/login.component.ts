@@ -1,14 +1,14 @@
 import {Component, ViewChild} from '@angular/core';
 import { NgForm }    from '@angular/common';
-import {UserService} from '../services/user.service';
+import {UserService} from '../../services/user.service';
 import {ROUTER_DIRECTIVES, Router} from '@angular/router';
 import {CookieService} from 'angular2-cookie/core';
 import {HTTP_PROVIDERS} from '@angular/http';
-import {LoadingIndicator, LoadingPage} from './loading.component';
+import {LoadingIndicator, LoadingPage} from '../loading/loading.component';
 
 @Component({
     selector: 'app-login',
-    templateUrl : 'app/components/login.component.html',
+    templateUrl : 'app/components/login/login.component.html',
     providers: [UserService, CookieService, HTTP_PROVIDERS],
     directives: [ROUTER_DIRECTIVES, LoadingIndicator]
 })

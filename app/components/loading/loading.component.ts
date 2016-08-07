@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 
 @Component({
     selector: 'loading-indicator',
-    templateUrl: 'app/components/loading.component.html'
+    templateUrl: 'app/components/loading/loading.component.html'
 })
 export class LoadingIndicator {}
 

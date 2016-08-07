@@ -1,15 +1,15 @@
 import {Component} from '@angular/core';
 import { NgForm }    from '@angular/common';
 import {HTTP_PROVIDERS} from '@angular/http';
-import {UserService} from '../services/user.service';
-import {Developer} from '../model/developer.model';
+import {UserService} from '../../services/user.service';
+import {Developer} from '../../model/developer.model';
 import {ROUTER_DIRECTIVES, Router} from '@angular/router';
 import {CookieService} from 'angular2-cookie/core';
-import {LoadingIndicator, LoadingPage} from './loading.component';
+import {LoadingIndicator, LoadingPage} from '../loading/loading.component';
 
 @Component({
     selector: 'app-register',
-    templateUrl : 'app/components/register.component.html',
+    templateUrl : 'app/components/register/register.component.html',
     providers: [UserService, HTTP_PROVIDERS, CookieService],
     directives: [ROUTER_DIRECTIVES, LoadingIndicator]
 })

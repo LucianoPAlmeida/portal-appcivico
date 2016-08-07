@@ -1,18 +1,18 @@
 import {Component} from '@angular/core';
 import { NgForm }    from '@angular/common';
-import {UserService} from '../services/user.service';
+import {UserService} from '../../services/user.service';
 import {ROUTER_DIRECTIVES, Router} from '@angular/router';
 import {CookieService} from 'angular2-cookie/core';
 import {HTTP_PROVIDERS} from '@angular/http';
-import {ProfileTypeService} from '../services/profiletype.service';
-import {TypeProfile} from '../model/typeprofile.model';
-import {LoadingIndicator, LoadingPage} from './loading.component';
-import {UserSession} from '../model/usersession.model';
-import {Application} from '../model/application.model';
+import {ProfileTypeService} from '../../services/profiletype.service';
+import {TypeProfile} from '../../model/typeprofile.model';
+import {LoadingIndicator, LoadingPage} from '../loading/loading.component';
+import {UserSession} from '../../model/usersession.model';
+import {Application} from '../../model/application.model';
 
 @Component({
     selector: 'profiletype-form',
-    templateUrl : 'app/components/profiletypeform.component.html',
+    templateUrl : 'app/components/profiletypeform/profiletypeform.component.html',
     directives: [ROUTER_DIRECTIVES, LoadingIndicator],
     providers: [ProfileTypeService, UserService, CookieService, HTTP_PROVIDERS] 
 })

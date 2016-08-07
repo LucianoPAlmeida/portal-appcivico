@@ -1,20 +1,20 @@
 import {Component, Input, ViewChild} from '@angular/core';
 import {ROUTER_DIRECTIVES, Router} from '@angular/router';
-import {UserService} from '../services/user.service';
-import {TypeProfile} from '../model/typeprofile.model';
+import {UserService} from '../../services/user.service';
+import {TypeProfile} from '../../model/typeprofile.model';
 import {HTTP_PROVIDERS} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
-import {NavigationComponent} from './navigation.component';
-import {LoadingIndicator, LoadingPage} from './loading.component';
-import {ProfileTypeService} from '../services/profiletype.service';
+import {NavigationComponent} from '../navigation/navigation.component';
+import {LoadingIndicator, LoadingPage} from '../loading/loading.component';
+import {ProfileTypeService} from '../../services/profiletype.service';
 import {CookieService} from 'angular2-cookie/core';
-import {Application} from '../model/application.model';
-import {ApplicationService} from '../services/application.service';
-import {ProfileTypeForm} from './profiletypeform.component'
+import {Application} from '../../model/application.model';
+import {ApplicationService} from '../../services/application.service';
+import {ProfileTypeForm} from '../profiletypeform/profiletypeform.component'
 
 @Component({
     selector: 'list-profiles',
-    templateUrl : 'app/components/listprofiles.component.html',
+    templateUrl : 'app/components/listprofiles/listprofiles.component.html',
     providers: [UserService, ProfileTypeService, HTTP_PROVIDERS, CookieService, ApplicationService],
     directives: [ROUTER_DIRECTIVES, NavigationComponent, LoadingIndicator, ProfileTypeForm]
 })
