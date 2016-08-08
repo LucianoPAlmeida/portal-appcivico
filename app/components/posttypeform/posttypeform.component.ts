@@ -60,8 +60,4 @@ class PostTypeForm extends LoadingPage{
     updatePostType() {
         
     }
-
-    selectApp(index: number) {
-        this.selectedApp = this.apps[index];
-    }
 }

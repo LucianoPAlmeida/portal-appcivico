@@ -72,5 +72,9 @@ class ListPostTypes extends LoadingPage{
     newPostTypeAction(){
         console.log('newPostTypeAction');
     }
+
+    changeApp(value: any ){
+        console.log(this.currentApp);
+    }
 }
 

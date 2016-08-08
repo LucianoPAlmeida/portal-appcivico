@@ -14,7 +14,7 @@
             
             <div class="form-group">
                 <label >Selecione o Aplicativo</label>
-                <select class="form-control" (change)="selectApp($event.target.value)" required>
+                <select class="form-control" [(ngModel)]="selectedApp" required>
                     <option *ngFor="let application of apps; let i = index" value="{{i}}">{{application.name}}</option>
                 </select>
             </div>
