@@ -146,6 +146,8 @@ nav a.router-link-active {
     width: 70%; 
     /*border: 2px solid #000000;*/
     float: left;
+    position: fixed;
+    left:30%;
 }
 
 

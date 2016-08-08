@@ -3,7 +3,7 @@
     <!--<div class="container">
     <modal></modal>-->
     <div class="container">
-        <div class="default-list" style="position: relative;height: 50%">
+        <div class="default-list" role="main" style="position: relative;height: 50%">
         	<button class="btn btn-default" style="top: 50%;position: relative;" (click)="newPostTypeAction()">Novo Tipo de Postagem</button>
             <div style="top: 50%;position: relative;">
                 <label *ngIf="errorMessage" class="alert alert-danger" > 
@@ -21,6 +21,7 @@
                 <div *ngIf="loading" style="top:200px;left:45%;height:30px;width:30px;position: relative;">
                     <loading-indicator></loading-indicator>
                 </div>
+
                 
                 <div *ngIf="!loading && isTypesLoaded && appPostTypes && appPostTypes.length > 0" style="top: 60px;position: relative;">
                     <ul   class="list-group" style="position: relative;">
@@ -34,7 +35,7 @@
                 
             </div>
             <div class="text-center" style="top: 50%;position: relative;">
-                <h4  *ngIf="!errorMessage && isTypesLoaded && (!appPostTypes || appPostTypes.length == 0)"> Nenhum tipo de postagem para este Aplicativo</h4>
+                <h4  *ngIf="!errorMessage && !loading && isTypesLoaded && (!appPostTypes || appPostTypes.length == 0)"> Nenhum tipo de postagem para este Aplicativo</h4>
             </div>
         </div>
         <div class="default-list-form">
