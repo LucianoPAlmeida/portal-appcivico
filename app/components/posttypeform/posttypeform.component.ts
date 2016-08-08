@@ -27,8 +27,11 @@ class PostTypeForm extends LoadingPage{
     currentPostType: TypePost = new TypePost();
 
     public apps: Application []; 
-
     public selectedApp: Application;
+
+    public postTypes: TypePost [];
+    public selectedParentPostType: TypePost = null;
+
 
     isUpdating: boolean = false;
 
@@ -42,7 +45,7 @@ class PostTypeForm extends LoadingPage{
 
     newTypePost(){
         this.isUpdating = false; 
-        this.currentPostType
+        this.currentPostType = new TypePost();
     }
 
     onSubmit(){
@@ -53,6 +56,16 @@ class PostTypeForm extends LoadingPage{
         }
     }
 
+    changeAppAction(index: number) {
+        console.log(index);
+        // var app = this.apps[index];
+        // this.postService.postTypesForApp(app.cod).subscribe((types: TypePost[])=> {
+        //     this.postTypes = types;
+        // }, error => {
+
+        // });
+    }
+
     registerPostType(){
        //this.standby();
     }
@@ -60,4 +73,13 @@ class PostTypeForm extends LoadingPage{
     updatePostType() {
         
     }
+
+    showErrorMessage(message: string){
+        this.errorMessage = message;
+    }
+
+    showSuccessMessage(message: string){
+        this.sucessMessage = message;
+    }
+
 }

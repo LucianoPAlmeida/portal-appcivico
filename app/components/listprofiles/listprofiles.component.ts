@@ -35,7 +35,7 @@ class ListProfiles extends LoadingPage{
 
     isLoaded: boolean = false;
 
-    currentApp: Application = null;
+    public currentApp: Application = null;
 
     errorMessage: string = null;
 
@@ -59,7 +59,7 @@ class ListProfiles extends LoadingPage{
                 this.profileTypeForm.apps = this.apps;
             }, error => {
                 this.ready();
-                this.errorMessage = "Houve um erro ao carregar os aplicativos. Verifique sua conexão com a internet e recarregue a página.";
+                this.showErrorMessage("Houve um erro ao carregar os aplicativos. Verifique sua conexão com a internet e recarregue a página.");
             });
         }
     }
@@ -67,4 +67,10 @@ class ListProfiles extends LoadingPage{
     newProfileTypeAction(){
 
     }
+
+
+    showErrorMessage(message: string){
+        this.errorMessage = message;
+    }
+
 } 

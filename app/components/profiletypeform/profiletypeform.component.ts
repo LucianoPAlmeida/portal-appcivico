@@ -61,8 +61,15 @@ class ProfileTypeForm extends LoadingPage{
         
     }
 
-    selectApp(index: number) {
-        this.selectedApp = this.apps[index];
-        console.log(this.selectedApp.clone());
+    showErrorMessage(message: string){
+        this.errorMessage = message;
     }
+
+    showSuccessMessage(message: string){
+        this.sucessMessage = message;
+    }
+    // selectApp(index: number) {
+    //     this.selectedApp = this.apps[index];
+    //     console.log(this.selectedApp.clone());
+    // }
 }

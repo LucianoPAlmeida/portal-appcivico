@@ -1,7 +1,7 @@
 import {Component, Input, ViewChild} from '@angular/core';
 import {ROUTER_DIRECTIVES, Router} from '@angular/router';
 import {UserService} from '../../services/user.service';
-import {TypeProfile} from '../../model/typeprofile.model';
+import {TypePost} from '../../model/typepost.model';
 import {HTTP_PROVIDERS} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import {NavigationComponent} from '../navigation/navigation.component';
@@ -31,12 +31,14 @@ class ListPostTypes extends LoadingPage{
     @ViewChild(PostTypeForm)
     private posttypeForm: PostTypeForm;
 
-    apps: Application[] = [];
+    public apps: Application[];
 
     isLoaded: boolean = false;
 
-    currentApp: Application = null;
+    public currentApp: Application = null;
 
+    public parentPost: TypePost = null;
+    
     errorMessage: string = null;
 
     constructor(private postService: PostTypeService,private userService: UserService,private appservice: ApplicationService, private router: Router) {
@@ -55,10 +57,10 @@ class ListPostTypes extends LoadingPage{
                 this.apps = this.apps.sort((a:Application,b: Application)=> {
                     return a.cod - b.cod
                 });
-                 this.posttypeForm.apps = this.apps;
+                this.posttypeForm.apps = this.apps;
             }, error => {
                 this.ready();
-                this.errorMessage = "Houve um erro ao carregar os aplicativos. Verifique sua conexão com a internet e recarregue a página.";
+                this.showErrorMessage("Houve um erro ao carregar os aplicativos. Verifique sua conexão com a internet e recarregue a página.");
             });
         }
     }
@@ -73,8 +75,9 @@ class ListPostTypes extends LoadingPage{
         console.log('newPostTypeAction');
     }
 
-    changeApp(value: any ){
-        console.log(this.currentApp);
+    showErrorMessage(message: string){
+        this.errorMessage = message;
     }
+
 }
 
