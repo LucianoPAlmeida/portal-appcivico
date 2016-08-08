@@ -14,7 +14,7 @@
             <div *ngIf="loading" style="top:200px;left:45%;height:30px;width:30px;position: relative;">
                 <loading-indicator></loading-indicator>
             </div>
-            <select *ngIf="!loading" [disabled]="loading" class="form-control" style="top:50px;position: relative;">
+            <select *ngIf="!loading && isLoaded" [disabled]="loading" class="form-control" style="top:50px;position: relative;">
                 <option *ngFor="let app of apps">{{app.name}}</option>
             </select>
             <div>
