@@ -6,30 +6,30 @@ import {HTTP_PROVIDERS} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import {NavigationComponent} from '../navigation/navigation.component';
 import {LoadingIndicator, LoadingPage} from '../loading/loading.component';
-import {ProfileTypeService} from '../../services/profiletype.service';
+import {PostTypeService} from '../../services/posttype.service';
 import {CookieService} from 'angular2-cookie/core';
 import {Application} from '../../model/application.model';
 import {ApplicationService} from '../../services/application.service';
-import {ProfileTypeForm} from '../profiletypeform/profiletypeform.component'
 import {Modal} from '../modal/modal.component';
-
+import {PostTypeForm} from  '../posttypeform/posttypeform.component';
 
 @Component({
-    selector: 'list-profiles',
-    templateUrl : 'app/components/listprofiles/listprofiles.component.html',
-    providers: [UserService, ProfileTypeService, HTTP_PROVIDERS, CookieService, ApplicationService],
-    directives: [ROUTER_DIRECTIVES, NavigationComponent, LoadingIndicator, ProfileTypeForm, Modal]
+    selector: 'list-posttypes',
+    templateUrl : 'app/components/listposttypes/listposttypes.component.html',
+    providers: [UserService, PostTypeService, HTTP_PROVIDERS, CookieService, ApplicationService],
+    directives: [ROUTER_DIRECTIVES, NavigationComponent, LoadingIndicator, Modal, PostTypeForm]
 })
+
 export /**
- * ListProfiles
+ * ListPostTypes
  */
-class ListProfiles extends LoadingPage{
+class ListPostTypes extends LoadingPage{
 
-    @ViewChild(NavigationComponent)
-    private navComponent: NavigationComponent;
+    @ViewChild(Modal)
+    private modal : Modal;
 
-    @ViewChild(ProfileTypeForm)
-    private profileTypeForm: ProfileTypeForm;
+    @ViewChild(PostTypeForm)
+    private posttypeForm: PostTypeForm;
 
     apps: Application[] = [];
 
@@ -39,12 +39,11 @@ class ListProfiles extends LoadingPage{
 
     errorMessage: string = null;
 
-    constructor(private profileService: ProfileTypeService, private userService: UserService,private appservice: ApplicationService, private router: Router) {
+    constructor(private postService: PostTypeService,private userService: UserService,private appservice: ApplicationService, private router: Router) {
         super(false);
-        
     }
 
-     ngOnInit() {
+    ngOnInit() {
         if(!this.userService.hasAuthenticatedUser()){
             this.router.navigate(['/']);
         }else{
@@ -56,7 +55,7 @@ class ListProfiles extends LoadingPage{
                 this.apps = this.apps.sort((a:Application,b: Application)=> {
                     return a.cod - b.cod
                 });
-                this.profileTypeForm.apps = this.apps;
+                 this.posttypeForm.apps = this.apps;
             }, error => {
                 this.ready();
                 this.errorMessage = "Houve um erro ao carregar os aplicativos. Verifique sua conexão com a internet e recarregue a página.";
@@ -64,7 +63,14 @@ class ListProfiles extends LoadingPage{
         }
     }
 
-    newProfileTypeAction(){
 
+    //@ViewChild(Alert) alert;
+    alertOpen(){
+        // this.modal.title('titulo').text('texto').okButtonTitle('ok').showCancelButton(false).open();
     }
-} 
+
+    newPostTypeAction(){
+        console.log('newPostTypeAction');
+    }
+}
+

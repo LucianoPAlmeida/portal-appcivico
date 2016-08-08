@@ -39,7 +39,8 @@
     "angular2-in-memory-web-api": "0.0.14",
     "bootstrap": "^3.3.6",
     "angular2-cookie": "^1.2.2",
-    "ng2-bootstrap": "^1.0.24"        
+    "ng2-bootstrap": "^1.0.24",
+    "jquery": "^3.1.0"        
   },
   "devDependencies": {
     "concurrently": "^2.0.0",
