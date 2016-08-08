@@ -14,21 +14,21 @@
             
             <div class="form-group">
                 <label >Selecione o Aplicativo*</label>
-                <select class="form-control" [(ngModel)]="selectedApp" required>
+                <select class="form-control" [(ngModel)]="selectedApp" #app (change)="changeAppAction(app.value)" required>
                     <option *ngFor="let application of apps; let i = index" value="{{i}}">{{application.name}}</option>
                 </select>
             </div>
 
             <div *ngIf="selectedApp" class="form-group">
                 <label >Selecione o Tipo de Postagem Pai</label>
-                <select class="form-control" [(ngModel)]="selectedParentPostType" #types (change)="changeAppAction(types.value)">
-                   <option *ngFor="let parentType of postTypes; let i = index" value="{{i}}" >parentType.cod</option>
+                <select class="form-control" [(ngModel)]="selectedParentPostType">
+                   <option *ngFor="let parentType of postTypes; let i = index" value="{{i}}">{{parentType.cod}} - {{parentType.description}}</option>
                 </select>
             </div>
 
             <div class="form-group">
                 <label >Descrição do Tipo de Postagem*</label>
-                <textarea class="form-control" style="min-height:100px" [(ngModel)]="currentPostType.description" minlength="30" ngControl="description" required> 
+                <textarea class="form-control" style="min-height:100px" [(ngModel)]="currentPostType.description" minlength="10" maxlength="20" ngControl="description" required> 
 
                 </textarea>
             </div>

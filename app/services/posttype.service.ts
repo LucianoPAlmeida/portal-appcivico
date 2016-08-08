@@ -15,9 +15,11 @@ class PostTypeService {
     postTypesForApp(codApp: number): Observable<TypePost[]> {
         return this.http.get(this.postTypesForApplicationURL(codApp)).map((response: Response)=> {
             let body = response.json();
-            return body.map((json : any)=> {
-                return this.jsonToPost(json);
-            });
+            let types : TypePost[] = [];
+            for (let json of body){
+                types.push(this.jsonToPost(json));
+            }
+            return types;
         });
     }
 
@@ -30,6 +32,6 @@ class PostTypeService {
     }
 
     private postTypesForApplicationURL(appCode: number) : string {
-        return this.postTypesURL + "/" + appCode;
+        return this.postTypesURL + "/aplicativo/" + appCode;
     }
 }

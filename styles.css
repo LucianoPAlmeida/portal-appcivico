@@ -154,6 +154,12 @@ nav a.router-link-active {
   font-family: Arial, Helvetica, sans-serif; 
 }
 
+.button-list {
+  width:100%;
+  word-break: keep-all;
+  background-color: #2563AB;
+  color: #ffffff;
+}
 
 
 

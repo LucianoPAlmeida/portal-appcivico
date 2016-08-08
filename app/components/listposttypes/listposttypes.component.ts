@@ -37,8 +37,11 @@ class ListPostTypes extends LoadingPage{
 
     public currentApp: Application = null;
 
-    public parentPost: TypePost = null;
-    
+    public appPostTypes: TypePost [];
+
+    isLoadingTypes: boolean = false;
+    isTypesLoaded: boolean = false;
+
     errorMessage: string = null;
 
     constructor(private postService: PostTypeService,private userService: UserService,private appservice: ApplicationService, private router: Router) {
@@ -65,7 +68,29 @@ class ListPostTypes extends LoadingPage{
         }
     }
 
+    changeAppAction(index: number){
+        var app = this.apps[index];
+        this.startLoadTypes();
+        this.postService.postTypesForApp(app.cod).subscribe((types: TypePost[])=> {
+            this.stopLoadTyps();
+            this.appPostTypes = types;
+            this.isTypesLoaded = true;
+        }, error => {
+            this.stopLoadTyps();
+            this.showErrorMessage("Falha ao carregar tipos de postagem para o aplicativo. Verifique sua conexão com a internet e recarregue a página.");
+        });
+    }
 
+    startLoadTypes(){
+        this.isLoadingTypes = true;
+        this.standby();
+
+    }
+
+    stopLoadTyps(){
+        this.isLoadingTypes = false;
+        this.ready();
+    }
     //@ViewChild(Alert) alert;
     alertOpen(){
         // this.modal.title('titulo').text('texto').okButtonTitle('ok').showCancelButton(false).open();
@@ -77,6 +102,10 @@ class ListPostTypes extends LoadingPage{
 
     showErrorMessage(message: string){
         this.errorMessage = message;
+    }
+
+    selectTypePost(index: number){
+        console.log('hue');
     }
 
 }

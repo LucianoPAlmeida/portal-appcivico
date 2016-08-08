@@ -35,6 +35,8 @@ class PostTypeForm extends LoadingPage{
 
     isUpdating: boolean = false;
 
+    isLoadingParents: boolean = false;
+
     constructor(private postService: PostTypeService, private userService: UserService) {
         super(false);
     }
@@ -58,12 +60,13 @@ class PostTypeForm extends LoadingPage{
 
     changeAppAction(index: number) {
         console.log(index);
-        // var app = this.apps[index];
-        // this.postService.postTypesForApp(app.cod).subscribe((types: TypePost[])=> {
-        //     this.postTypes = types;
-        // }, error => {
-
-        // });
+        var app = this.apps[index];
+        this.postService.postTypesForApp(app.cod).subscribe((types: TypePost[])=> {
+            console.log(types);
+            this.postTypes = types;
+        }, error => {
+            console.log(error);
+        });
     }
 
     registerPostType(){
