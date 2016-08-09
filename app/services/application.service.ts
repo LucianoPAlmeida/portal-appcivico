@@ -20,7 +20,7 @@ class ApplicationService {
             var apps : Application[] = [];
             for (let jsonApp of body) {
                 var app = new Application();
-                app.cod = jsonApp['cod'];
+                app.cod = Number(jsonApp['cod']);
                 app.name = jsonApp['nome'];
                 app.description = jsonApp['descricao'];
                 apps.push(app);

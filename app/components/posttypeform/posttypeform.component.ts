@@ -59,14 +59,12 @@ class PostTypeForm extends LoadingPage{
         }
     }
 
-    changeAppAction(index: number) {
-        console.log(index);
-        var app = this.apps[index];
+    changeAppAction(app: Application) {
+        this.hideErrorMessage();
         this.postService.postTypesForApp(app.cod).subscribe((types: TypePost[])=> {
-            console.log(types);
             this.postTypes = types;
         }, error => {
-            console.log(error);
+            this.showErrorMessage('Falha ao carregar tipos de postagem para o aplicativo. Verifique sua conexão com a internet e recarregue a página.');
         });
     }
 
@@ -82,11 +80,45 @@ class PostTypeForm extends LoadingPage{
         this.errorMessage = message;
     }
 
+    hideErrorMessage(){
+        this.errorMessage = null;
+    }
     showSuccessMessage(message: string){
         this.sucessMessage = message;
     }
 
     clearParentSelect(){
         this.selectedParentPostType = null;
+    }
+
+    setUpdatePostForm(postType: TypePost, typesForApp: TypePost[], apps: Application[]){
+        this.postTypes = typesForApp;
+        this.apps = apps;
+        this.isUpdating = true;
+        this.currentPostType = postType;
+        this.selectedApp = this.appForCode(postType.codApp);
+        this.selectedParentPostType = this.parentTypeForCode(postType.codRelatedPostType);
+    }
+
+    private appForCode(cod: number){
+        if (cod != null ) {
+            for(let app of this.apps){
+                if(app.cod == cod){
+                    return app;
+                }
+            }
+        }
+        return null;
+    }
+
+    private parentTypeForCode(cod: number){
+        if (cod != null ) {
+            for(let type of this.postTypes){
+                if(type.cod == cod){
+                    return type;
+                }
+            }
+        }
+        return null;
     }
 }

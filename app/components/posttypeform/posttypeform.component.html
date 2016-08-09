@@ -14,8 +14,8 @@
             
             <div class="form-group">
                 <label >Selecione o Aplicativo*</label>
-                <select class="form-control" [(ngModel)]="selectedApp" #app (change)="changeAppAction(app.value)" required>
-                    <option *ngFor="let application of apps; let i = index" value="{{i}}">{{application.name}}</option>
+                <select [disabled]="isUpdating" class="form-control" [(ngModel)]="selectedApp" (ngModelChange)="changeAppAction($event)" required>
+                    <option *ngFor="let application of apps" [ngValue]="application">{{application.name}}</option>
                 </select>
             </div>
 
@@ -23,7 +23,7 @@
                 <label >Selecione o Tipo de Postagem Pai</label>
                 <div>
                     <select class="form-control" style="min-width:85%;max-width:100%" [(ngModel)]="selectedParentPostType">
-                        <option *ngFor="let parentType of postTypes; let i = index" value="{{i}}">{{parentType.cod}} - {{parentType.description}}</option>
+                        <option *ngFor="let parentType of postTypes" [ngValue]="parentType">{{parentType.cod}} - {{parentType.description}}</option>
                     </select>
                 </div>
             </div>

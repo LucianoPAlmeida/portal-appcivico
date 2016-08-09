@@ -27,8 +27,29 @@ class PostTypeService {
         var typePost = new TypePost();
         typePost.cod = json['cod'];
         typePost.description = json['descricao'];
-        
+        typePost.codRelatedPostType = this.codParentTypeFromJson(json);
+        typePost.codApp = this.codAppFromJson(json);
         return typePost;
+    }
+
+    private codParentTypeFromJson(json: any): number{
+        return this.refCodeFromJson(json, 'tipoPostagemPai');
+    }
+
+    private codAppFromJson(json: any): number{
+        return this.refCodeFromJson(json,'aplicativo');
+    }
+
+    private refCodeFromJson(json: any, rel: string): number{
+        var links = json['links'];
+        for (var link of links){
+            if(link['rel'] == rel){
+                var ref = link['href'] as string;
+                var array = ref.split('/');
+                return +array[array.length-1];
+            }
+        }
+        return null;
     }
 
     private postTypesForApplicationURL(appCode: number) : string {

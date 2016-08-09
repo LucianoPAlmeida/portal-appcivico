@@ -15,7 +15,8 @@ class Modal {
     okButtonTitleAttr: string;
     cancelButtonTitlAttr: string;
     showCancelButtonAttr: boolean = false;
-    
+    tagAttr: number;
+
     constructor() {}
     
 
@@ -49,6 +50,11 @@ class Modal {
 
     showCancelButton(show: boolean): Modal {
         this.showCancelButtonAttr = show;
+        return this;
+    }
+
+    tag(tag: number): Modal {
+        this.tagAttr = tag;
         return this;
     }
 

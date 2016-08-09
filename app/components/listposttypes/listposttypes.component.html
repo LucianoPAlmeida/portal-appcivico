@@ -10,8 +10,8 @@
                     {{errorMessage}}
                 </label>
             </div>
-            <select [(ngModel)]="currentApp" *ngIf="isLoaded" [disabled]="loading"  #app (change)="changeAppAction(app.value)" class="form-control" style="top:50px;position: relative;">
-                    <option *ngFor="let application of apps; let i = index" value="{{i}}">{{application.name}}</option>
+            <select [(ngModel)]="currentApp" *ngIf="isLoaded" [disabled]="loading"  #app (ngModelChange)="changeAppAction($event)" class="form-control" style="top:50px;position: relative;">
+                    <option *ngFor="let application of apps" [ngValue]="application">{{application.name}}</option>
             </select>
             <div *ngIf="!errorMessage">
                 <div class="text-center" style="top: 50%;position: relative;">
