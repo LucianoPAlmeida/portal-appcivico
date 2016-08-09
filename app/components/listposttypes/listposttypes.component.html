@@ -25,11 +25,12 @@
                 
                 <div *ngIf="!loading && isTypesLoaded && appPostTypes && appPostTypes.length > 0" style="top: 60px;position: relative;">
                     <ul   class="list-group" style="position: relative;">
-                    <li *ngFor="let type of appPostTypes; let i = index" (click)="selectTypePost(i)" class="list-group-item" >
-                        <button  class="button-list" >{{type.cod}} - {{type.description}} </button>
-                        <!--<button style="height:50px;width:50px" class="btn btn-danger">
-                            <span class="glyphicon glyphicon-trash"></span>
-                        </button> --></li>
+                    <li *ngFor="let type of appPostTypes; let i = index"  class="list-group-item" >
+                        <button (click)="selectTypePost(i)"  class="button-list" style="width: 85%">{{type.cod}} - {{type.description}} </button>
+                        <button style="height:auto;width:30px; position: relative; float: right;" class="text-center btn-danger">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button> 
+                    </li>
                     </ul>
                 </div>
                 
@@ -44,5 +45,5 @@
     </div>
 
    
-    <modal-view></modal-view>
+    <modal-view (clickOk)="modalClickOkAction($event)"></modal-view>
 </body>

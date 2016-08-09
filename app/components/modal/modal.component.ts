@@ -1,4 +1,4 @@
-import {Component, ViewChild, ElementRef} from '@angular/core';
+import {Component, ViewChild, Output, EventEmitter} from '@angular/core';
 
 
 @Component({
@@ -15,7 +15,14 @@ class Modal {
     okButtonTitleAttr: string;
     cancelButtonTitlAttr: string;
     showCancelButtonAttr: boolean = false;
-    tagAttr: number;
+    tagAttr: number = 0;
+
+    @Output()
+    private clickOk = new EventEmitter();
+    
+    @Output()
+    private clickCancel = new EventEmitter();
+
 
     constructor() {}
     
@@ -57,5 +64,14 @@ class Modal {
         this.tagAttr = tag;
         return this;
     }
+    // Action
+    okButton(){
+        this.clickOk.emit({
+            value: this.tagAttr
+        });
+    }
 
+    cancelButton(){
+        this.clickCancel.emit({});
+    }
 }

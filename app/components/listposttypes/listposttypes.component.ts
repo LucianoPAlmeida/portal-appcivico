@@ -109,5 +109,10 @@ class ListPostTypes extends LoadingPage{
         this.posttypeForm.setUpdatePostForm(this.appPostTypes[index], this.appPostTypes, this.apps);        
     }
 
+
+    modalClickOkAction(value: any) {
+        console.log(value);
+    }
+
 }
 
