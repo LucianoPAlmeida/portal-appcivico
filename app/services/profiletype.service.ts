@@ -18,4 +18,6 @@ class ProfileTypeService {
         var headers = new Headers({'appToken' : token});
         this.http.post(this.profileTypeURL, {},{headers : headers})
     }
+
+    
 }
