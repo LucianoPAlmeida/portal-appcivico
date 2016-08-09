@@ -32,20 +32,53 @@ class PostTypeService {
         return typePost;
     }
 
+
+    public registerNewPostType(token: string, typePost: TypePost): Observable<number> {
+        var body = this.bodyFromTypePost(typePost);
+        return this.http.post(this.postTypesURL, body).map((response: Response)=> {
+            var location = response.headers.get('location');
+            var array = location.split('/');
+            return +array[array.length-1];
+        });
+    }
+
+    public updatePostType(token: string, typePost: TypePost): Observable<void>{
+        var body = this.bodyFromTypePost(typePost);
+        return this.http.put(this.postTypeCodURL(typePost.cod), body).map((response: Response)=> {
+            return;
+        });
+    }
+
+    public deletePostType(token: string, typePostCod: number): Observable<any>{
+        return this.http.delete(this.postTypeCodURL(typePostCod)).map((response: Response)=> {
+            return;
+        });
+    }
+
+
+    // MARK: Convenience methods
+    private bodyFromTypePost(typePost: TypePost): any {
+        var body : any = {codAplicativo : typePost.codApp, descricao: typePost.description};
+        if(typePost.codRelatedPostType){
+            body['codTipoPostagemPai'] = typePost.codRelatedPostType;
+        }
+        return body;
+    }
+
     private codParentTypeFromJson(json: any): number{
-        return this.refCodeFromJson(json, 'tipoPostagemPai');
+        return this.locationCodeFromJson(json, 'tipoPostagemPai');
     }
 
     private codAppFromJson(json: any): number{
-        return this.refCodeFromJson(json,'aplicativo');
+        return this.locationCodeFromJson(json,'aplicativo');
     }
 
-    private refCodeFromJson(json: any, rel: string): number{
+    private locationCodeFromJson(json: any, rel: string): number{
         var links = json['links'];
         for (var link of links){
             if(link['rel'] == rel){
-                var ref = link['href'] as string;
-                var array = ref.split('/');
+                var location = link['href'] as string;
+                var array = location.split('/');
                 return +array[array.length-1];
             }
         }
@@ -54,5 +87,9 @@ class PostTypeService {
 
     private postTypesForApplicationURL(appCode: number) : string {
         return this.postTypesURL + "/aplicativo/" + appCode;
+    }
+
+    private postTypeCodURL(postTypeCod: number) : string {
+        return this.postTypesURL + '/' + postTypeCod;
     }
 }

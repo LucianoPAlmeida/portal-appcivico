@@ -104,18 +104,24 @@ class ListPostTypes extends LoadingPage{
         this.errorMessage = message;
     }
 
-    selectTypePost(index: number){
-        console.log(this.appPostTypes[index]);
-        this.posttypeForm.setUpdatePostForm(this.appPostTypes[index], this.appPostTypes, this.apps);        
+    selectTypePost(posttype: TypePost){
+        this.posttypeForm.setUpdatePostForm(posttype.clone(), this.appPostTypes, this.apps);        
     }
 
 
-    modalClickOkAction(value: any) {
-        console.log(value);
+    modalClickOkAction(object: any) {
+        if (object['value'] == 1){
+            this.modal.title('Excluindo').text('Excluíndo tipo de postagem...').showCancelButton(false).showOkButton(false);
+            this.modal.standby();
+            
+        }
     }
 
-    clickDeleteButton(cod: number){
-        console.log(cod);
+
+    clickDeleteButton(typePost: TypePost){
+        console.log(typePost);
+        this.modal.tag(1).title('Confimar').text('Deseja excluir o tipo de postagem \"'+typePost.cod+ '-' + typePost.description + '\"?')
+                        .cancelButtonTitle('Cancelar').okButtonTitle('Sim').showCancelButton(true).open();
     }
 
 }

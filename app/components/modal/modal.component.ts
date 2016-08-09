@@ -1,21 +1,25 @@
 import {Component, ViewChild, Output, EventEmitter} from '@angular/core';
+import {LoadingIndicator, LoadingPage} from '../loading/loading.component';
 
 
 @Component({
     selector: 'modal-view',
-    templateUrl: 'app/components/modal/modal.component.html'
+    templateUrl: 'app/components/modal/modal.component.html',
+    directives: [LoadingIndicator]
 })
 export /**
  * Modal
  */
-class Modal {
+class Modal extends LoadingPage{
 
     titleAttr: string;
     textAttr: string;
     okButtonTitleAttr: string;
-    cancelButtonTitlAttr: string;
+    cancelButtonTitleAttr: string;
     showCancelButtonAttr: boolean = false;
     tagAttr: number = 0;
+    showCloseButtonAttr: boolean = false;
+    showOkButtonAttr: boolean = true;
 
     @Output()
     private clickOk = new EventEmitter();
@@ -24,7 +28,9 @@ class Modal {
     private clickCancel = new EventEmitter();
 
 
-    constructor() {}
+    constructor() {
+        super(false);
+    }
     
 
     open() {
@@ -51,7 +57,7 @@ class Modal {
     }
 
     cancelButtonTitle(cancelTitle: string): Modal {
-        this.cancelButtonTitlAttr = cancelTitle;
+        this.cancelButtonTitleAttr = cancelTitle;
         return this;
     }
 
@@ -64,6 +70,17 @@ class Modal {
         this.tagAttr = tag;
         return this;
     }
+
+    showCloseButton(show: boolean ): Modal {
+        this.showCloseButtonAttr = show;
+        return this;
+    }
+
+    showOkButton(show: boolean): Modal{
+        this.showOkButtonAttr = show;
+        return this;
+    }
+
     // Action
     okButton(){
         this.clickOk.emit({
