@@ -114,5 +114,9 @@ class ListPostTypes extends LoadingPage{
         console.log(value);
     }
 
+    clickDeleteButton(cod: number){
+        console.log(cod);
+    }
+
 }
 

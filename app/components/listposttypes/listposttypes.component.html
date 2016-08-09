@@ -27,8 +27,8 @@
                     <ul   class="list-group" style="position: relative;">
                     <li *ngFor="let type of appPostTypes; let i = index"  class="list-group-item" >
                         <button (click)="selectTypePost(i)"  class="button-list" style="width: 85%">{{type.cod}} - {{type.description}} </button>
-                        <button style="height:auto;width:30px; position: relative; float: right;" class="text-center btn-danger">
-                            <span class="glyphicon glyphicon-remove"></span>
+                        <button style=" position: relative; float: right" [value]="type.cod" (click)="clickDeleteButton($event)" class="text-center btn-default">
+                            <span class="glyphicon glyphicon-trash"></span>
                         </button> 
                     </li>
                     </ul>
