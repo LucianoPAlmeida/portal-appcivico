@@ -43,6 +43,7 @@ class PostTypeForm extends LoadingPage{
 
     clear() {
        this.currentPostType.description = "";
+       this.selectedParentPostType = null;
     }
 
     newTypePost(){
@@ -85,4 +86,7 @@ class PostTypeForm extends LoadingPage{
         this.sucessMessage = message;
     }
 
+    clearParentSelect(){
+        this.selectedParentPostType = null;
+    }
 }
