@@ -51,14 +51,14 @@ class PostTypeForm extends LoadingPage{
         super(false);
     }
 
-    ngOnInit() {
-        this.objService.objectTypes().subscribe((objectTypes: ObjectType[])=>{
-            this.objectTypes = objectTypes;
-        }, error =>{
-            this.errorMessage = 'Ocorreu um erro  e não foi possivel buscar os tipos de objeto disponíveis. Recarregue a página para tentar novamente';
-        });
+    // ngOnInit() {
+    //     this.objService.objectTypes().subscribe((objectTypes: ObjectType[])=>{
+    //         this.objectTypes = objectTypes;
+    //     }, error =>{
+    //         this.errorMessage = 'Ocorreu um erro  e não foi possivel buscar os tipos de objeto disponíveis. Recarregue a página para tentar novamente';
+    //     });
 
-    }
+    // }
 
     clear() {
        this.currentPostType.description = "";

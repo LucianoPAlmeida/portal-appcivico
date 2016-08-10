@@ -12,7 +12,7 @@ export /**
  */
 class UserService {
 
-    registerDeveloperURL = "http://localhost:8888/appcivico-server/register.php";
+   // registerDeveloperURL = "http://localhost:8888/appcivico-server/register.php";
 
 
     urlProvider: URLProvider = new URLProvider();
