@@ -94,7 +94,7 @@ class ListPostTypes extends LoadingPage{
         this.ready();
     }
     //@ViewChild(Alert) alert;
-    alertOpen(){
+    onSubmit(){
         // this.modal.title('titulo').text('texto').okButtonTitle('ok').showCancelButton(false).open();
     }
 
@@ -125,7 +125,9 @@ class ListPostTypes extends LoadingPage{
             }, error => {
                 this.modal.ready();
                 if(error.status == 400){
-                    this.modal.tag(0).title('Não excluído').text('Um tipo de postagem só pode ser excluído se não houver nenhuma postagem deste tipo. Também não pode existir algum outro tipo de postagem relacionado a ele.').okButtonTitle('Ok').showOkButton(true).showCancelButton(false);
+                    this.modal.tag(0).title('Não excluído')
+                        .text('Um tipo de postagem só pode ser excluído se não houver nenhuma postagem deste tipo. Também não pode existir algum outro tipo de postagem relacionado a ele.')
+                        .okButtonTitle('Ok').showOkButton(true).showCancelButton(false);
                 }else if (error.status == 401){
                     this.userService.logOut();
                     this.router.navigate(['/']);

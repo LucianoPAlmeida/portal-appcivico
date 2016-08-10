@@ -37,7 +37,7 @@ class PostTypeForm extends LoadingPage{
 
     isLoadingParents: boolean = false;
 
-    constructor(private postService: PostTypeService, private userService: UserService) {
+    constructor(private postService: PostTypeService, private userService: UserService, private router: Router) {
         super(false);
     }
 
@@ -69,7 +69,21 @@ class PostTypeForm extends LoadingPage{
     }
 
     registerPostType(){
-       //this.standby();
+       this.standby();
+       this.postService.registerNewPostType(this.userService.currentSession().token ,this.currentPostType).subscribe((cod: number)=> {
+            this.ready();
+            this.currentPostType.cod = cod;
+            this.postTypes.push(this.currentPostType);
+            this.showSuccessMessage('Tipo de postagem registrado com sucesso.');
+       }, error => {
+            this.ready();
+            if(error.status == 401){
+                this.userService.logOut();
+                this.router.navigate(['/']);
+            }else{
+                this.showErrorMessage('Ocorreu um erro e não foi possível realizar o cadastro. Verifique sua conexão com a internet e tente novamente.');
+            }
+       });
     }
 
     updatePostType() {

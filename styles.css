@@ -140,17 +140,25 @@ nav a.router-link-active {
     width: 30%; 
     /*border: 2px solid #a94442;*/
     float: left;
+    height: 100%;
 }
 
 .default-list-form {
     width: 70%; 
     /*border: 2px solid #000000;*/
+
     float: left;
-    position: fixed;
+    position: absolute;
     left:35%;
+    height: 100%;
 }
 
-
+.default-ul {
+    overflow: visible;
+    overflow-y: scroll;
+    height: 100%;
+    position: relative;
+}
 /* everywhere else */
 * { 
   font-family: Arial, Helvetica, sans-serif; 
@@ -172,3 +180,6 @@ nav a.router-link-active {
 
 
 
+body {
+    height: 100%;
+}
