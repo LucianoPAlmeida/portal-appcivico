@@ -87,7 +87,19 @@ class PostTypeForm extends LoadingPage{
     }
 
     updatePostType() {
-        
+        this.standby();
+        this.postService.updatePostType(this.userService.currentSession().token, this.currentPostType).subscribe(()=> {
+            this.ready();
+            //TODO: finish it
+        }, error=> {
+            this.ready();
+            if(error.status == 401){
+                this.userService.logOut();
+                this.router.navigate(['/']);
+            }else{
+                this.showErrorMessage('Ocorreu um erro e não foi possível realizar o cadastro. Verifique sua conexão com a internet e tente novamente.');
+            }
+        });
     }
 
     showErrorMessage(message: string){
