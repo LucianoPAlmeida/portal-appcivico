@@ -31,17 +31,32 @@ class RegisterComponent extends LoadingPage{
 
     onSubmit() {
         this.standby();
-        this.userService.registerDeveloper(this.developer).subscribe(sucess => {
-            console.log(this.userService.currentSession().currentDeveloper);
-            this.ready();
-            this.router.navigate(['/main']);
+        this.userService.registerDeveloper(this.developer).subscribe(cod => {
+            this.userService.authenticate(this.developer.email, this.developer.password).subscribe(()=>{
+                this.userService.registerDeveloperProfile(this.userService.currentSession().token, this.userService.currentSession().currentDeveloper.cod, {about: this.developer.about}).subscribe(()=>{
+                    // console.log(this.userService.currentSession().currentDeveloper);
+                    this.ready();
+                    this.router.navigate(['/main']);
+                }, error => {
+                    this.ready();
+                    this.showErrorMessage('Ocorreu um erro e não foi possível realizar o cadastro. Verifique sua conexão com a internet e tente novamente.');               
+                });
+            }, error =>{
+                this.ready();
+                this.showErrorMessage('Ocorreu um erro e não foi possível realizar o cadastro. Verifique sua conexão com a internet e tente novamente.');               
+            });
+
         }, error => {
             this.ready();
             if(error.status == 400){
                 this.errorMessage = "O e-mail informado já encontra-se cadastrado, verifique se você já utiliza esse e-mail em algum aplicativo que utiliza a plataforma APP Cívico.";
+            }else{ 
+                this.showErrorMessage('Ocorreu um erro e não foi possível realizar o cadastro. Verifique sua conexão com a internet e tente novamente.');
             }
         });
-        //this.service.registerDeveloper()
+    }
 
+    showErrorMessage(message: string){
+        this.errorMessage = message;
     }
 }

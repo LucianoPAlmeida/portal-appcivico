@@ -3,6 +3,7 @@ import {Http, Headers, Response} from '@angular/http';
 import {Injectable} from '@angular/core';
 import {Application} from '../model/application.model';
 import {Observable} from 'rxjs/Observable';
+import {URLProvider} from './urlProvider.service';
 
 @Injectable()
 export /**
@@ -10,7 +11,9 @@ export /**
  */
 class ApplicationService {
 
-    appsURL: string = "http://mobile-aceite.tcu.gov.br/appCivicoRS/rest/aplicativos";
+    // appsURL: string = "http://mobile-aceite.tcu.gov.br/appCivicoRS/rest/aplicativos";
+
+    urlProvider: URLProvider = new URLProvider();
 
     constructor(private http: Http) {}
 
@@ -31,7 +34,7 @@ class ApplicationService {
 
     registerApp(appToken: string,codOwner: number, app: Application): Observable<number>{
         var headers = new Headers({'appToken' : appToken});
-        return this.http.post(this.appsURL,{codResponsavel: codOwner, nome: app.name, descricao: app.description},{headers: headers}).map((response: Response) => {
+        return this.http.post(this.urlProvider.appsURL() ,{codResponsavel: codOwner, nome: app.name, descricao: app.description},{headers: headers}).map((response: Response) => {
             var location = response.headers.get('location');
             var parts = location.split('/');
             return (parts.length > 0) ? +parts[parts.length - 1] : null;
@@ -39,12 +42,12 @@ class ApplicationService {
     }
 
     updateApp(appToken: string,codOwner: number, app: Application): Observable<any>{
-        var url = this.appsURL+'/'+ codOwner;
+        var url = this.urlProvider.appCodURL(app.cod);
         var headers = new Headers({'appToken' : appToken});
         return this.http.put(url,{codResponsavel: codOwner, nome: app.name, descricao: app.description}, {headers : headers});
     }
 
     private getAppOwnerURL(codOwner: number): string {
-        return this.appsURL + '/pessoa/'+ codOwner;
+        return this.urlProvider.appsOwnerURL(codOwner);
     }
 }

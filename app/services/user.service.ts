@@ -4,6 +4,7 @@ import {Developer} from '../model/developer.model';
 import {Observable} from 'rxjs/Observable';
 import {UserSession} from '../model/usersession.model';
 import {CookieService} from 'angular2-cookie/core';
+import {URLProvider} from  './urlprovider.service';
 
 @Injectable()
 export /**
@@ -12,23 +13,29 @@ export /**
 class UserService {
 
     registerDeveloperURL = "http://localhost:8888/appcivico-server/register.php";
-    //loginUrl = "http://localhost:8888/appcivico-server/loginform.php";
-    loginUrl = "http://mobile-aceite.tcu.gov.br/appCivicoRS/rest/pessoas/autenticar";
-    userProfileURL = "";
+
+
+    urlProvider: URLProvider = new URLProvider();
+
 
     constructor(private http: Http, private cookieService: CookieService){}
 
 
-    registerDeveloper(developer: Developer): Observable<boolean>{
-      var headers = new Headers({'Content-Type' : 'application/x-www-form-urlencoded', 'accept' : 'application/json'});
-      var body = 'email='+ developer.email + '&password=' + developer.password +'&name=' + developer.name + '&about=' + developer.about;
-      return this.http.post(this.registerDeveloperURL,body, {headers : headers}).map(response => {
-         var token : string = response.headers.get('appToken');
-         var developer : Developer = response.json();
-         this.setLoggedUserSession(new UserSession(token,developer));
-         return true;
+    registerDeveloper(developer: Developer): Observable<number>{
+      // var headers = new Headers({'Content-Type' : 'application/x-www-form-urlencoded', 'accept' : 'application/json'});
+      // var body = 'email='+ developer.email + '&password=' + developer.password +'&name=' + developer.name + '&about=' + developer.about;
+      // return this.http.post(this.registerDeveloperURL,body, {headers : headers}).map(response => {
+      //    var token : string = response.headers.get('appToken');
+      //    var developer : Developer = response.json();
+      //    this.setLoggedUserSession(new UserSession(token,developer));
+      //    return true;
+      // });
+
+      return this.http.post(this.urlProvider.personURL(), {nomeUsuario: developer.name, email : developer.email, senha: developer.password}).map((response: Response)=>{
+            var location = response.headers.get('location');
+            var array = location.split('/');
+            return +array[array.length-1];
       });
-      //  this.http.post(this.pessoasURL,)
     }
 
     updateDeveloper(developer: Developer){
@@ -46,13 +53,27 @@ class UserService {
         // });
 
         var headers = new Headers({'email' : email, 'senha' : password});
-        return this.http.get(this.loginUrl,{headers: headers}).map((response: Response)=>{
+        return this.http.get(this.urlProvider.personAuthURL(),{headers: headers}).map((response: Response)=>{
             var token : string = response.headers.get('appToken');
             var developer : Developer = this.jsonToDeveloper(response.json());
             this.setLoggedUserSession(new UserSession(token,developer));
             return;
         });
 
+    }
+
+    getDeveloperProfile(developerCod: number): Observable<any> {
+        var headers = new Headers({appIdentifier: 26});
+        return this.http.get(this.urlProvider.personProfileURL(developerCod), {headers : headers}).map((response: Response)=> {
+            return response.json();
+        });
+    }
+
+    registerDeveloperProfile(token: string,codPerson: number, profile: any): Observable<void>{
+        var headers = new Headers({appToken: token});
+        return this.http.post(this.urlProvider.personProfileURL(codPerson), {camposAdicionais: JSON.stringify(profile), tipoPerfil: {codTipoPerfil: 42}}, {headers: headers}).map((response: Response)=> {
+          return;
+        });
     }
 
     setLoggedUserSession(currentSession: UserSession){

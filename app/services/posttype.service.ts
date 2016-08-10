@@ -2,6 +2,7 @@ import {Http, Headers, Response} from '@angular/http';
 import {Injectable} from '@angular/core';
 import {TypePost} from '../model/typepost.model';
 import {Observable} from 'rxjs/Observable';
+import {URLProvider} from './urlProvider.service';
 
 @Injectable()
 
@@ -11,10 +12,13 @@ export /**
 class PostTypeService {
     constructor(private http: Http) {}
 
-    postTypesURL : string = "http://mobile-aceite.tcu.gov.br:/appCivicoRS/rest/tipos-postagem";
+    urlProvider: URLProvider = new URLProvider();
+
+
+   // postTypesURL : string = "http://mobile-aceite.tcu.gov.br:/";
 
     postTypesForApp(codApp: number): Observable<TypePost[]> {
-        return this.http.get(this.postTypesForApplicationURL(codApp)).map((response: Response)=> {
+        return this.http.get(this.urlProvider.postTypesForApplicationURL(codApp)).map((response: Response)=> {
             let body = response.json();
             let types : TypePost[] = [];
             for (let json of body){
@@ -37,7 +41,7 @@ class PostTypeService {
 
     public registerNewPostType(token: string, typePost: TypePost): Observable<number> {
         var body = this.bodyFromTypePost(typePost);
-        return this.http.post(this.postTypesURL, body).map((response: Response)=> {
+        return this.http.post(this.urlProvider.postTypeURL(), body).map((response: Response)=> {
             var location = response.headers.get('location');
             var array = location.split('/');
             return +array[array.length-1];
@@ -46,13 +50,13 @@ class PostTypeService {
 
     public updatePostType(token: string, typePost: TypePost): Observable<void>{
         var body = this.bodyFromTypePost(typePost);
-        return this.http.put(this.postTypeCodURL(typePost.cod), body).map((response: Response)=> {
+        return this.http.put(this.urlProvider.postTypeCodURL(typePost.cod), body).map((response: Response)=> {
             return;
         });
     }
 
     public deletePostType(token: string, typePostCod: number): Observable<any>{
-        return this.http.delete(this.postTypeCodURL(typePostCod)).map((response: Response)=> {
+        return this.http.delete(this.urlProvider.postTypeCodURL(typePostCod)).map((response: Response)=> {
             return;
         });
     }
@@ -90,11 +94,11 @@ class PostTypeService {
         return null;
     }
 
-    private postTypesForApplicationURL(appCode: number) : string {
-        return this.postTypesURL + "/aplicativo/" + appCode;
-    }
+    // private postTypesForApplicationURL(appCode: number) : string {
+    //     return this.postTypesURL + "/aplicativo/" + appCode;
+    // }
 
-    private postTypeCodURL(postTypeCod: number) : string {
-        return this.postTypesURL + '/' + postTypeCod;
-    }
+    // private postTypeCodURL(postTypeCod: number) : string {
+    //     return this.postTypesURL + '/' + postTypeCod;
+    // }
 }
