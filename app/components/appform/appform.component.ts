@@ -62,7 +62,7 @@ class ApplicationForm extends LoadingPage{
         this.appService.registerApp(token, codOwner, this.currentApplication).subscribe((appCode: number)=>{
             this.ready();
             this.currentApplication.cod = appCode;
-            this.showSuccessMessage('Aplicativo cadastrado com sucesso com sucesso.');
+            this.showSuccessMessage('Aplicativo cadastrado com sucesso com sucesso. O código do aplicativo é o \"'+ appCode +'\".Esse será o código que você irá usar como parâmetro nos endpoints da plataforma.');
             this.register.emit(this.currentApplication);
         }, error => {
             this.ready();

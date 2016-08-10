@@ -67,7 +67,7 @@ class ProfileTypeForm extends LoadingPage{
            this.ready();
            this.clear();
            this.currentProfileType.cod = cod;
-           this.showSuccessMessage('Tipo de perfil cadastrado com sucesso. O código desse tipo é \"'+ cod +'\" e será o código que será usado na criação de perfis de seus usuários');
+           this.showSuccessMessage('Tipo de perfil cadastrado com sucesso. O código desse tipo de perfil é \"'+ cod +'\". Esse será o código que será usado na criação de perfis de seus usuários.');
            this.register.emit(this.currentProfileType.clone());
        }, error => {
            this.ready();
