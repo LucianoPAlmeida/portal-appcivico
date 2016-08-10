@@ -4,11 +4,9 @@
     	<div class="default-list" style="position: relative;height: 50%">
         	<button class="btn btn-default" style="top: 50%;position: relative;" (click)="newProfileTypeAction()">Novo Tipo de Perfil</button>
             <div class="text-center" style="top: 50%;position: relative;">
-                <h4 *ngIf="!isLoaded && (!apps || apps.length == 0)" > Não há Aplicativos</h4>
+                <h4 *ngIf="isLoaded && (!apps || apps.length == 0)" > Não há Aplicativos</h4>
             </div>
-            <div  class="text-center" style="top: 50%;position: relative;">
-                <h4 *ngIf="currentApp && isProfilesLoaded && (!profileTypes || profileTypes.length == 0)"> Não há tipos de perfil para esse aplicativo</h4>
-            </div>
+            
             <div style="top: 50%;position: relative;">
                 <label *ngIf="errorMessage" class="alert alert-danger" > 
                     {{errorMessage}}
@@ -17,19 +15,20 @@
             <div *ngIf="loading" style="top:200px;left:45%;height:30px;width:30px;position: relative;">
                 <loading-indicator></loading-indicator>
             </div>
-            <select *ngIf="!loading && isLoaded && apps && apps.length > 0" [(ngModel)]="currentApp" [disabled]="loading" (ngModelChange)="changeAppAction($event)" class="form-control" style="top:50px;position: relative;">
+            <select *ngIf="!loading && isLoaded && apps && apps.length > 0" [(ngModel)]="currentApp" [disabled]="loading || isUpdating" (ngModelChange)="changeAppAction($event)" class="form-control" style="top:50px;position: relative;">
                 <option *ngFor="let app of apps" [ngValue]= "app">{{app.name}}</option>
             </select>
-            <div>
-            <!--<ul class="list-group" style="top: 40px;position: relative;">
-                <li *ngFor="let application of apps; let i = index" (click)="selectApp(i)" class="list-group-item" >
-                    <button class="btn btn-primary" style="width:100%">{{application.cod}} - {{application.name}} </button>
-                     <!--<button style="height:50px;width:50px" class="btn btn-danger">
-                         <span class="glyphicon glyphicon-trash"></span>
-                     </button> </li>
-            </ul>-->
+            <div *ngIf="!loading && profileTypes && profileTypes.length > 0" style="top: 60px;position: relative;">
+                <ul  class="list-group default-ul" style="position: relative;">
+                    <li *ngFor="let profileType of profileTypes;" (click)="selectProfile(profileType)" class="list-group-item" >
+                    <button class="btn btn-primary" style="width:100%">{{profileType.cod}} - {{profileType.description}} </button>
+                </ul>
+            </div>
+            <div  class="text-center" style="top: 50%;position: relative;">
+                <h4 *ngIf="!loading && currentApp && isProfilesLoaded && (!profileTypes || profileTypes.length == 0)"> Não há tipos de perfil para esse aplicativo</h4>
             </div>
         </div>
+
         <div class="default-list-form">
             <profiletype-form></profiletype-form>
         </div>

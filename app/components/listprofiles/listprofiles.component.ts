@@ -67,8 +67,12 @@ class ListProfiles extends LoadingPage{
         }
     }
 
-    newProfileTypeAction(){
+    selectProfile(profileType: TypeProfile){
+        this.profileTypeForm.setUpdatingProfileType(profileType.clone());
+    }
 
+    newProfileTypeAction(){
+        this.profileTypeForm.newProfileType();
     }
 
 
@@ -77,14 +81,14 @@ class ListProfiles extends LoadingPage{
     }
 
     changeAppAction(app: Application){
-        console.log(app);
         this.standby();
         this.profileService.getProfileTypesForApp(app.cod).subscribe((profileTypes: TypeProfile[])=>{
             this.ready();
-            
+            this.profileTypes = profileTypes;
+            this.isProfilesLoaded = true;
         }, error => {
             this.ready();
-            this.showErrorMessage('');
+            this.showErrorMessage('Falha ao carregar tipos de perfil para o aplicativo. Verifique sua conexão com a internet e recarregue a página.');
         });
     }
 

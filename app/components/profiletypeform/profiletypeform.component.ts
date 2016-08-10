@@ -32,17 +32,18 @@ class ProfileTypeForm extends LoadingPage{
 
     isUpdating: boolean = false;
 
-    constructor(private profileService: ProfileTypeService, private userService: UserService) {
+    constructor(private profileService: ProfileTypeService, private userService: UserService, private router: Router) {
         super(false);
     }
 
     clear() {
-       this.currentProfileType.desscription = "";
+       this.currentProfileType.description = "";
     }
 
-    newApp(){
+    newProfileType(){
         this.isUpdating = false; 
         this.currentProfileType = new TypeProfile();
+        this.selectedApp = null;
     }
 
     onSubmit(){
@@ -54,7 +55,19 @@ class ProfileTypeForm extends LoadingPage{
     }
 
     registerProfileType(){
-       //this.standby();
+       this.standby();
+       this.profileService.registerProfileTypesForApp(this.userService.currentSession().token, this.selectedApp.cod, this.currentProfileType).subscribe((cod: number)=> {
+           this.ready();
+           this.currentProfileType.cod = cod;
+       }, error => {
+           this.ready();
+           if(error.status == 401){
+                this.userService.logOut();
+                this.router.navigate(['/']);
+            }else{
+                this.showErrorMessage('Ocorreu um erro e não foi possível realizar o cadastro. Verifique sua conexão com a internet e tente novamente.');
+            }
+       });
     }
 
     updateProfileType() {
@@ -68,7 +81,24 @@ class ProfileTypeForm extends LoadingPage{
     showSuccessMessage(message: string){
         this.sucessMessage = message;
     }
-    
+
+    setUpdatingProfileType(profileType: TypeProfile){
+        this.currentProfileType = profileType;
+        this.isUpdating = true;
+        this.selectedApp = this.appForCode(profileType.codApp);
+    }
+
+    private appForCode(cod: number){
+        if (cod != null ) {
+            for(let app of this.apps){
+                if(app.cod == cod){
+                    return app;
+                }
+            }
+        }
+        return null;
+    }
+
     // selectApp(index: number) {
     //     this.selectedApp = this.apps[index];
     //     console.log(this.selectedApp.clone());
