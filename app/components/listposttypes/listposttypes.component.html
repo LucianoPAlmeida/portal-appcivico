@@ -27,10 +27,10 @@
                 <div *ngIf="!loading && isTypesLoaded && appPostTypes && appPostTypes.length > 0" style="top: 60px;position: relative;">
                     <ul   class="list-group default-ul" style="position: relative">
                     <li *ngFor="let type of appPostTypes; let i = index" class="list-group-item" >
-                        <button (click)="selectTypePost(type)"  class="button-list" style="width: 85%">{{type.cod}} - {{type.description}} </button>
-                        <button style=" position: relative; float:right;" (click)="clickDeleteButton(type)" class="text-center btn-default">
+                        <button (click)="selectTypePost(type)"  class="button-list" >{{type.cod}} - {{type.description}} </button>
+                        <!--<button style=" position: relative; float:right;" (click)="clickDeleteButton(type)" class="text-center btn-default">
                             <span class="glyphicon glyphicon-trash"></span>
-                        </button> 
+                        </button> -->
                     </li>
                     </ul>
                 </div>
@@ -41,7 +41,7 @@
             </div>
         </div>
         <div class="default-list-form">
-            <posttype-form></posttype-form>
+            <posttype-form (update)="updatePostType($event)" (register)="registerNewPostType($event)"></posttype-form>
         </div>
     </div>
 

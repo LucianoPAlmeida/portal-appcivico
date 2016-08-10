@@ -30,22 +30,16 @@ class RegisterComponent extends LoadingPage{
     get diagnostic() { return JSON.stringify(this.developer); }
 
     onSubmit() {
+        console.log(this.developer);
         this.standby();
         this.userService.registerDeveloper(this.developer).subscribe(cod => {
             this.userService.authenticate(this.developer.email, this.developer.password).subscribe(()=>{
-                this.userService.registerDeveloperProfile(this.userService.currentSession().token, this.userService.currentSession().currentDeveloper.cod, {about: this.developer.about}).subscribe(()=>{
-                    // console.log(this.userService.currentSession().currentDeveloper);
-                    this.ready();
-                    this.router.navigate(['/main']);
-                }, error => {
-                    this.ready();
-                    this.showErrorMessage('Ocorreu um erro e não foi possível realizar o cadastro. Verifique sua conexão com a internet e tente novamente.');               
-                });
+                this.ready();
+                this.router.navigate(['/main']);
             }, error =>{
                 this.ready();
                 this.showErrorMessage('Ocorreu um erro e não foi possível realizar o cadastro. Verifique sua conexão com a internet e tente novamente.');               
             });
-
         }, error => {
             this.ready();
             if(error.status == 400){

@@ -16,7 +16,7 @@ class ProfileTypeService {
     urlProvider: URLProvider = new URLProvider();
 
 
-    registerProfileTypesForApp(token: string, appCod: number, profileType: TypeProfile): Observable<number>{
+    public registerProfileTypesForApp(token: string, appCod: number, profileType: TypeProfile): Observable<number>{
         var headers = new Headers({'appToken' : token});
         return this.http.post(this.urlProvider.profileTypesForAppURL(appCod), {descricao: profileType.description},{headers : headers}).map((response: Response)=> {
             var location = response.headers.get('location');
@@ -26,9 +26,9 @@ class ProfileTypeService {
     }
 
 
-    updateProfileTypeForApp(token: string, appCod: number, profileType: TypeProfile): Observable<void>{
+    public updateProfileTypeForApp(token: string, profileType: TypeProfile): Observable<void>{
         var headers = new Headers({'appToken' : token});
-        return this.http.put(this.urlProvider.profileTypesURL(appCod, profileType.cod), {descricao: profileType.description}).map((response: Response)=>{
+        return this.http.put(this.urlProvider.profileTypesURL(profileType.codApp, profileType.cod), {descricao: profileType.description}).map((response: Response)=>{
             return;
         });
     }

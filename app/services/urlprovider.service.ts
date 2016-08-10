@@ -51,6 +51,8 @@ class URLProvider {
     public personProfileURL(codPerson: number): string {
         return this.personURL() + '/' + codPerson + '/perfil';
     }
-    
 
+    public objectTypeURL(): string{
+        return this.serverDomain + '/appCivicoRS/rest/tipos-objeto';
+    }
 }

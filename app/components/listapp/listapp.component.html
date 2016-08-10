@@ -24,7 +24,7 @@
             </ul>
         </div>
         <div class="default-list-form">
-            <app-form></app-form>
+            <app-form (update)="updateApp($event)" (register)="registerNewApp($event)"></app-form>
         </div>
     </div>
 </body>

@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import { NgForm }    from '@angular/common';
 import {UserService} from '../../services/user.service';
 import {ROUTER_DIRECTIVES, Router} from '@angular/router';
@@ -9,12 +9,13 @@ import {TypePost} from '../../model/typepost.model';
 import {LoadingIndicator, LoadingPage} from '../loading/loading.component';
 import {UserSession} from '../../model/usersession.model';
 import {Application} from '../../model/application.model';
-
+import {ObjectTypeService} from '../../services/objecttype.service';
+import {ObjectType} from '../../model/objecttype.model';
 @Component({
     selector: 'posttype-form',
     templateUrl : 'app/components/posttypeform/posttypeform.component.html',
     directives: [ROUTER_DIRECTIVES, LoadingIndicator],
-    providers: [PostTypeService, UserService, CookieService, HTTP_PROVIDERS] 
+    providers: [PostTypeService, UserService, CookieService,ObjectTypeService, HTTP_PROVIDERS] 
 })
 
 export /**
@@ -32,13 +33,31 @@ class PostTypeForm extends LoadingPage{
     public postTypes: TypePost [];
     public selectedParentPostType: TypePost = null;
 
+    public objectTypes: ObjectType[];
+    public selectedObjType: ObjectType;
 
     isUpdating: boolean = false;
 
     isLoadingParents: boolean = false;
 
-    constructor(private postService: PostTypeService, private userService: UserService, private router: Router) {
+    @Output()
+    public register = new EventEmitter();
+
+    @Output()
+    public update = new EventEmitter();
+
+
+    constructor(private postService: PostTypeService, private userService: UserService, private router: Router, private objService: ObjectTypeService) {
         super(false);
+    }
+
+    ngOnInit() {
+        this.objService.objectTypes().subscribe((objectTypes: ObjectType[])=>{
+            this.objectTypes = objectTypes;
+        }, error =>{
+            this.errorMessage = 'Ocorreu um erro  e não foi possivel buscar os tipos de objeto disponíveis. Recarregue a página para tentar novamente';
+        });
+
     }
 
     clear() {
@@ -49,6 +68,7 @@ class PostTypeForm extends LoadingPage{
     newTypePost(){
         this.isUpdating = false; 
         this.currentPostType = new TypePost();
+        this.selectedApp = null;
     }
 
     onSubmit(){
@@ -73,8 +93,8 @@ class PostTypeForm extends LoadingPage{
        this.postService.registerNewPostType(this.userService.currentSession().token ,this.currentPostType).subscribe((cod: number)=> {
             this.ready();
             this.currentPostType.cod = cod;
-            this.postTypes.push(this.currentPostType);
-            this.showSuccessMessage('Tipo de postagem registrado com sucesso.');
+            this.showSuccessMessage('Tipo de postagem registrada com sucesso.');
+            this.register.emit(this.currentPostType);
        }, error => {
             this.ready();
             if(error.status == 401){
@@ -90,7 +110,8 @@ class PostTypeForm extends LoadingPage{
         this.standby();
         this.postService.updatePostType(this.userService.currentSession().token, this.currentPostType).subscribe(()=> {
             this.ready();
-            this.showSuccessMessage('Tipo de postagem alterado com sucesso');
+            this.showSuccessMessage('Tipo de postagem alterada com sucesso');
+            this.update.emit(this.currentPostType);
         }, error=> {
             this.ready();
             if(error.status == 401){

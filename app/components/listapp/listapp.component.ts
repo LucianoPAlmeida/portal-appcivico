@@ -68,4 +68,16 @@ class ListAppsComponent extends LoadingPage{
         this.appForm.newApp();
     }
 
+    registerNewApp(app: Application){
+        this.apps.push(app);
+    }
+
+    updateApp(app: Application){
+        for(let i = 0 ; i < this.apps.length; i+=1){
+            if(app.cod == this.apps[i].cod){
+                this.apps[i] = app;
+            }
+        }
+    }
+
 }

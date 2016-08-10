@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Output, EventEmitter} from '@angular/core';
 import { NgForm }    from '@angular/common';
 import {UserService} from '../../services/user.service';
 import {ROUTER_DIRECTIVES, Router} from '@angular/router';
@@ -24,6 +24,7 @@ class ProfileTypeForm extends LoadingPage{
     
     errorMessage: string = null;
     sucessMessage: string = null;
+
     currentProfileType: TypeProfile = new TypeProfile();
 
     public apps: Application []; 
@@ -31,6 +32,12 @@ class ProfileTypeForm extends LoadingPage{
     public selectedApp: Application;
 
     isUpdating: boolean = false;
+
+    @Output()
+    public register = new EventEmitter();
+
+    @Output()
+    public update= new EventEmitter();
 
     constructor(private profileService: ProfileTypeService, private userService: UserService, private router: Router) {
         super(false);
@@ -54,11 +61,14 @@ class ProfileTypeForm extends LoadingPage{
         }
     }
 
-    registerProfileType(){
+   public registerProfileType(){
        this.standby();
        this.profileService.registerProfileTypesForApp(this.userService.currentSession().token, this.selectedApp.cod, this.currentProfileType).subscribe((cod: number)=> {
            this.ready();
+           this.clear();
            this.currentProfileType.cod = cod;
+           this.showSuccessMessage('Tipo de perfil cadastrado com sucesso. O código desse tipo é \"'+ cod +'\" e será o código que será usado na criação de perfis de seus usuários');
+           this.register.emit(this.currentProfileType.clone());
        }, error => {
            this.ready();
            if(error.status == 401){
@@ -70,8 +80,21 @@ class ProfileTypeForm extends LoadingPage{
        });
     }
 
-    updateProfileType() {
-        
+    public updateProfileType() {
+        this.profileService.updateProfileTypeForApp(this.userService.currentSession().token, this.currentProfileType).subscribe(()=> {
+            this.ready();
+            this.clear();
+            this.showSuccessMessage('Tipo de perfil alterado com sucesso.');
+            this.update.emit(this.currentProfileType.clone());
+        }, error => {
+           this.ready();
+           if(error.status == 401){
+                this.userService.logOut();
+                this.router.navigate(['/']);
+            }else{
+                this.showErrorMessage('Ocorreu um erro e não foi possível realizar a alteração. Verifique sua conexão com a internet e tente novamente.');
+            }
+       });
     }
 
     showErrorMessage(message: string){
@@ -99,8 +122,4 @@ class ProfileTypeForm extends LoadingPage{
         return null;
     }
 
-    // selectApp(index: number) {
-    //     this.selectedApp = this.apps[index];
-    //     console.log(this.selectedApp.clone());
-    // }
 }

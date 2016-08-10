@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Output, EventEmitter} from '@angular/core';
 import { NgForm }    from '@angular/common';
 import {UserService} from '../../services/user.service';
 import {ROUTER_DIRECTIVES, Router} from '@angular/router';
@@ -27,6 +27,12 @@ class ApplicationForm extends LoadingPage{
 
     isUpdating: boolean = false;
 
+    @Output()
+    public register = new EventEmitter();
+
+    @Output()
+    public update = new EventEmitter();
+
     constructor(private appService: ApplicationService, private userService: UserService) {
         super(false);
     }
@@ -42,7 +48,6 @@ class ApplicationForm extends LoadingPage{
     }
 
     onSubmit(){
-        console.log('submit');
         if (this.isUpdating){
             this.updateApplication();
         }else{
@@ -54,11 +59,14 @@ class ApplicationForm extends LoadingPage{
         var codOwner = this.userService.currentSession().currentDeveloper.cod;
         var token = this.userService.currentSession().token;
         this.standby();
-        this.appService.registerApp(token, codOwner, this.currentApplication).subscribe((appCode: any)=>{
+        this.appService.registerApp(token, codOwner, this.currentApplication).subscribe((appCode: number)=>{
             this.ready();
+            this.currentApplication.cod = appCode;
+            this.showSuccessMessage('Aplicativo cadastrado com sucesso com sucesso.');
+            this.register.emit(this.currentApplication);
         }, error => {
             this.ready();
-
+            this.showErrorMessage('Ocorreu um erro e não foi possível realizar a alteração. Verifique sua conexão com a internet e tente novamente.');
         });
     }
 
@@ -66,12 +74,21 @@ class ApplicationForm extends LoadingPage{
         var codOwner = this.userService.currentSession().currentDeveloper.cod;
         var token = this.userService.currentSession().token;
         this.standby();
-        this.appService.updateApp(token,codOwner,this.currentApplication).subscribe((response => {
+        this.appService.updateApp(token,codOwner,this.currentApplication).subscribe((result => {
             this.ready();
-
+            this.showSuccessMessage('Aplicativo atualizado com sucesso.');
+            this.update.emit(this.currentApplication);
         }),error => {
             this.ready();
-
+            this.showErrorMessage('Ocorreu um erro e não foi possível realizar a alteração. Verifique sua conexão com a internet e tente novamente.');
         });
+    }
+
+    showErrorMessage(message: string){
+        this.errorMessage = message;
+    }
+
+    showSuccessMessage(message: string){
+        this.sucessMessage = message;
     }
 }

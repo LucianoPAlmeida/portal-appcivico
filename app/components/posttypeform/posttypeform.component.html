@@ -19,13 +19,20 @@
                 </select>
             </div>
 
-            <div *ngIf="selectedApp" class="form-group" >
+            <div *ngIf="selectedApp && postTypes && postTypes.length > 0" class="form-group" >
                 <label >Selecione o Tipo de Postagem Pai</label>
                 <div>
                     <select class="form-control" style="min-width:85%;max-width:100%" [(ngModel)]="selectedParentPostType">
                         <option *ngFor="let parentType of postTypes" [ngValue]="parentType">{{parentType.cod}} - {{parentType.description}}</option>
                     </select>
                 </div>
+            </div>
+            <!---->
+            <div class="form-group" >
+                <label >Selecione o Tipo de Objeto Relacionado</label>
+                <select class="form-control" style="min-width:85%;max-width:100%" [(ngModel)]="selectedObjType">
+                    <option *ngFor="let objType of objectTypes" [ngValue]="objType">{{objType.cod}} - {{objType.description}}</option>
+                </select>
             </div>
 
             <div class="form-group">
@@ -40,7 +47,8 @@
                 <textarea  type="text" class="form-control" style="min-height: 100px" [(ngModel)]="currentPostType.contentDescription"  maxlength="1000" ngControl="contentDescription">
                 </textarea> 
             </div>
-           
+
+
             <div class="form-group">
                 <button *ngIf="isUpdating" type="submit" class="btn btn-default" style="min-width:50%">
                     Salvar

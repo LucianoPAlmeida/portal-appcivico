@@ -30,8 +30,11 @@ class UserService {
       //    this.setLoggedUserSession(new UserSession(token,developer));
       //    return true;
       // });
-
-      return this.http.post(this.urlProvider.personURL(), {nomeUsuario: developer.name, email : developer.email, senha: developer.password}).map((response: Response)=>{
+      var body = {nomeUsuario: developer.name, email : developer.email, senha: developer.password, sexo: developer.genre};
+      if (developer.about){
+          body['biografia'] = developer.about;
+      }
+      return this.http.post(this.urlProvider.personURL(), body).map((response: Response)=>{
             var location = response.headers.get('location');
             var array = location.split('/');
             return +array[array.length-1];
@@ -56,6 +59,7 @@ class UserService {
         return this.http.get(this.urlProvider.personAuthURL(),{headers: headers}).map((response: Response)=>{
             var token : string = response.headers.get('appToken');
             var developer : Developer = this.jsonToDeveloper(response.json());
+            console.log(developer);
             this.setLoggedUserSession(new UserSession(token,developer));
             return;
         });
@@ -104,6 +108,8 @@ class UserService {
       developer.name = json['nomeUsuario'];
       developer.email = json['email'];
       developer.cod = json['cod'];
+      developer.about = json['biografia'];
+      developer.genre = json['sexo'];
       return developer;
     }
 }

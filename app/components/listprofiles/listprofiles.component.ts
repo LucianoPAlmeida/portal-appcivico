@@ -92,4 +92,21 @@ class ListProfiles extends LoadingPage{
         });
     }
 
+
+    registerNewProfileType(typeProfile: TypeProfile){
+        if(this.currentApp && this.currentApp.cod == typeProfile.codApp){
+            this.profileTypes.push(typeProfile);
+        }
+    }
+
+    updateProfileType(typeProfile: TypeProfile){
+        if(this.currentApp && this.currentApp.cod == typeProfile.codApp){
+            for(let i = 0 ; i < this.profileTypes.length; i+=1){
+                if(typeProfile.cod == this.profileTypes[i].cod){
+                    this.profileTypes[i] = typeProfile;
+                }
+            }
+        }
+    }
+    
 } 

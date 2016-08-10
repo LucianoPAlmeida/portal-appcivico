@@ -10,19 +10,28 @@
                 {{errorMessage}}
             </div>
             <div class="form-group">
-                <label >Nome</label>
+                <label >Nome*</label>
                 <input type="text" class="form-control" required [(ngModel)]="developer.name" ngControl="name" maxlength="100"/>
             </div>
             <div class="form-group">
-                <label >E-mail</label>
+                <label >E-mail*</label>
                 <input type="email" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="email@mail.com" [(ngModel)]="developer.email"  ngControl="email" required/>
             </div>
+
             <div class="form-group">
-                <label >Sobre</label>
-                <textarea class="form-control" style="min-height:100px"required [(ngModel)]="developer.about" ngControl="about" minlength="50"></textarea>
+                <label >Sexo*</label>
+                <select class="form-control" [(ngModel)]="developer.genre" required>
+                    <option value="M">Masculino</option>
+                    <option value="F">Feminino</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label >Um pouco sobre você</label>
+                <textarea class="form-control" style="min-height:100px"required [(ngModel)]="developer.about" ngControl="about" minlength="50" maxlength="250"></textarea>
             </div>
             <div class="form-group">
-                <label >Senha</label>
+                <label >Senha*</label>
                 <input type="password" class="form-control" required [(ngModel)]="developer.password" ngControl="password" />
             </div>
             <div class="form-group">
