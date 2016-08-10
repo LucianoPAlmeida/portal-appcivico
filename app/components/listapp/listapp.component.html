@@ -16,7 +16,7 @@
             </div>
             
             <ul class="list-group default-ul" style="top: 40px;">
-                <li *ngFor="let application of apps; let i = index" (click)="selectApp(i)" class="list-group-item" >
+                <li *ngFor="let application of apps; let i = index" (click)="selectApp(application)" class="list-group-item" >
                     <button class="btn btn-primary" style="width:100%">{{application.cod}} - {{application.name}} </button>
                      <!--<button style="height:50px;width:50px" class="btn btn-danger">
                          <span class="glyphicon glyphicon-trash"></span>

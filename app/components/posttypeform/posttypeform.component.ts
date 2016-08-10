@@ -90,7 +90,7 @@ class PostTypeForm extends LoadingPage{
         this.standby();
         this.postService.updatePostType(this.userService.currentSession().token, this.currentPostType).subscribe(()=> {
             this.ready();
-            //TODO: finish it
+            this.showSuccessMessage('Tipo de postagem alterado com sucesso');
         }, error=> {
             this.ready();
             if(error.status == 401){

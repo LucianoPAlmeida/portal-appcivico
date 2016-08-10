@@ -59,4 +59,11 @@ class UserService {
     hasAuthenticatedUser(): boolean {
         return this.currentSession() != null;
     }
+
+
+    private jsonToDeveloper(json: any ): Developer{
+      var developer : Developer = new Developer();
+      developer.name = json[''];
+      return developer;
+    }
 }

@@ -112,7 +112,6 @@ class ListPostTypes extends LoadingPage{
 
 
     modalClickOkAction(object: any) {
-        console.log(object);
         if (object['tag'] == 1){
             this.modal.title('Excluindo').text('Excluíndo tipo de postagem...').showCancelButton(false).showOkButton(false);
             this.modal.standby();

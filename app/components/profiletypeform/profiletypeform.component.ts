@@ -68,6 +68,7 @@ class ProfileTypeForm extends LoadingPage{
     showSuccessMessage(message: string){
         this.sucessMessage = message;
     }
+    
     // selectApp(index: number) {
     //     this.selectedApp = this.apps[index];
     //     console.log(this.selectedApp.clone());

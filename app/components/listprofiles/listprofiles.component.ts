@@ -33,7 +33,10 @@ class ListProfiles extends LoadingPage{
 
     apps: Application[] = [];
 
+    profileTypes: TypeProfile[] = []
+
     isLoaded: boolean = false;
+    isProfilesLoaded: boolean = false;
 
     public currentApp: Application = null;
 
@@ -73,6 +76,16 @@ class ListProfiles extends LoadingPage{
         this.errorMessage = message;
     }
 
-    
+    changeAppAction(app: Application){
+        console.log(app);
+        this.standby();
+        this.profileService.getProfileTypesForApp(app.cod).subscribe((profileTypes: TypeProfile[])=>{
+            this.ready();
+            
+        }, error => {
+            this.ready();
+            this.showErrorMessage('');
+        });
+    }
 
 } 

@@ -3,6 +3,6 @@ export /**
  */
 class TypeProfile {
     cod: number;
-    desscription: string;
+    description: string;
     constructor() {}
 }

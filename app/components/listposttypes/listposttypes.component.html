@@ -10,13 +10,14 @@
                     {{errorMessage}}
                 </label>
             </div>
-            <select [(ngModel)]="currentApp" *ngIf="isLoaded" [disabled]="loading"  #app (ngModelChange)="changeAppAction($event)" class="form-control" style="top:50px;position: relative;">
+            <select [(ngModel)]="currentApp" *ngIf="isLoaded && apps && apps.length > 0" [disabled]="loading"  #app (ngModelChange)="changeAppAction($event)" class="form-control" style="top:50px;position: relative;">
                     <option *ngFor="let application of apps" [ngValue]="application">{{application.name}}</option>
             </select>
-            <div *ngIf="!errorMessage">
-                <div class="text-center" style="top: 50%;position: relative;">
+            <div class="text-center" style="top: 50%;position: relative;">
                     <h4 *ngIf="isLoaded && (!apps || apps.length == 0)" > Não há Aplicativos</h4>
-                </div>
+            </div>
+            <div *ngIf="!errorMessage">
+                
                 
                 <div *ngIf="loading" style="top:200px;left:45%;height:30px;width:30px;position: relative;">
                     <loading-indicator></loading-indicator>
