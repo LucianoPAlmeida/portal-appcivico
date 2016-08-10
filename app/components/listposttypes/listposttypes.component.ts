@@ -39,6 +39,8 @@ class ListPostTypes extends LoadingPage{
 
     public appPostTypes: TypePost [];
 
+    private typePostToDelete: TypePost = null;
+
     isLoadingTypes: boolean = false;
     isTypesLoaded: boolean = false;
 
@@ -110,16 +112,35 @@ class ListPostTypes extends LoadingPage{
 
 
     modalClickOkAction(object: any) {
-        if (object['value'] == 1){
+        console.log(object);
+        if (object['tag'] == 1){
             this.modal.title('Excluindo').text('Excluíndo tipo de postagem...').showCancelButton(false).showOkButton(false);
             this.modal.standby();
-            
+            this.postService.deletePostType(this.userService.currentSession().token, this.typePostToDelete.cod).subscribe(()=>{
+                this.modal.ready();
+                this.modal.tag(0).title('Sucesso').text('Tipo de postagem excluído com sucesso.').okButtonTitle('Ok').showOkButton(true).showCancelButton(false);
+                setTimeout(() =>{
+                    this.modal.close();
+                }, 2);
+            }, error => {
+                this.modal.ready();
+                if(error.status == 400){
+                    this.modal.tag(0).title('Não excluído').text('Um tipo de postagem só pode ser excluído se não houver nenhuma postagem deste tipo. Também não pode existir algum outro tipo de postagem relacionado a ele.').okButtonTitle('Ok').showOkButton(true).showCancelButton(false);
+                }else if (error.status == 401){
+                    this.userService.logOut();
+                    this.router.navigate(['/']);
+                }else{
+                    this.modal.tag(0).title('Erro').text('Houve uma falha na comunicação com o server, e não foi possível realizar a operação.').okButtonTitle('Ok').showOkButton(true).showCancelButton(false);
+                }
+            });
+        }else {
+            this.modal.close();
         }
     }
 
 
     clickDeleteButton(typePost: TypePost){
-        console.log(typePost);
+        this.typePostToDelete = typePost;
         this.modal.tag(1).title('Confimar').text('Deseja excluir o tipo de postagem \"'+typePost.cod+ '-' + typePost.description + '\"?')
                         .cancelButtonTitle('Cancelar').okButtonTitle('Sim').showCancelButton(true).open();
     }

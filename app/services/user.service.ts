@@ -23,7 +23,6 @@ class UserService {
       return this.http.post(this.registerDeveloperURL,body, {headers : headers}).map(response => {
          var token : string = response.headers.get('appToken');
          var developer : Developer = response.json();
-
          this.setLoggedUserSession(new UserSession(token,developer));
          return true;
       });

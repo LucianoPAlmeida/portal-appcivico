@@ -12,6 +12,7 @@ class PostTypeService {
     constructor(private http: Http) {}
 
     postTypesURL : string = "http://mobile-aceite.tcu.gov.br:/appCivicoRS/rest/tipos-postagem";
+
     postTypesForApp(codApp: number): Observable<TypePost[]> {
         return this.http.get(this.postTypesForApplicationURL(codApp)).map((response: Response)=> {
             let body = response.json();
@@ -27,6 +28,7 @@ class PostTypeService {
         var typePost = new TypePost();
         typePost.cod = json['cod'];
         typePost.description = json['descricao'];
+        typePost.contentDescription = json['textoFormatoJson'];
         typePost.codRelatedPostType = this.codParentTypeFromJson(json);
         typePost.codApp = this.codAppFromJson(json);
         return typePost;
@@ -61,6 +63,9 @@ class PostTypeService {
         var body : any = {codAplicativo : typePost.codApp, descricao: typePost.description};
         if(typePost.codRelatedPostType){
             body['codTipoPostagemPai'] = typePost.codRelatedPostType;
+        }
+        if(typePost.contentDescription){
+            body['textoFormatoJson'] = typePost.contentDescription;
         }
         return body;
     }

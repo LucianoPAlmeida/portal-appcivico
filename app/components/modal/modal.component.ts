@@ -84,7 +84,7 @@ class Modal extends LoadingPage{
     // Action
     okButton(){
         this.clickOk.emit({
-            value: this.tagAttr
+            tag: this.tagAttr
         });
     }
 

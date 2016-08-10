@@ -6,6 +6,7 @@ class TypePost {
     description: string;
     codApp: number;
     codRelatedPostType: number;
+    contentDescription: string;
 
     constructor() {
         
@@ -17,6 +18,7 @@ class TypePost {
         newTypePost.description = this.description;
         newTypePost.codRelatedPostType = this.codRelatedPostType;
         newTypePost.codApp = this.codApp;
+        newTypePost.contentDescription = this.contentDescription;
         return newTypePost;
     }
 
