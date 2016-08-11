@@ -30,7 +30,7 @@ class RegisterComponent extends LoadingPage{
     get diagnostic() { return JSON.stringify(this.developer); }
 
     onSubmit() {
-        console.log(this.developer);
+        // console.log(this.developer);
         this.standby();
         this.userService.registerDeveloper(this.developer).subscribe(cod => {
             this.userService.authenticate(this.developer.email, this.developer.password).subscribe(()=>{

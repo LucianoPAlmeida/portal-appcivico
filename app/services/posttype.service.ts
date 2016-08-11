@@ -42,7 +42,7 @@ class PostTypeService {
     public registerNewPostType(token: string, typePost: TypePost): Observable<number> {
         var body = this.bodyFromTypePost(typePost);
         return this.http.post(this.urlProvider.postTypeURL(), body).map((response: Response)=> {
-            var location = response.headers.get('location');
+            var location = response.headers.get('Location');
             var array = location.split('/');
             return +array[array.length-1];
         });

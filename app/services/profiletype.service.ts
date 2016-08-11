@@ -19,7 +19,7 @@ class ProfileTypeService {
     public registerProfileTypesForApp(token: string, appCod: number, profileType: TypeProfile): Observable<number>{
         var headers = new Headers({'appToken' : token});
         return this.http.post(this.urlProvider.profileTypesForAppURL(appCod), {descricao: profileType.description},{headers : headers}).map((response: Response)=> {
-            var location = response.headers.get('location');
+            var location = response.headers.get('Location');
             var array = location.split('/');
             return +array[array.length-1];
         });

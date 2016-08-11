@@ -35,8 +35,8 @@ class UserService {
           body['biografia'] = developer.about;
       }
       return this.http.post(this.urlProvider.personURL(), body).map((response: Response)=>{
-            var location = response.headers.get('location');
-            var array = location.split('/');
+            var location = response.headers.get("Location");
+            var array = location.split("//");
             return +array[array.length-1];
       });
     }
@@ -57,7 +57,7 @@ class UserService {
 
         var headers = new Headers({'email' : email, 'senha' : password});
         return this.http.get(this.urlProvider.personAuthURL(),{headers: headers}).map((response: Response)=>{
-            var token : string = response.headers.get('appToken');
+            var token : string = response.headers.get('AppToken');
             var developer : Developer = this.jsonToDeveloper(response.json());
             console.log(developer);
             this.setLoggedUserSession(new UserSession(token,developer));
