@@ -18,13 +18,13 @@ export class NavigationComponent {
 
     ngOnInit() {
         if(!this.userService.hasAuthenticatedUser()){
-            this.router.navigate(['/']);
+            this.router.navigate(['/login']);
         }
     }
 
     logOutClick(){
         this.userService.logOut();
-        this.router.navigate(['']);
+        this.router.navigate(['/login']);
     }
 
 }

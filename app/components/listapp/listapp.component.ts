@@ -42,7 +42,7 @@ class ListAppsComponent extends LoadingPage{
 
     ngOnInit() {
         if(!this.userService.hasAuthenticatedUser()){
-            this.router.navigate(['/']);
+            this.router.navigate(['/login']);
         }else{
             this.standby();
             this.appservice.getApps(this.userService.currentSession().currentDeveloper.cod).subscribe(apps => {

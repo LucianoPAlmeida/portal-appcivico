@@ -2,14 +2,14 @@
 <nav class="navbar navbar-default" style="height: 70px" role="navigation">
   <div class="container" style="height: 100px" >
     <div class="navbar-header">
-      <a class="navbar-brand" routerLink="/main" routerLinkActive="active"> 
+      <a class="navbar-brand" routerLink="/principal" routerLinkActive="active"> 
           App Civico
       </a>
     </div>
 
     <ul class="nav navbar-nav" >
         <li class="dropdown" >
-          <a class="dropdown-toggle" role="button" routerLink="/apps" routerLinkActive="active">Aplicativos</a>
+          <a class="dropdown-toggle" role="button" routerLink="/aplicativos" routerLinkActive="active">Aplicativos</a>
           <!--<ul class="dropdown-menu" dropdownMenu role="menu">
             <li role="menuitem"><a class="dropdown-item nav-menu-item" href="">Listar Aplicativos</a></li>
             <li role="menuitem"><a class="dropdown-item nav-menu-item" href="">Cadastrar Aplicativo</a></li>
@@ -19,7 +19,7 @@
 
     <ul class="nav navbar-nav" >
         <li class="dropdown" >
-          <a  routerLink="/profiles" routerLinkActive="active" class="dropdown-toggle" role="button">Tipos de Perfil</a>
+          <a  routerLink="/tipos-de-perfil" routerLinkActive="active" class="dropdown-toggle" role="button">Tipos de Perfil</a>
           <!--<ul class="dropdown-menu" dropdownMenu role="menu">
             <li role="menuitem"><a class="dropdown-item nav-menu-item" href="">Listar Tipos de Perfil</a></li>
             <li role="menuitem"><a class="dropdown-item nav-menu-item" href="">Cadastrar Tipo Perfil</a></li>
@@ -29,15 +29,26 @@
 
     <ul class="nav navbar-nav" >
         <li class="dropdown" >
-          <a routerLink="/posttypes" class="dropdown-toggle" role="button">Tipos de Postagem </a>
+          <a routerLink="/tipos-de-postagem" class="dropdown-toggle" role="button">Tipos de Postagem </a>
           <!--<ul class="dropdown-menu" dropdownMenu role="menu">
             <li role="menuitem"><a class="dropdown-item nav-menu-item" href="">Listar Tipos de Postagem</a></li>
             <li role="menuitem"><a class="dropdown-item nav-menu-item" href="">Cadastrar Tipo Postagem</a></li>
           </ul>-->
         </li>
     </ul>
+
+    <ul class="nav navbar-nav" >
+        <li class="dropdown" >
+          <a href="https://github.com/AppCivicoPlataforma/AppCivico" target="_blank">Saiba mais</a>
+          <!--<ul class="dropdown-menu" dropdownMenu role="menu">
+            <li role="menuitem"><a class="dropdown-item nav-menu-item" href="">Listar Tipos de Postagem</a></li>
+            <li role="menuitem"><a class="dropdown-item nav-menu-item" href="">Cadastrar Tipo Postagem</a></li>
+          </ul>-->
+        </li>
+    </ul>
+    
     <ul class="nav navbar-nav navbar-right">
-        <li><a (click)="logOutClick()">Logout</a></li>
+        <li><a (click)="logOutClick()">Sair</a></li>
     </ul>
   </div>
 </nav>

@@ -153,11 +153,16 @@ nav a.router-link-active {
 }
 
 .default-ul {
-    overflow: hidden;
     overflow-y: scroll;
     height: 100%;
     position: relative;
+    
 }
+div ::-webkit-scrollbar { 
+    display: none; 
+}
+
+
 /* everywhere else */
 * { 
   font-family: Arial, Helvetica, sans-serif; 

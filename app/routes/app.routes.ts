@@ -7,13 +7,13 @@ import {AppComponent} from '../app.component';
 import {ListProfiles} from '../components/listprofiles/listprofiles.component';
 import {ListPostTypes} from '../components/listposttypes/listposttypes.component';
 const routes: RouterConfig = [
-  { path: '', component: LoginComponent},
+  { path: '', component: NavigationComponent},
   { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent},
-  { path: 'main', component: NavigationComponent},
-  { path: 'apps', component: ListAppsComponent},
-  { path: 'profiles', component: ListProfiles},
-  { path: 'posttypes', component: ListPostTypes}
+  { path: 'cadastro', component: RegisterComponent},
+  { path: 'principal', component: NavigationComponent},
+  { path: 'aplicativos', component: ListAppsComponent},
+  { path: 'tipos-de-perfil', component: ListProfiles},
+  { path: 'tipos-de-postagem', component: ListPostTypes}
 ];
 
 export const appRouterProviders = [
