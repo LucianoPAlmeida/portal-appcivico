@@ -2,7 +2,6 @@
     <navigation-bar></navigation-bar>  
     <div class="container">
     	<div class="default-list" style="position: relative;height: 50%">
-        	<button class="btn btn-default" style="position: relative;" (click)="newAppClickAction()">Novo Aplicativo</button>
             <div class="text-center" style="top: 50%;position: relative;">
                 <h4 *ngIf="isLoaded && (!apps || apps.length == 0)" > Não há aplicativos</h4>
             </div>
@@ -16,6 +15,8 @@
             </div>
             
             <ul class="list-group default-ul" style="top: 40px;">
+                <li class="list-group-item" *ngIf="isLoaded"><button class="btn btn-success" style="width:100%" (click)="newAppClickAction()">Novo Aplicativo<span class="glyphicon glyphicon-plus" style="float:right"></span></button></li>
+
                 <li *ngFor="let application of apps; let i = index" (click)="selectApp(application)" class="list-group-item" >
                     <button class="btn btn-primary" style="width:100%">{{application.cod}} - {{application.name}} </button>
                      <!--<button style="height:50px;width:50px" class="btn btn-danger">

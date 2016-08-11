@@ -4,7 +4,7 @@
     <modal></modal>-->
     <div class="container">
         <div class="default-list" role="main" style="position: relative;height: 50%">
-        	<button class="btn btn-default" style="position: relative;" (click)="newPostTypeAction()">Novo Tipo de Postagem</button>
+        	<!--<button class="btn btn-default" style="position: relative;" (click)="newPostTypeAction()"></button>-->
             <div style="top: 50%;position: relative;">
                 <label *ngIf="errorMessage" class="alert alert-danger" > 
                     {{errorMessage}}
@@ -24,19 +24,23 @@
                 </div>
 
                 
-                <div *ngIf="!loading && isTypesLoaded && appPostTypes && appPostTypes.length > 0" style="top: 60px;position: relative;">
+                <div  *ngIf="!loading" style="top: 60px;position: relative;">
                     <ul   class="list-group default-ul" style="position: relative">
-                    <li *ngFor="let type of appPostTypes; let i = index" class="list-group-item" >
-                        <button (click)="selectTypePost(type)"  class="button-list" >{{type.cod}} - {{type.description}} </button>
+                        <li class="list-group-item" *ngIf="isLoaded">
+                            <button class="btn btn-success" style="width:100%" (click)="newPostTypeAction()">Novo Tipo de Postagem<span class="glyphicon glyphicon-plus" style="float:right"></span></button>
+                        </li>
+
+                        <li *ngFor="let type of appPostTypes; let i = index" class="list-group-item" >
+                            <button (click)="selectTypePost(type)"  class="button-list" >{{type.cod}} - {{type.description}} </button>
                         <!--<button style=" position: relative; float:right;" (click)="clickDeleteButton(type)" class="text-center btn-default">
                             <span class="glyphicon glyphicon-trash"></span>
                         </button> -->
-                    </li>
+                        </li>
                     </ul>
                 </div>
                 
             </div>
-            <div class="text-center" style="top: 50%;position: relative;">
+            <div class="text-center" style="top:-50%;position: relative;">
                 <h4  *ngIf="!errorMessage && !loading && isTypesLoaded && (!appPostTypes || appPostTypes.length == 0)"> Nenhum tipo de postagem para este Aplicativo</h4>
             </div>
         </div>

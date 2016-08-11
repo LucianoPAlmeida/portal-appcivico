@@ -110,7 +110,6 @@ class PostTypeForm extends LoadingPage{
 
     updatePostType() {
         this.standby();
-        this.currentPostType.codApp = this.selectedApp.cod;
         this.currentPostType.codRelatedPostType = (this.selectedParentPostType)? this.selectedParentPostType.cod : null;
         this.postService.updatePostType(this.userService.currentSession().token, this.currentPostType).subscribe(()=> {
             this.ready();
@@ -134,6 +133,16 @@ class PostTypeForm extends LoadingPage{
     hideErrorMessage(){
         this.errorMessage = null;
     }
+
+    hideSucessMessage(){
+        this.sucessMessage = null;
+    }
+
+    hideMessages(){
+        this.hideErrorMessage();
+        this.hideSucessMessage();
+    }
+
     showSuccessMessage(message: string){
         this.sucessMessage = message;
     }

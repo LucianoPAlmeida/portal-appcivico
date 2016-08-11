@@ -56,6 +56,7 @@ class ApplicationForm extends LoadingPage{
     }
 
     registerApplication(){
+        this.hideMessages();
         var codOwner = this.userService.currentSession().currentDeveloper.cod;
         var token = this.userService.currentSession().token;
         this.standby();
@@ -71,6 +72,7 @@ class ApplicationForm extends LoadingPage{
     }
 
     updateApplication() {
+        this.hideMessages();
         var codOwner = this.userService.currentSession().currentDeveloper.cod;
         var token = this.userService.currentSession().token;
         this.standby();
@@ -85,12 +87,24 @@ class ApplicationForm extends LoadingPage{
     }
 
     showErrorMessage(message: string){
-        this.sucessMessage = null;
         this.errorMessage = message;
     }
 
-    showSuccessMessage(message: string){
+    hideErrorMessage(){
         this.errorMessage = null;
+    }
+
+    hideSucessMessage(){
+        this.sucessMessage = null;
+    }
+
+    hideMessages(){
+        this.hideErrorMessage();
+        this.hideSucessMessage();
+    }
+
+    showSuccessMessage(message: string){
         this.sucessMessage = message;
     }
+
 }

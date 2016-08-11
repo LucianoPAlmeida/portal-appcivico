@@ -62,6 +62,7 @@ class ProfileTypeForm extends LoadingPage{
     }
 
    public registerProfileType(){
+       this.hideMessages();
        this.standby();
        this.profileService.registerProfileTypesForApp(this.userService.currentSession().token, this.selectedApp.cod, this.currentProfileType).subscribe((cod: number)=> {
            this.ready();
@@ -81,6 +82,8 @@ class ProfileTypeForm extends LoadingPage{
     }
 
     public updateProfileType() {
+        this.hideMessages();
+        this.standby();
         this.profileService.updateProfileTypeForApp(this.userService.currentSession().token, this.currentProfileType).subscribe(()=> {
             this.ready();
             this.clear();
@@ -99,6 +102,19 @@ class ProfileTypeForm extends LoadingPage{
 
     showErrorMessage(message: string){
         this.errorMessage = message;
+    }
+
+    hideErrorMessage(){
+        this.errorMessage = null;
+    }
+
+    hideSucessMessage(){
+        this.sucessMessage = null;
+    }
+
+    hideMessages(){
+        this.hideErrorMessage();
+        this.hideSucessMessage();
     }
 
     showSuccessMessage(message: string){
