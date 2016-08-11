@@ -2,7 +2,7 @@
     <navigation-bar></navigation-bar>  
     <div class="container">
     	<div class="default-list" style="position: relative;height: 50%">
-        	<button class="btn btn-default" style="top: 50%;position: relative;" (click)="newAppClickAction()">Novo Aplicativo</button>
+        	<button class="btn btn-default" style="position: relative;" (click)="newAppClickAction()">Novo Aplicativo</button>
             <div class="text-center" style="top: 50%;position: relative;">
                 <h4 *ngIf="isLoaded && (!apps || apps.length == 0)" > Não há aplicativos</h4>
             </div>

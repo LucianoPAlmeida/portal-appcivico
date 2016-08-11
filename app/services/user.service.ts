@@ -18,9 +18,7 @@ class UserService {
     urlProvider: URLProvider = new URLProvider();
 
 
-    constructor(private http: Http, private cookieService: CookieService){
-    
-    }
+    constructor(private http: Http, private cookieService: CookieService){}
 
 
     registerDeveloper(developer: Developer): Observable<number>{
