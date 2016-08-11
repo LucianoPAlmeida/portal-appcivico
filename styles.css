@@ -153,6 +153,7 @@ nav a.router-link-active {
 }
 
 .default-ul {
+    overflow: hidden;
     overflow-y: scroll;
     height: 100%;
     position: relative;

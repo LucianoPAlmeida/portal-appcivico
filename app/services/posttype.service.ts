@@ -40,8 +40,9 @@ class PostTypeService {
 
 
     public registerNewPostType(token: string, typePost: TypePost): Observable<number> {
+        var headers = new Headers({'appToken' : token});
         var body = this.bodyFromTypePost(typePost);
-        return this.http.post(this.urlProvider.postTypeURL(), body).map((response: Response)=> {
+        return this.http.post(this.urlProvider.postTypeURL(), body, {headers : headers}).map((response: Response)=> {
             var location = response.headers.get('Location');
             var array = location.split('/');
             return +array[array.length-1];
@@ -49,8 +50,9 @@ class PostTypeService {
     }
 
     public updatePostType(token: string, typePost: TypePost): Observable<void>{
+        var headers = new Headers({'appToken' : token});
         var body = this.bodyFromTypePost(typePost);
-        return this.http.put(this.urlProvider.postTypeCodURL(typePost.cod), body).map((response: Response)=> {
+        return this.http.put(this.urlProvider.postTypeCodURL(typePost.cod), body, {headers : headers}).map((response: Response)=> {
             return;
         });
     }

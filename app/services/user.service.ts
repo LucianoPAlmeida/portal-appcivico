@@ -57,7 +57,7 @@ class UserService {
 
         var headers = new Headers({'email' : email, 'senha' : password});
         return this.http.get(this.urlProvider.personAuthURL(),{headers: headers}).map((response: Response)=>{
-            var token : string = response.headers.get('AppToken');
+            var token : string = response.headers.get('appToken');
             var developer : Developer = this.jsonToDeveloper(response.json());
             console.log(developer);
             this.setLoggedUserSession(new UserSession(token,developer));

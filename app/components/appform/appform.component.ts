@@ -85,10 +85,12 @@ class ApplicationForm extends LoadingPage{
     }
 
     showErrorMessage(message: string){
+        this.sucessMessage = null;
         this.errorMessage = message;
     }
 
     showSuccessMessage(message: string){
+        this.errorMessage = null;
         this.sucessMessage = message;
     }
 }
