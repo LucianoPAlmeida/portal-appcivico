@@ -82,7 +82,11 @@ class ApplicationForm extends LoadingPage{
             this.update.emit(this.currentApplication);
         }),error => {
             this.ready();
-            this.showErrorMessage('Ocorreu um erro e não foi possível realizar a alteração. Verifique sua conexão com a internet e tente novamente.');
+            if(error.status == 400){
+                this.showErrorMessage('Já existe um aplicativo cadastrado com esse nome.');
+            }else{
+                this.showErrorMessage('Ocorreu um erro e não foi possível realizar a alteração. Verifique sua conexão com a internet e tente novamente.');
+            }
         });
     }
 
