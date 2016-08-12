@@ -37,7 +37,7 @@ export class LoginComponent extends LoadingPage{
             this.service.authenticate(this.email, this.password).subscribe(data => {
                 this.ready();
                 console.log(this.service.currentSession().currentDeveloper);
-                this.router.navigate(['/main']);
+                this.router.navigate(['/principal']);
             }, error => {
                 this.ready();
                 if(error.status == 401){
