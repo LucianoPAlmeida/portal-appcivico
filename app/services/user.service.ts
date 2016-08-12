@@ -35,7 +35,7 @@ class UserService {
       }
       return this.http.post(this.urlProvider.personURL(), body).map((response: Response)=>{
             var location = response.headers.get("Location");
-            var array = location.split("//");
+            var array = location.split('/');
             return +array[array.length-1];
       });
     }
