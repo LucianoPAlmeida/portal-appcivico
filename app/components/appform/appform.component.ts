@@ -65,6 +65,7 @@ class ApplicationForm extends LoadingPage{
             this.currentApplication.cod = appCode;
             this.showSuccessMessage('Aplicativo cadastrado com sucesso com sucesso. O código do aplicativo é o \"'+ appCode +'\".Esse será o código que você irá usar como parâmetro nos endpoints da plataforma.');
             this.register.emit(this.currentApplication);
+            this.newApp();
         }, error => {
             this.ready();
             this.showErrorMessage('Ocorreu um erro e não foi possível realizar a alteração. Verifique sua conexão com a internet e tente novamente.');
@@ -79,7 +80,8 @@ class ApplicationForm extends LoadingPage{
         this.appService.updateApp(token,codOwner,this.currentApplication).subscribe((result => {
             this.ready();
             this.showSuccessMessage('Aplicativo atualizado com sucesso.');
-            this.update.emit(this.currentApplication);
+            this.update.emit(this.currentApplication.clone());
+            this.newApp();
         }),error => {
             this.ready();
             if(error.status == 400){

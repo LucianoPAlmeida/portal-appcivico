@@ -96,7 +96,8 @@ class PostTypeForm extends LoadingPage{
             this.ready();
             this.currentPostType.cod = cod;
             this.showSuccessMessage('Tipo de postagem registrada com sucesso. O código do tipo de postagem é o \"'+ cod +'\". Esse será o código que você irá usar como parâmetro nos endpoints da plataforma.');
-            this.register.emit(this.currentPostType);
+            this.register.emit(this.currentPostType.clone());
+            this.newTypePost();
        }, error => {
             this.ready();
             if(error.status == 401){
@@ -116,7 +117,8 @@ class PostTypeForm extends LoadingPage{
         this.postService.updatePostType(this.userService.currentSession().token, this.currentPostType).subscribe(()=> {
             this.ready();
             this.showSuccessMessage('Tipo de postagem alterada com sucesso');
-            this.update.emit(this.currentPostType);
+            this.update.emit(this.currentPostType.clone());
+            this.newTypePost();
         }, error=> {
             this.ready();
             if(error.status == 401){

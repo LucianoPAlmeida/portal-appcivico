@@ -67,10 +67,11 @@ class ProfileTypeForm extends LoadingPage{
        this.currentProfileType.codApp = this.selectedApp.cod;
        this.profileService.registerProfileTypesForApp(this.userService.currentSession().token, this.selectedApp.cod, this.currentProfileType).subscribe((cod: number)=> {
            this.ready();
-           this.clear();
            this.currentProfileType.cod = cod;
            this.showSuccessMessage('Tipo de perfil cadastrado com sucesso. O código desse tipo de perfil é \"'+ cod +'\". Esse será o código que será usado na criação de perfis de seus usuários.');
            this.register.emit(this.currentProfileType.clone());
+           this.newProfileType();
+
        }, error => {
            this.ready();
            if(error.status == 401){
@@ -90,9 +91,9 @@ class ProfileTypeForm extends LoadingPage{
         this.currentProfileType.codApp = this.selectedApp.cod;
         this.profileService.updateProfileTypeForApp(this.userService.currentSession().token, this.currentProfileType).subscribe(()=> {
             this.ready();
-            this.clear();
             this.showSuccessMessage('Tipo de perfil alterado com sucesso.');
             this.update.emit(this.currentProfileType.clone());
+            this.newProfileType();
         }, error => {
            this.ready();
            if(error.status == 401){
