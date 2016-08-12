@@ -64,6 +64,7 @@ class ProfileTypeForm extends LoadingPage{
    public registerProfileType(){
        this.hideMessages();
        this.standby();
+       this.currentProfileType.codApp = this.selectedApp.cod;
        this.profileService.registerProfileTypesForApp(this.userService.currentSession().token, this.selectedApp.cod, this.currentProfileType).subscribe((cod: number)=> {
            this.ready();
            this.clear();
@@ -86,6 +87,7 @@ class ProfileTypeForm extends LoadingPage{
     public updateProfileType() {
         this.hideMessages();
         this.standby();
+        this.currentProfileType.codApp = this.selectedApp.cod;
         this.profileService.updateProfileTypeForApp(this.userService.currentSession().token, this.currentProfileType).subscribe(()=> {
             this.ready();
             this.clear();

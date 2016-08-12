@@ -28,7 +28,7 @@ class ProfileTypeService {
 
     public updateProfileTypeForApp(token: string, profileType: TypeProfile): Observable<void>{
         var headers = new Headers({'appToken' : token});
-        return this.http.put(this.urlProvider.profileTypesURL(profileType.codApp, profileType.cod), {descricao: profileType.description}).map((response: Response)=>{
+        return this.http.put(this.urlProvider.profileTypesURL(profileType.codApp, profileType.cod), {descricao: profileType.description}, {headers : headers}).map((response: Response)=>{
             return;
         });
     }
