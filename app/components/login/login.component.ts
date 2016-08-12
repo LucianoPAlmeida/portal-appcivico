@@ -20,29 +20,85 @@ export class LoginComponent extends LoadingPage{
     password: string;
 
     errorMessage: string = null;
+    successMessage: string = null;
 
+    recoveryEmail: string = null;
+
+    loginMode: boolean = true;
 
     constructor(private service: UserService, private router: Router){
-        super(false)
+        super(false);
     }
 
     onSubmit() { 
-        this.errorMessage = null;
+        this.hideMessages();
+        if (this.loginMode ){
+            this.standby();
+            this.service.authenticate(this.email, this.password).subscribe(data => {
+                this.ready();
+                console.log(this.service.currentSession().currentDeveloper);
+                this.router.navigate(['/main']);
+            }, error => {
+                this.ready();
+                if(error.status == 401){
+                    this.errorMessage = 'Falha ao autenticar, e-mail ou senha estão incorretos';
+                }else{
+                    this.errorMessage = 'Erro de conexão, falta de conexão com a internet ou servidor não está respondendo';
+                }
+            });
+        }else{
+            this.forgetMyPassAction();
+        }
+
+    }
+
+    
+    forgetMyPassAction(){
         this.standby();
-        this.service.authenticate(this.email, this.password).subscribe(data => {
+        this.service.forgetPassword(this.recoveryEmail).subscribe(()=>{
             this.ready();
-            console.log(this.service.currentSession().currentDeveloper);
-            this.router.navigate(['/main']);
+            this.showSuccessMessage('Uma nova senha foi gerada e enviada para o seu email');
+            setTimeout(()=>{
+                this.hideMessages();
+                this.loginMode = true;
+            }, 2);
         }, error => {
             this.ready();
-            if(error.status == 401){
-                this.errorMessage = 'Falha ao autenticar, e-mail ou senha estão incorretos';
+            console.log(error);
+            if(error.status == 404){
+                this.showErrorMessage('O e-mail informado não se encontra cadastrado na base.');
             }else{
-                 this.errorMessage = 'Erro de conexão, falta de conexão com a internet ou servidor não está respondendo';
+                this.errorMessage = 'Erro de conexão, falta de conexão com a internet ou servidor não está respondendo';
             }
         });
     }
 
-    
+    cancelForgetMyPass(){
+        this.loginMode = true;
+    }
 
+    goToForgetMyPass(){
+        this.loginMode = false;
+    }
+
+        showErrorMessage(message: string){
+        this.errorMessage = message;
+    }
+
+    hideErrorMessage(){
+        this.errorMessage = null;
+    }
+
+    hideSucessMessage(){
+        this.successMessage = null;
+    }
+
+    hideMessages(){
+        this.hideErrorMessage();
+        this.hideSucessMessage();
+    }
+
+    showSuccessMessage(message: string){
+        this.successMessage = message;
+    }
 }

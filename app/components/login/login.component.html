@@ -5,7 +5,7 @@
         	<h3>AppCivico</h3>
         </div>
     </div>
-    <div class="container" style="padding-top:50px">
+    <div *ngIf="loginMode" class="container" style="padding-top:50px">
         <form style="margin:0px auto; max-width:30%" (ngSubmit)="onSubmit()" #loginForm="ngForm">
             <div class="alert alert-danger" [hidden] = "!errorMessage">
                 {{errorMessage}}
@@ -17,8 +17,10 @@
             <div class="form-group">
                 <label >Senha</label>
                 <input type="password" class="form-control" required [(ngModel)]="password" ngControl="password" />
+                <button class="btn btn-link" style="width: 100%;padding-right: 0px ;text-align: right;right: 0px;" (click)="goToForgetMyPass()">Esqueci minha senha</button>
             </div>
-            <div class="form-group">
+         
+            <div class="form-group" style="top: -10px; position: relative;">
                 <button type="submit" class="btn btn-default" style="min-width:48%">
                     Entrar
                     <div *ngIf="loading" style="top:5px;height:15px;width:15px;float:right;position:relative">
@@ -26,6 +28,33 @@
                     </div>
                 </button>
                 <a class="btn btn-default" style="min-width:50%" routerLink="/cadastro" routerLinkActive="active">Cadastrar</a>
+                <!--<button type="button" class="btn btn-default" style="min-width:50%" formnovalidate >Cadastrar</button>-->
+            </div>
+        </form>
+
+        <!--<router-outlet></router-outlet>-->
+    </div>
+
+    <div *ngIf="!loginMode" class="container" style="padding-top:50px">
+        <form style="margin:0px auto; max-width:30%" (ngSubmit)="onSubmit()" #loginForm="ngForm">
+            <div class="alert alert-danger" [hidden] = "!errorMessage">
+                {{errorMessage}}
+            </div>
+            <div class="alert alert-success" [hidden] = "!successMessage">
+                {{successMessage}}
+            </div>
+            <div class="form-group">
+                <label >Informe o e-mail para recuração de senha</label>
+                <input type="email" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="email@mail.com" [(ngModel)]="recoveryEmail"  ngControl="email" required/>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-default" style="min-width:48%" >
+                    Confirmar
+                    <div *ngIf="loading" style="top:5px;height:15px;width:15px;float:right;position:relative">
+                        <loading-indicator></loading-indicator>
+                    </div>
+                </button>
+                 <button type="submit" class="btn btn-default" style="min-width:48%" (click)="cancelForgetMyPass()" >Cancelar</button>
                 <!--<button type="button" class="btn btn-default" style="min-width:50%" formnovalidate >Cadastrar</button>-->
             </div>
         </form>

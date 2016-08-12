@@ -18,13 +18,7 @@ class UserService {
     urlProvider: URLProvider = new URLProvider();
 
 
-    constructor(private http: Http, private cookieService: CookieService){
-        var dev = new Developer();
-        dev.cod = 1;
-        var token = "v1_EA54A085609BD5293890EF1219ECC9BF254917CE6050D24B8E89C00AC1065927E783D04C1E9B5FBA8B2A664E23AB00A307B5FAA36E3BDAB36989CC930D0C1ED36A885FF59212587FABA1CAF83A4877906E59C22AAB1DAC33D3B8D1F7882407CCDF18B1A6E965F3DC66EF9169F25260B947370AFF615770BCD3853AB0A5A7D2778E96E553107958EA3653EDEF4AAE3D1786DE2F9D0687E421B201D8B7BAF91BDE46F43CD2BFEADB489908E9EE6DF7E1593314D696C81E5ACB8AC7FC136755D8EE5179864BF56F27F68B379B8875A8AA28CD5322666BE8C3983EB961349D7B7E764D6272A2F06382BE98CF7DB23B01056F33DF4391EA91629B16EF6DC24CCC82EEFC7D6A9D5DCD20AF96ACD51B1E2FCFBB";
-        this.setLoggedUserSession(new UserSession(token, dev));
-    }
-
+    constructor(private http: Http, private cookieService: CookieService){}
 
     registerDeveloper(developer: Developer): Observable<number>{
       // var headers = new Headers({'Content-Type' : 'application/x-www-form-urlencoded', 'accept' : 'application/json'});
@@ -69,6 +63,11 @@ class UserService {
             return;
         });
 
+    }
+
+    forgetPassword(email: string): Observable<void> {
+        var query = 'email='+ email;
+        return this.http.post(encodeURI(this.urlProvider.forgetPasswordURL()+'?'+ query),{}).map((response: Response)=>{});
     }
 
     getDeveloperProfile(developerCod: number): Observable<any> {

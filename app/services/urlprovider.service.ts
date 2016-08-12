@@ -48,6 +48,10 @@ class URLProvider {
         return this.personURL() + '/autenticar';
     }
 
+    public forgetPasswordURL(): string{
+        return this.personURL() +'/redefinirSenha';
+    }
+
     public personProfileURL(codPerson: number): string {
         return this.personURL() + '/' + codPerson + '/perfil';
     }
