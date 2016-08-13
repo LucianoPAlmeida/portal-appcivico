@@ -14,8 +14,15 @@ class HashtagService {
     urlProvider: URLProvider = new URLProvider();
 
 
-    getHashtagsForApp(): Observable<Hashtag[]>{
-        return null;
+    getHashtagsForApp(codApp: number): Observable<Hashtag[]>{
+        return this.http.get(this.urlProvider.hashtagsForApp(codApp)).map((response: Response)=> {
+            var body = response.json();
+            var hashtags : Hashtag[] = [];
+            for(let json of body){
+                hashtags.push(this.jsonToHashtag(json));
+            }
+            return hashtags;
+        });
     }
 
     registerNewHashtag(token: string,hashtag: Hashtag): Observable<number>{

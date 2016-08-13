@@ -81,8 +81,15 @@ class ListHashtags extends LoadingPage{
     }
 
     changeAppAction(app: Application){
-        this.standby();
-       //TODO: load hashtags for app
+       this.standby();
+       this.hashtagService.getHashtagsForApp(this.currentApp.cod).subscribe((hashtags: Hashtag[])=>{
+           this.ready();
+           this.hashtags = hashtags;
+           this.isHashtagsLoaded = true;
+       },error=>{
+           this.ready();
+           this.showErrorMessage('Falha ao carregar hashtags para o aplicativo. Verifique sua conexão com a internet e recarregue a página.');
+       });
     }
 
 

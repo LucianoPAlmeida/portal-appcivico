@@ -80,5 +80,10 @@ class URLProvider {
         return this.hashtagsURL() + '/' + cod;
     }
 
-    
+    public hashtagsForApp(appCod: number){
+        //TODO: implementar a url certa
+        return this.hashtagsURL();
+    }
+
+
 }

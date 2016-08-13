@@ -15,7 +15,7 @@
             <div *ngIf="loading" style="top:200px;left:45%;height:30px;width:30px;position: relative;">
                 <loading-indicator></loading-indicator>
             </div>
-            <div *ngIf="!loading && isLoaded && apps && apps.length > 0" style="top:50px;position: relative;">
+            <div *ngIf="!errorMessage && !loading && isLoaded && apps && apps.length > 0" style="top:50px;position: relative;">
                 <label>Selecione o Aplicativo</label>
                 <select [(ngModel)]="currentApp" [disabled]="loading || isUpdating" (ngModelChange)="changeAppAction($event)" class="form-control" style="position: relative;">
                     <option *ngFor="let app of apps" [ngValue]= "app">{{app.name}}</option>

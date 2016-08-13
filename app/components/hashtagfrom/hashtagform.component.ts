@@ -100,28 +100,11 @@ class HashTagForm extends LoadingPage{
                 this.userService.logOut();
                 this.router.navigate(['/login']);
             }else if(error.status == 400){
-                this.showErrorMessage('Já existe uma hashtag com esse nome cadastrada para esse aplicativo');
+                this.showErrorMessage('Já existe uma hashtag com esse nome cadastrada para esse aplicativo ou o nome está fora do padrão #hashtag');
             }else{
                 this.showErrorMessage('Ocorreu um erro e não foi possível realizar a alteração. Verifique sua conexão com a internet e tente novamente.');
             }
        });
-
-    //     this.profileService.updateProfileTypeForApp(this.userService.currentSession().token, this.currentProfileType).subscribe(()=> {
-    //         this.ready();
-    //         this.showSuccessMessage('Tipo de perfil alterado com sucesso.');
-    //         this.update.emit(this.currentProfileType.clone());
-    //         this.newProfileType();
-    //     }, error => {
-    //        this.ready();
-    //        if(error.status == 401){
-    //             this.userService.logOut();
-    //             this.router.navigate(['/']);
-    //         }else if(error.status == 400){
-    //             this.showErrorMessage('Já existe um tipo de perfil com esse nome cadastrado para esse aplicativo');
-    //         }else{
-    //             this.showErrorMessage('Ocorreu um erro e não foi possível realizar a alteração. Verifique sua conexão com a internet e tente novamente.');
-    //         }
-    //    });
     }
 
     showErrorMessage(message: string){
