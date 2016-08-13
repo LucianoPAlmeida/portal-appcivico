@@ -4,7 +4,7 @@ import {UserService} from '../../services/user.service';
 import {ROUTER_DIRECTIVES, Router} from '@angular/router';
 import {CookieService} from 'angular2-cookie/core';
 import {HTTP_PROVIDERS} from '@angular/http';
-import {ProfileTypeService} from '../../services/profiletype.service';
+import {HashtagService} from '../../services/hashtag.service';
 import {Hashtag} from '../../model/hashtag.model';
 import {LoadingIndicator, LoadingPage} from '../loading/loading.component';
 import {UserSession} from '../../model/usersession.model';
@@ -12,9 +12,9 @@ import {Application} from '../../model/application.model';
 
 @Component({
     selector: 'hashtag-form',
-    templateUrl : 'app/components/hashtagform/hashtagform.component.html',
+    templateUrl : 'app/components/hashtagfrom/hashtagform.component.html',
     directives: [ROUTER_DIRECTIVES, LoadingIndicator],
-    providers: [ProfileTypeService, UserService, CookieService, HTTP_PROVIDERS] 
+    providers: [HashtagService, UserService, CookieService, HTTP_PROVIDERS] 
 })
 
 export /**
@@ -39,7 +39,7 @@ class HashTagForm extends LoadingPage{
     @Output()
     public update= new EventEmitter();
 
-    constructor(private profileService: ProfileTypeService, private userService: UserService, private router: Router) {
+    constructor(private hashtagService: HashtagService, private userService: UserService, private router: Router) {
         super(false);
     }
 
@@ -66,30 +66,46 @@ class HashTagForm extends LoadingPage{
        this.hideMessages();
        this.standby();
        this.currentHashtag.codApp = this.selectedApp.cod;
-    //    this.profileService.registerProfileTypesForApp(this.userService.currentSession().token, this.selectedApp.cod, this.currentProfileType).subscribe((cod: number)=> {
-    //        this.ready();
-    //        this.currentProfileType.cod = cod;
-    //        this.showSuccessMessage('Tipo de perfil cadastrado com sucesso. O código desse tipo de perfil é \"'+ cod +'\". Esse será o código que será usado na criação de perfis de seus usuários.');
-    //        this.register.emit(this.currentProfileType.clone());
-    //        this.newProfileType();
-
-    //    }, error => {
-    //        this.ready();
-    //        if(error.status == 401){
-    //             this.userService.logOut();
-    //             this.router.navigate(['/']);
-    //         }else if(error.status == 400){
-    //             this.showErrorMessage('Já existe um tipo de perfil com esse nome cadastrado para esse aplicativo');
-    //         }else{
-    //             this.showErrorMessage('Ocorreu um erro e não foi possível realizar o cadastro. Verifique sua conexão com a internet e tente novamente.');
-    //         }
-    //    });
+       this.hashtagService.registerNewHashtag(this.userService.currentSession().token, this.currentHashtag).subscribe((cod: number)=>{
+           this.ready();
+           this.currentHashtag.cod = cod;
+           this.showSuccessMessage('Hashtag cadastrada com sucesso');
+           this.register.emit(this.currentHashtag.clone());
+           this.newHashtag()
+       }, error => {
+           this.ready();
+           if(error.status == 401){
+                this.userService.logOut();
+                this.router.navigate(['/login']);
+            }else if(error.status == 400){
+                this.showErrorMessage('Já existe uma hashtag com esse nome cadastrada para esse aplicativo');
+            }else{
+                this.showErrorMessage('Ocorreu um erro e não foi possível realizar o cadastro da hashtag. Verifique sua conexão com a internet e tente novamente.');
+            }
+       });
     }
 
     public updateHashtag() {
         this.hideMessages();
         this.standby();
         this.currentHashtag.codApp = this.selectedApp.cod;
+        this.hashtagService.updateHashtag(this.userService.currentSession().token, this.currentHashtag).subscribe(()=> {
+            this.ready();
+            this.showSuccessMessage('Hashtag alterada com sucesso.');
+            this.update.emit(this.currentHashtag.clone());
+            this.newHashtag();            
+        }, error => {
+            this.ready();
+            if(error.status == 401){
+                this.userService.logOut();
+                this.router.navigate(['/login']);
+            }else if(error.status == 400){
+                this.showErrorMessage('Já existe uma hashtag com esse nome cadastrada para esse aplicativo');
+            }else{
+                this.showErrorMessage('Ocorreu um erro e não foi possível realizar a alteração. Verifique sua conexão com a internet e tente novamente.');
+            }
+       });
+
     //     this.profileService.updateProfileTypeForApp(this.userService.currentSession().token, this.currentProfileType).subscribe(()=> {
     //         this.ready();
     //         this.showSuccessMessage('Tipo de perfil alterado com sucesso.');

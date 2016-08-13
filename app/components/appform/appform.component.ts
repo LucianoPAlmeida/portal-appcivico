@@ -33,7 +33,7 @@ class ApplicationForm extends LoadingPage{
     @Output()
     public update = new EventEmitter();
 
-    constructor(private appService: ApplicationService, private userService: UserService) {
+    constructor(private appService: ApplicationService, private userService: UserService, private router: Router) {
         super(false);
     }
 
@@ -68,7 +68,14 @@ class ApplicationForm extends LoadingPage{
             this.newApp();
         }, error => {
             this.ready();
-            this.showErrorMessage('Ocorreu um erro e não foi possível realizar a alteração. Verifique sua conexão com a internet e tente novamente.');
+            if(error.status == 401){
+                this.userService.logOut();
+                this.router.navigate(['/login']);
+            }else if(error.status == 400){
+                this.showErrorMessage('Já existe um aplicativo cadastrado com esse nome.');
+            }else{
+                this.showErrorMessage('Ocorreu um erro e não foi possível realizar o cadastro. Verifique sua conexão com a internet e tente novamente.');
+            }
         });
     }
 
@@ -84,7 +91,10 @@ class ApplicationForm extends LoadingPage{
             this.newApp();
         }),error => {
             this.ready();
-            if(error.status == 400){
+            if(error.status == 401){
+                this.userService.logOut();
+                this.router.navigate(['/login']);
+            }else if(error.status == 400){
                 this.showErrorMessage('Já existe um aplicativo cadastrado com esse nome.');
             }else{
                 this.showErrorMessage('Ocorreu um erro e não foi possível realizar a alteração. Verifique sua conexão com a internet e tente novamente.');
