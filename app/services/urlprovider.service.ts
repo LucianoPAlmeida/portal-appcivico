@@ -8,6 +8,8 @@ class URLProvider {
     constructor() {
     }
 
+
+    //Aplicativos
     public appsURL() : string{
         return this.serverDomain + "/appCivicoRS/rest/aplicativos";
     }
@@ -20,6 +22,8 @@ class URLProvider {
         return this.appsURL() + '/pessoa/'+ codOwner;
     }
 
+
+    //Tipos de Postagem
     public postTypeURL(): string{
         return this.serverDomain + '/appCivicoRS/rest/tipos-postagem';
     }
@@ -32,6 +36,8 @@ class URLProvider {
         return this.postTypeURL() + '/aplicativo/' +  codApp;
     }
 
+
+    //Tipos de perfil
     public profileTypesForAppURL(appCod: number) : string {
         return this.appCodURL(appCod) + "/tipos-perfil";
     }
@@ -40,6 +46,8 @@ class URLProvider {
         return this.profileTypesForAppURL(appCod)+ "/" + typeCod;
     }
 
+
+    //Pessoas
     public personURL(): string {
         return this.serverDomain + '/appCivicoRS/rest/pessoas';
     }
@@ -56,7 +64,21 @@ class URLProvider {
         return this.personURL() + '/' + codPerson + '/perfil';
     }
 
+
+    //Tipos de objeto
     public objectTypeURL(): string{
         return this.serverDomain + '/appCivicoRS/rest/tipos-objeto';
     }
+
+
+    //Hashtags
+    public hashtagsURL(): string {
+        return this.serverDomain + '/appCivicoRS/rest/hashtags';
+    }
+
+    public hashtagsCodURL(cod: number): string {
+        return this.hashtagsURL() + '/' + cod;
+    }
+
+    
 }

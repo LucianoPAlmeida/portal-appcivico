@@ -1,0 +1,55 @@
+<form>
+    <div class="container" style="padding-top:50px;width:100%">
+    	<div class="text-center">
+        	<h3>Hashtag</h3>
+        </div>
+    </div>
+    <div class="container" style="padding-top:50px; width:100%">
+        <form style="margin:0px auto; max-width:60%" (ngSubmit)="onSubmit()" #loginForm="ngForm">
+            <div class="alert alert-danger" [hidden] = "!errorMessage">
+                {{errorMessage}}
+            </div>
+            <div class="alert alert-success" [hidden] = "!sucessMessage">
+                {{sucessMessage}}
+            </div>
+            <div class="form-group">
+                <label >Selecione o Aplicativo*</label>
+                <select [disabled]="isUpdating" class="form-control" [(ngModel)]="selectedApp" required>
+                    <option *ngFor="let application of apps" [ngValue]="application">{{application.name}}</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label >Nome da Hashtag*</label>
+                <input type="text" class="form-control" style="min-height:100px" [(ngModel)]="currentHashtag.name" maxlength="30" ngControl="name" required/> 
+            </div>
+
+            <div class="form-group">
+                <label >Descrição da Hashtag*</label>
+                <textarea class="form-control" style="min-height:100px" [(ngModel)]="currentHashtag.description" maxlength="50" ngControl="description" required> 
+
+                </textarea>
+            </div>
+            <div class="form-group">
+                <button *ngIf="isUpdating" type="submit" class="btn btn-default" style="min-width:50%">
+                    Salvar
+                    <div *ngIf="loading" style="top:5px;height:15px;width:15px;float:right;position:relative">
+                        <loading-indicator></loading-indicator>
+                    </div>
+                </button>
+                <button *ngIf="!isUpdating" type="submit" class="btn btn-default" style="min-width:50%">
+                    Cadastrar
+                    <div *ngIf="loading" style="top:5px;height:15px;width:15px;float:right;position:relative">
+                        <loading-indicator></loading-indicator>
+                    </div>
+
+                </button>
+                <button type="button" class="btn btn-default" style="min-width:49%" formnovalidate (click)= "clear()" >Limpar</button>
+                <!--<a class="btn btn-default" style="min-width:50%" routerLink="/main" routerLinkActive="active">Cancelar</a>-->
+                <!--<button type="button" class="btn btn-default" style="min-width:50%" formnovalidate >Cadastrar</button>-->
+            </div>
+        </form>
+        
+        <!--<router-outlet></router-outlet>-->
+    </div>
+</form>
