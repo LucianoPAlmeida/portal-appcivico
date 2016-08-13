@@ -20,8 +20,9 @@
             </div>
 
             <div class="form-group">
-                <label >Nome da Hashtag*</label>
-                <input type="text" class="form-control" [(ngModel)]="currentHashtag.name" maxlength="30" ngControl="name" required/> 
+                <label >Nome da Hashtag*</label> 
+                <button type="button" class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="left" title="Hashtag deve começar com # e não pode conter espaços em branco ou caracteres especiais"></button>
+                <input type="text" class="form-control" pattern="#[\wÀ-ú0-9]+" placeholder="#hashtag" [(ngModel)]="currentHashtag.name" maxlength="30" ngControl="name" required/> 
             </div>
 
             <div class="form-group">
