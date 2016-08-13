@@ -1,12 +1,13 @@
 <body>
     
 	<div class="container" style="padding-top:50px">
-    	<div class="text-center">
+    	<div class="text-center" style="margin: auto;max-width:40%">
         	<h3>Desenvolvedor na Nuvem Cívica</h3>
+            <p >Acesse aqui sua conta de usuário na Nuvem Cívica ou se cadastre para poder definir as configurações iniciais do seu aplicativo.</p>
         </div>
     </div>
     <div *ngIf="loginMode" class="container" style="padding-top:50px">
-        <form style="margin:0px auto; max-width:40%" (ngSubmit)="onSubmit()" #loginForm="ngForm">
+        <form style="margin: auto; max-width:40%" (ngSubmit)="onSubmit()" #loginForm="ngForm">
             <div class="alert alert-danger" [hidden] = "!errorMessage">
                 {{errorMessage}}
             </div>
