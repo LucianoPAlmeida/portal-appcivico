@@ -1,10 +1,10 @@
 <form>
     <div class="container" style="padding-top:50px;width:100%">
-    	<div class="text-center">
-        	<h3>Hashtag</h3>
+    	<div class="text-center" style="margin: auto; max-width:60%">
+        	<h4>Selecione um de seus aplicativos e cadastre as hashtags que poderão ser usadas por seus usuários em postagens</h4>
         </div>
     </div>
-    <div class="container" style="padding-top:50px; width:100%">
+    <div class="container" style="padding-top:30px; width:100%">
         <form style="margin:0px auto; max-width:60%" (ngSubmit)="onSubmit()" #loginForm="ngForm">
             <div class="alert alert-danger" [hidden] = "!errorMessage">
                 {{errorMessage}}
@@ -21,7 +21,7 @@
 
             <div class="form-group">
                 <label >Nome da Hashtag*</label> 
-                <button type="button" class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="left" title="Hashtag deve começar com # e não pode conter espaços em branco ou caracteres especiais"></button>
+                <button type="button" class="glyphicon glyphicon-info-sign" data-toggle="modal" data-target="#modalInfo"></button>
                 <input type="text" class="form-control" pattern="#[\wÀ-ú0-9]+" placeholder="#hashtag" [(ngModel)]="currentHashtag.name" maxlength="30" ngControl="name" required/> 
             </div>
 
@@ -51,7 +51,22 @@
                 <!--<button type="button" class="btn btn-default" style="min-width:50%" formnovalidate >Cadastrar</button>-->
             </div>
         </form>
-        
+        <div id="modalInfo" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->    
+                <div class="modal-content">
+            
+                    <div class="modal-body">
+                        <p>O nome da Hashtag deve começar com # e não pode conter espaços em branco ou caracteres especiais.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" style="min-width: 100px" data-dismiss="modal">Ok</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
         <!--<router-outlet></router-outlet>-->
     </div>
 </form>
