@@ -15,12 +15,15 @@
                 <label >Login</label>
                 <input type="email" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="email@mail.com" [(ngModel)]="email"  ngControl="email" required/>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="position: relative;">
                 <label >Senha</label>
                 <input type="password" class="form-control" required [(ngModel)]="password" ngControl="password" />
-                <button class="btn btn-link" style="width: 100%;padding-right: 0px ;text-align: right;right: 0px;" (click)="goToForgetMyPass()">Esqueci minha senha</button>
+                <div style="width: 100%">
+                    <a class="btn btn-link" style="min-width: 50%;padding-left: 0px;text-align: left; left:0px;" data-toggle="modal" data-target="#helpModal" >Ajuda <span class="glyphicon glyphicon-question-sign"></span></a>
+                    <button class="btn btn-link" style="min-width: 49%;padding-right: 0px ;text-align: right;right: 0px; float: right;" (click)="goToForgetMyPass()">Esqueci minha senha</button>
+                </div>
             </div>
-         
+            
             <div class="form-group" style="top: -10px; position: relative;">
                 <button type="submit" class="btn btn-default" style="min-width:48%">
                     Entrar
@@ -31,9 +34,30 @@
                 <a class="btn btn-default" style="min-width:50%" routerLink="/cadastro" routerLinkActive="active">Cadastrar</a>
                 <!--<button type="button" class="btn btn-default" style="min-width:50%" formnovalidate >Cadastrar</button>-->
             </div>
+           
         </form>
 
-        <!--<router-outlet></router-outlet>-->
+        <div id="helpModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"></button>
+                        <h3 class="modal-title">Ajuda</h3>
+                    </div>
+                    <div class="modal-body">
+                    <p class="text-center">
+                       Algumas configurações iniciais são necessárias antes que o desenvolvedor possa utilizar os webservices da Nuvem Cívica em seu projeto de aplicativo. A primeira ação do desenvolvedor deve ser a criação de uma conta de usuário, que pode ser iniciada nessa página. Uma vez o cadastro bem-sucedido o usuário receberá seu código de usuário que poderá utilizar para cadastrar seus aplicativos e outras definições de ambiente para eles. Para mais informação acesse o GitHub do projeto Nuvem Cívica em <a href="https://github.com/AppCivicoPlataforma/AppCivico" target="_blank">https://github.com/AppCivicoPlataforma/AppCivico</a>.
+                    </p>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" style="min-width: 100px">Ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>        
     </div>
 
     <div *ngIf="!loginMode" class="container" style="padding-top:50px">
@@ -49,7 +73,7 @@
                 <input type="email" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="email@mail.com" [(ngModel)]="recoveryEmail"  ngControl="email" required/>
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-default" style="min-width:48%" >
+                <button type="submit" class="btn btn-default" style="min-width:50%" >
                     Confirmar
                     <div *ngIf="loading" style="top:5px;height:15px;width:15px;float:right;position:relative">
                         <loading-indicator></loading-indicator>
@@ -62,4 +86,6 @@
 
         <!--<router-outlet></router-outlet>-->
     </div>
+
+
 </body>

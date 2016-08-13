@@ -76,12 +76,12 @@
 
                 <!-- Modal content-->
                 <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"></button>
-                    <h2 class="modal-title">Sobre Descrição de Conteúdos</h2>
-                </div>
-                <div class="modal-body">
-                    <p>Descrição detalhada sobre o tipo de conteúdo que será armazenado nesse tipo de postagem. É importante descrever de forma bem delhada o que cada campo dos conteúdos significa e qual a finalidade de armazenar cada um. Máximo 1000 cracteres.
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"></button>
+                        <h3 class="modal-title">Descrição de Tipos de postagem</h3>
+                    </div>
+                    <div class="modal-body">
+                    <!--<p>Descrição detalhada sobre o tipo de conteúdo que será armazenado nesse tipo de postagem. É importante descrever de forma bem delhada o que cada campo dos conteúdos significa e qual a finalidade de armazenar cada um. Máximo 1000 cracteres.
                     <h2>Exemplo</h2>
                     <h3>Formato do Conteúdo</h3>
                     <p>O tipo de postagem é compartilhamento de preço de remédio</p>
@@ -93,14 +93,17 @@
                         }
                     </p>
                     <h3>Descrição do conteúdo</h3>
-                    <p>O conteúdo possui no campo valor o preço compartilhado pelo usuário e no campo JSON os valores de latitude e longitude que representam onde esse preco foi encontrado.</p>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
-                </div>
-                </div>
+                    <p>O conteúdo possui no campo valor o preço compartilhado pelo usuário e no campo JSON os valores de latitude e longitude que representam onde esse preco foi encontrado.</p>-->
+                    <p>
+                        O tipo de postagem é importante para a arquitetura da Nuvem Cívica pois permite que o aplicativo dê sentido a um comentário ou avaliação feito por seu usuário e o associe a algum objeto real descrito nos dados abertos. Assim, se o aplicativo cria uma opção para que seu usuário dê uma nota a um atendimento recebido em um hospital ou posto de assistência social, por exemplo, é importante que isso seja registrado no metamodelo como uma postagem de um tipo específico, criado para o aplicativo e descrito como “Avaliação de hospital” contendo na descrição qual a estrutura dessa postagem, se é uma nota ou avaliação textual. No campo “tipo de objeto relacionado” deve ser definido a classe de objetos, dentre as existentes nos endpoints de dados abertos, a que esse tipo de postagem se refere. No caso do exemplo seriam os estabelecimentos de saúde.
+                    </p>
+                    </div>
 
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" style="min-width: 100px">Ok</button>
+                    </div>
+                </div>
             </div>
-        </div>
         <!--<router-outlet></router-outlet>-->
     </div>
 
