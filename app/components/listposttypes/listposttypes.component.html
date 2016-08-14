@@ -35,7 +35,7 @@
                         </li>
 
                         <li *ngFor="let type of appPostTypes; let i = index" class="list-group-item" >
-                            <button (click)="selectTypePost(type)"  class="button-list" >{{type.cod}} - {{type.description}} </button>
+                            <button (click)="selectTypePost(type)"  class="btn btn-primary" >{{type.cod}} - {{type.description}} </button>
                         <!--<button style=" position: relative; float:right;" (click)="clickDeleteButton(type)" class="text-center btn-default">
                             <span class="glyphicon glyphicon-trash"></span>
                         </button> -->
