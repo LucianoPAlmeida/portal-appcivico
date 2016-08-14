@@ -54,6 +54,7 @@ export class LoginComponent extends LoadingPage{
 
     
     forgetMyPassAction(){
+        this.hideMessages();
         this.standby();
         this.service.forgetPassword(this.recoveryEmail).subscribe(()=>{
             this.ready();
