@@ -7,7 +7,8 @@ class TypePost {
     codApp: number;
     codRelatedPostType: number;
     contentDescription: string;
-
+    codDestinationObjType: number;
+    
     constructor() {
         
     }

@@ -33,6 +33,7 @@ class PostTypeService {
         typePost.cod = json['cod'];
         typePost.description = json['descricao'];
         typePost.contentDescription = json['textoFormatoJson'];
+        typePost.codDestinationObjType = json['codTipoObjetoDestino'];
         typePost.codRelatedPostType = this.codParentTypeFromJson(json);
         typePost.codApp = this.codAppFromJson(json);
         return typePost;
@@ -66,7 +67,7 @@ class PostTypeService {
 
     // MARK: Convenience methods
     private bodyFromTypePost(typePost: TypePost): any {
-        var body : any = {codAplicativo : typePost.codApp, descricao: typePost.description};
+        var body : any = {codAplicativo : typePost.codApp, descricao: typePost.description, codTipoObjetoDestino: typePost.codDestinationObjType};
         if(typePost.codRelatedPostType){
             body['codTipoPostagemPai'] = typePost.codRelatedPostType;
         }

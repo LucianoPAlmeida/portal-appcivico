@@ -51,22 +51,25 @@ class PostTypeForm extends LoadingPage{
         super(false);
     }
 
-    // ngOnInit() {
-    //     this.objService.objectTypes().subscribe((objectTypes: ObjectType[])=>{
-    //         this.objectTypes = objectTypes;
-    //     }, error =>{
-    //         this.errorMessage = 'Ocorreu um erro  e não foi possivel buscar os tipos de objeto disponíveis. Recarregue a página para tentar novamente';
-    //     });
+    ngOnInit() {
+        this.objService.objectTypes().subscribe((objectTypes: ObjectType[])=>{
+            this.objectTypes = objectTypes;
+        }, error =>{
+            this.errorMessage = 'Ocorreu um erro  e não foi possivel buscar os tipos de objeto disponíveis. Recarregue a página para tentar novamente';
+        });
 
-    // }
+    }
 
     clear() {
        this.currentPostType.description = "";
        this.selectedParentPostType = null;
+       this.selectedObjType = null;
     }
 
     newTypePost(){
+
         this.isUpdating = false; 
+        this.clear();
         this.currentPostType = new TypePost();
         this.selectedApp = null;
     }
@@ -92,6 +95,8 @@ class PostTypeForm extends LoadingPage{
        this.standby();
        this.currentPostType.codApp = this.selectedApp.cod;
        this.currentPostType.codRelatedPostType = (this.selectedParentPostType)? this.selectedParentPostType.cod : null;
+       this.currentPostType.codDestinationObjType = this.selectedObjType.cod;
+       console.log(this.currentPostType);
        this.postService.registerNewPostType(this.userService.currentSession().token,this.currentPostType).subscribe((cod: number)=> {
             this.ready();
             this.currentPostType.cod = cod;
@@ -114,6 +119,7 @@ class PostTypeForm extends LoadingPage{
     updatePostType() {
         this.standby();
         this.currentPostType.codRelatedPostType = (this.selectedParentPostType)? this.selectedParentPostType.cod : null;
+        this.currentPostType.codDestinationObjType = this.selectedObjType.cod;
         this.postService.updatePostType(this.userService.currentSession().token, this.currentPostType).subscribe(()=> {
             this.ready();
             this.showSuccessMessage('Tipo de postagem alterada com sucesso');
@@ -164,6 +170,7 @@ class PostTypeForm extends LoadingPage{
         this.currentPostType = postType;
         this.selectedApp = this.appForCode(postType.codApp);
         this.selectedParentPostType = this.parentTypeForCode(postType.codRelatedPostType);
+        this.selectedObjType = this.objectTypeForCode(postType.codDestinationObjType);
     }
 
     private appForCode(cod: number){
@@ -182,6 +189,17 @@ class PostTypeForm extends LoadingPage{
             for(let type of this.postTypes){
                 if(type.cod == cod){
                     return type;
+                }
+            }
+        }
+        return null;
+    }
+
+    private objectTypeForCode(cod: number){
+        if (cod != null ) {
+            for(let objtype of this.objectTypes){
+                if(objtype.cod == cod){
+                    return objtype;
                 }
             }
         }
