@@ -19,6 +19,8 @@ export /**
  */
 class RegisterComponent extends LoadingPage{
 
+    aceptedTerms: boolean = false;
+
     developer: Developer = new Developer();
 
     errorMessage: string = null;
