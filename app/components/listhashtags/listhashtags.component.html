@@ -26,7 +26,7 @@
                         <button class="btn btn-success" style="width:100%" (click)="newHashtagAction()">Nova hashtag<span class="glyphicon glyphicon-plus" style="float:right"></span></button>
                     </li>
                     <li *ngFor="let hashtag of hashtags;" (click)="selectHashtag(hashtag)" class="list-group-item" >
-                    <button class="btn btn-primary" style="width:100%">{{hashtag.cod}} - {{hashtag.name}} </button>
+                    <button class="btn btn-default" style="width:100%">{{hashtag.cod}} - {{hashtag.name}} </button>
                 </ul>
             </div>
             <div  class="text-center" style="top: -50%;position: relative;">

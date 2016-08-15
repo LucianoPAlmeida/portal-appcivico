@@ -18,7 +18,7 @@
                 <li class="list-group-item" *ngIf="isLoaded"><button class="btn btn-success" style="width:100%" (click)="newAppClickAction()">Novo Aplicativo<span class="glyphicon glyphicon-plus" style="float:right"></span></button></li>
 
                 <li *ngFor="let application of apps; let i = index" (click)="selectApp(application)" class="list-group-item" >
-                    <button class="btn btn-primary" style="width:100%">{{application.cod}} - {{application.name}} </button>
+                    <button class="btn btn-default" style="width:100%">{{application.cod}} - {{application.name}} </button>
                      <!--<button style="height:50px;width:50px" class="btn btn-danger">
                          <span class="glyphicon glyphicon-trash"></span>
                      </button> </li>-->

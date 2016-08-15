@@ -27,7 +27,7 @@
                         <button class="btn btn-success" style="width:100%" (click)="newProfileTypeAction()">Novo Tipo de Perfil<span class="glyphicon glyphicon-plus" style="float:right"></span></button>
                     </li>
                     <li *ngFor="let profileType of profileTypes;" (click)="selectProfile(profileType)" class="list-group-item" >
-                        <button class="btn btn-primary" style="width:100%">{{profileType.cod}} - {{profileType.description}} </button>
+                        <button class="btn btn-default" style="width:100%">{{profileType.cod}} - {{profileType.description}} </button>
                     </li>
                 </ul>
             </div>
