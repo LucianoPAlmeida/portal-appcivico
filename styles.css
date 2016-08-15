@@ -48,9 +48,9 @@ nav a {
   color: #777;
 
 }
-nav a:visited, a:link {
+/*nav a:visited, a:link {
   color: #777;
-}
+}*/
 nav a:hover {
   color: black;
   background-color: #CFD8DC;
