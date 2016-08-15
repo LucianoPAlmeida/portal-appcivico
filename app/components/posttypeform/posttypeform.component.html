@@ -19,7 +19,7 @@
                 </select>
             </div>
 
-            <div *ngIf="selectedApp && postTypes && postTypes.length > 0" class="form-group" >
+            <div *ngIf="!loading && selectedApp && postTypes && postTypes.length > 0" class="form-group" >
                 <label >Selecione o Tipo de Postagem Pai</label>
                 <div>
                     <select class="form-control" style="min-width:85%;max-width:100%" [(ngModel)]="selectedParentPostType">
