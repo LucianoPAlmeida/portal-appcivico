@@ -30,27 +30,27 @@ export class LoginComponent extends LoadingPage{
         super(false);
     }
 
-    onSubmit() { 
+    onSubmit() {
         this.hideMessages();
-        if (this.loginMode ){
-            this.standby();
-            this.service.authenticate(this.email, this.password).subscribe(data => {
-                this.ready();
-                this.router.navigate(['/principal']);
-            }, error => {
-                this.ready();
-                if(error.status == 401){
-                    this.errorMessage = 'Falha ao autenticar, e-mail ou senha estão incorretos';
-                }else{
-                    this.errorMessage = 'Erro de conexão, falta de conexão com a internet ou servidor não está respondendo';
-                }
-            });
-        }else{
-            this.forgetMyPassAction();
-        }
+        this.standby();
+        this.service.authenticate(this.email, this.password).subscribe(data => {
+            this.ready();
+            this.router.navigate(['/principal']);
+        }, error => {
+            this.ready();
+            if(error.status == 401){
+                this.errorMessage = 'Falha ao autenticar, e-mail ou senha estão incorretos';
+            }else{
+                this.errorMessage = 'Erro de conexão, falta de conexão com a internet ou servidor não está respondendo';
+            }
+        });
+        
 
     }
 
+    onSubmitForgetPass(){
+        this.forgetMyPassAction();
+    }
     
     forgetMyPassAction(){
         this.hideMessages();
@@ -58,10 +58,6 @@ export class LoginComponent extends LoadingPage{
         this.service.forgetPassword(this.recoveryEmail).subscribe(()=>{
             this.ready();
             this.showSuccessMessage('Uma nova senha foi gerada e enviada para o seu email');
-            setTimeout(()=>{
-                this.hideMessages();
-                this.loginMode = true;
-            }, 2);
         }, error => {
             this.ready();
             if(error.status == 404){
@@ -73,14 +69,16 @@ export class LoginComponent extends LoadingPage{
     }
 
     cancelForgetMyPass(){
+        this.hideMessages();
         this.loginMode = true;
     }
 
     goToForgetMyPass(){
+        this.hideMessages();
         this.loginMode = false;
     }
 
-        showErrorMessage(message: string){
+    showErrorMessage(message: string){
         this.errorMessage = message;
     }
 
