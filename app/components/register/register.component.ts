@@ -32,12 +32,11 @@ class RegisterComponent extends LoadingPage{
     get diagnostic() { return JSON.stringify(this.developer); }
 
     onSubmit() {
-        // console.log(this.developer);
         this.standby();
         this.userService.registerDeveloper(this.developer).subscribe(cod => {
             this.userService.authenticate(this.developer.email, this.developer.password).subscribe(()=>{
                 this.ready();
-                this.router.navigate(['/main']);
+                this.router.navigate(['/principal']);
             }, error =>{
                 this.ready();
                 this.showErrorMessage('Ocorreu um erro e não foi possível realizar o cadastro. Verifique sua conexão com a internet e tente novamente.');               
