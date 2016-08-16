@@ -22,6 +22,7 @@ class PrincipalComponent {
     constructor(private userService: UserService, private router: Router){}
 
     ngOnInit() {
+        // console.log(this.userService.currentSession());
         if(!this.userService.hasAuthenticatedUser()){
             this.router.navigate(['/login']);
         }

@@ -36,7 +36,6 @@ export class LoginComponent extends LoadingPage{
             this.standby();
             this.service.authenticate(this.email, this.password).subscribe(data => {
                 this.ready();
-                console.log(this.service.currentSession().currentDeveloper);
                 this.router.navigate(['/principal']);
             }, error => {
                 this.ready();
@@ -65,7 +64,6 @@ export class LoginComponent extends LoadingPage{
             }, 2);
         }, error => {
             this.ready();
-            console.log(error);
             if(error.status == 404){
                 this.showErrorMessage('O e-mail informado não se encontra cadastrado na base.');
             }else{

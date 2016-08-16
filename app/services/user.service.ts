@@ -18,17 +18,10 @@ class UserService {
     urlProvider: URLProvider = new URLProvider();
 
 
-    constructor(private http: Http, private cookieService: CookieService){}
+    constructor(private http: Http, private cookieService: CookieService){
+    }
 
     registerDeveloper(developer: Developer): Observable<number>{
-      // var headers = new Headers({'Content-Type' : 'application/x-www-form-urlencoded', 'accept' : 'application/json'});
-      // var body = 'email='+ developer.email + '&password=' + developer.password +'&name=' + developer.name + '&about=' + developer.about;
-      // return this.http.post(this.registerDeveloperURL,body, {headers : headers}).map(response => {
-      //    var token : string = response.headers.get('appToken');
-      //    var developer : Developer = response.json();
-      //    this.setLoggedUserSession(new UserSession(token,developer));
-      //    return true;
-      // });
       var body = {nomeUsuario: developer.name, email : developer.email, senha: developer.password, sexo: developer.genre};
       if (developer.about){
           body['biografia'] = developer.about;
@@ -45,14 +38,6 @@ class UserService {
     }
 
     authenticate(email: string, password: string): Observable<void> {
-        // var headers = new Headers({'Content-Type' : 'application/x-www-form-urlencoded', 'accept' : 'application/json'});
-        // var body = 'email='+ email + '&password=' + password;
-        // return this.http.post(this.loginUrl,body, {headers: headers}).map(response => {
-            // var token : string = response.headers.get('appToken');
-        //     var developer : Developer = response.json();
-            // this.setLoggedUserSession(new UserSession(token,developer));
-            // return true;
-        // });
 
         var headers = new Headers({'email' : email, 'senha' : password});
         return this.http.get(this.urlProvider.personAuthURL(),{headers: headers}).map((response: Response)=>{

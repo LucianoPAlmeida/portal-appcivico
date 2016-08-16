@@ -13,18 +13,25 @@ import {HTTP_PROVIDERS} from '@angular/http';
 
 export class NavigationComponent { 
 
-
+    developerName: string;
+    developerEmail: string;
     constructor(private userService: UserService, private router: Router){}
 
     ngOnInit() {
+
         if(!this.userService.hasAuthenticatedUser()){
             this.router.navigate(['/login']);
+        }else{
+            this.developerEmail = this.userService.currentSession().currentDeveloper.email;
+            this.developerName = this.userService.currentSession().currentDeveloper.name;
         }
+
     }
 
     logOutClick(){
         this.userService.logOut();
         this.router.navigate(['/login']);
+
     }
 
 }

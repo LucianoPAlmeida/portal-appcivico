@@ -1,5 +1,5 @@
 
-<nav class="navbar navbar-default" style="width: 100%" role="navigation">
+<nav class="navbar navbar-default" style="width: 100%; padding-right: 20px" role="navigation">
   <!--<div class="container" style="height: 100px" >-->
     <div class="navbar-header">
       <a class="navbar-brand" routerLink="/principal" routerLinkActive="active"> 
@@ -7,7 +7,7 @@
       </a>
     </div>
 
-    <ul class="nav nav-pills" >
+    <ul class="nav nav-pills" aria-labelledby="dropdownMenu3">
         <li class="dropdown" >
           <a class="dropdown-toggle" role="button" routerLink="/aplicativos" routerLinkActive="active">Aplicativos</a>
         </li>
@@ -25,8 +25,19 @@
           <a href="https://github.com/AppCivicoPlataforma/AppCivico" target="_blank">Saiba mais</a>
 
         </li>
-        <li class="navbar-right text-center" style="padding-right: 20px"><a (click)="logOutClick()">Sair</a></li>
+        <!--<li class="navbar-right text-center" style="padding-right: 20px"><a (click)="logOutClick()">Sair</a></li>-->
 
+        <li role="presentation" class="navbar-right dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown"  role="button" aria-haspopup="true" aria-expanded="false">
+            {{developerName}}
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-right">
+            <li class="dropdown-header"> {{developerEmail}}</li>
+            <li role="separator" class="divider"></li>
+            <li><a (click)="logOutClick()">Sair</a></li>
+          </ul>
+        </li>
     </ul>
 
 
