@@ -51,16 +51,6 @@ class ProfileTypeService {
         });
     }
 
-
-    // private profileTypesForAppURL(appCod: number) : string {
-    //     return "http://mobile-aceite.tcu.gov.br/appCivicoRS/rest/aplicativos/" + appCod + "/tipos-perfil";
-    // }
-
-    // private profileTypesURL(appCod: number, typeCod: number) : string {
-    //     return "http://mobile-aceite.tcu.gov.br/appCivicoRS/rest/aplicativos/" + appCod + "/tipos-perfil/" + typeCod;
-    // }
-
-
     private jsonToProfileType(json: any): TypeProfile {
         var profileType = new TypeProfile();
         profileType.cod = json['codTipoPerfil'] as number;
