@@ -86,6 +86,9 @@ class PostTypeForm extends LoadingPage{
         this.hideErrorMessage();
         this.postService.postTypesForApp(app.cod).subscribe((types: TypePost[])=> {
             this.postTypes = types;
+            if(this.isUpdating){
+                this.removeCurrentFromPostTypes();
+            }
         }, error => {
             this.showErrorMessage('Falha ao carregar tipos de postagem para o aplicativo. Verifique sua conexão com a internet e recarregue a página.');
         });
@@ -204,5 +207,11 @@ class PostTypeForm extends LoadingPage{
             }
         }
         return null;
+    }
+
+    private removeCurrentFromPostTypes(){
+        this.postTypes = this.postTypes.filter((postType:TypePost)=>{
+            return (postType.cod != this.currentPostType.cod);
+        });
     }
 }
