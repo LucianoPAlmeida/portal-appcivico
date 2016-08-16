@@ -3,8 +3,8 @@ export /**
  */
 class URLProvider {
     private productionDomain = "http://mobile-aceite.tcu.gov.br";
-    private localDomain = "http://mobile-aceite.tcu.gov.br";
-    private serverDomain = this.productionDomain;
+    private localDomain = "http://localhost:8080";
+    private serverDomain = this.localDomain;
 
     constructor() {
     }

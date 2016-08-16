@@ -95,7 +95,7 @@ class PostTypeForm extends LoadingPage{
        this.standby();
        this.currentPostType.codApp = this.selectedApp.cod;
        this.currentPostType.codRelatedPostType = (this.selectedParentPostType)? this.selectedParentPostType.cod : null;
-       this.currentPostType.codDestinationObjType = this.selectedObjType.cod;
+       this.currentPostType.codDestinationObjType = (this.selectedObjType) ? this.selectedObjType.cod : null;
        console.log(this.currentPostType);
        this.postService.registerNewPostType(this.userService.currentSession().token,this.currentPostType).subscribe((cod: number)=> {
             this.ready();
@@ -119,7 +119,7 @@ class PostTypeForm extends LoadingPage{
     updatePostType() {
         this.standby();
         this.currentPostType.codRelatedPostType = (this.selectedParentPostType)? this.selectedParentPostType.cod : null;
-        this.currentPostType.codDestinationObjType = this.selectedObjType.cod;
+        this.currentPostType.codDestinationObjType = (this.selectedObjType) ? this.selectedObjType.cod : null;
         this.postService.updatePostType(this.userService.currentSession().token, this.currentPostType).subscribe(()=> {
             this.ready();
             this.showSuccessMessage('Tipo de postagem alterada com sucesso');

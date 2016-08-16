@@ -18,6 +18,7 @@ class TypePost {
         newTypePost.cod = this.cod;
         newTypePost.description = this.description;
         newTypePost.codRelatedPostType = this.codRelatedPostType;
+        newTypePost.codDestinationObjType = this.codDestinationObjType;
         newTypePost.codApp = this.codApp;
         newTypePost.contentDescription = this.contentDescription;
         return newTypePost;
