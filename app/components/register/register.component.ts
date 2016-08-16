@@ -52,6 +52,7 @@ class RegisterComponent extends LoadingPage{
     }
 
     showErrorMessage(message: string){
+        (<any>$('body')).animate({ scrollTop: 0 }, 'fast');
         this.errorMessage = message;
     }
 }
