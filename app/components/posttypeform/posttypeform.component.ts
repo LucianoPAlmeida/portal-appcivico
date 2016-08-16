@@ -55,7 +55,7 @@ class PostTypeForm extends LoadingPage{
         this.objService.objectTypes().subscribe((objectTypes: ObjectType[])=>{
             this.objectTypes = objectTypes;
         }, error =>{
-            this.errorMessage = 'Ocorreu um erro  e não foi possivel buscar os tipos de objeto disponíveis. Recarregue a página para tentar novamente';
+            this.errorMessage = 'Ocorreu um erro e não foi possivel buscar os tipos de objeto disponíveis. Recarregue a página para tentar novamente';
         });
 
     }
@@ -86,9 +86,6 @@ class PostTypeForm extends LoadingPage{
         this.hideErrorMessage();
         this.postService.postTypesForApp(app.cod).subscribe((types: TypePost[])=> {
             this.postTypes = types;
-            if(this.isUpdating){
-                this.removeCurrentFromPostTypes();
-            }
         }, error => {
             this.showErrorMessage('Falha ao carregar tipos de postagem para o aplicativo. Verifique sua conexão com a internet e recarregue a página.');
         });
@@ -168,12 +165,16 @@ class PostTypeForm extends LoadingPage{
 
     setUpdatePostForm(postType: TypePost, typesForApp: TypePost[], apps: Application[]){
         this.postTypes = typesForApp;
+        this.currentPostType = postType;
         this.apps = apps;
         this.isUpdating = true;
-        this.currentPostType = postType;
         this.selectedApp = this.appForCode(postType.codApp);
         this.selectedParentPostType = this.parentTypeForCode(postType.codRelatedPostType);
         this.selectedObjType = this.objectTypeForCode(postType.codDestinationObjType);
+        
+        this.removeCurrentFromPostTypes();
+
+
     }
 
     private appForCode(cod: number){
@@ -210,8 +211,10 @@ class PostTypeForm extends LoadingPage{
     }
 
     private removeCurrentFromPostTypes(){
-        this.postTypes = this.postTypes.filter((postType:TypePost)=>{
-            return (postType.cod != this.currentPostType.cod);
-        });
+        if(this.isUpdating){
+            this.postTypes = this.postTypes.filter((postType:TypePost)=>{
+                return (postType.cod != this.currentPostType.cod);
+            });
+        }
     }
 }
