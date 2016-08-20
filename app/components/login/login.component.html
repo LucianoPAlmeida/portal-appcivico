@@ -20,7 +20,7 @@
                 <input type="password" class="form-control" required [(ngModel)]="password" ngControl="password" />
                 <div style="width: 100%">
                     <a class="btn btn-link" style="min-width: 50%;padding-left: 0px;text-align: left; left:0px;" data-toggle="modal" data-target="#helpModal" >Ajuda <span class="glyphicon glyphicon-question-sign"></span></a>
-                    <button type="button" class="btn btn-link" style="min-width: 49%;padding-right: 0px ;text-align: right;right: 0px; float: right;" (click)="goToForgetMyPass()">Esqueci minha senha</button>
+                    <a class="btn btn-link" style="min-width: 49%;padding-right: 0px ;text-align: right;right: 0px; float: right;" (click)="goToForgetMyPass()">Esqueci minha senha</a>
                 </div>
             </div>
             
@@ -32,7 +32,6 @@
                     </div>
                 </button>
                 <a class="btn btn-default" style="min-width:50%" routerLink="/cadastro" routerLinkActive="active">Cadastrar</a>
-                <!--<button type="button" class="btn btn-default" style="min-width:50%" formnovalidate >Cadastrar</button>-->
             </div>
            
         </form>
