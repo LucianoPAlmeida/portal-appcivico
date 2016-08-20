@@ -9,7 +9,7 @@ import {PrincipalComponent} from '../components/principal/principal.component';
 import {ListHashtags} from '../components/listhashtags/listhashtags.component';
 
 const routes: RouterConfig = [
-  { path: '', component: PrincipalComponent},
+  { path: '', component: LoginComponent},
   { path: 'login', component: LoginComponent },
   { path: 'cadastro', component: RegisterComponent},
   { path: 'principal', component: PrincipalComponent},
