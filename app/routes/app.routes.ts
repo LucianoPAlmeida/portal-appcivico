@@ -6,7 +6,8 @@ import {AppComponent} from '../app.component';
 import {ListProfiles} from '../components/listprofiles/listprofiles.component';
 import {ListPostTypes} from '../components/listposttypes/listposttypes.component';
 import {PrincipalComponent} from '../components/principal/principal.component';
-import {ListHashtags} from '../components/listhashtags/listhashtags.component'
+import {ListHashtags} from '../components/listhashtags/listhashtags.component';
+
 const routes: RouterConfig = [
   { path: '', component: PrincipalComponent},
   { path: 'login', component: LoginComponent },
