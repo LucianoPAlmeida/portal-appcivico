@@ -7,6 +7,7 @@ import {ListProfiles} from '../components/listprofiles/listprofiles.component';
 import {ListPostTypes} from '../components/listposttypes/listposttypes.component';
 import {PrincipalComponent} from '../components/principal/principal.component';
 import {ListHashtags} from '../components/listhashtags/listhashtags.component';
+import {UpdatePassComponent} from '../components/updatepass/update_pass.component';
 
 const routes: RouterConfig = [
   { path: '', component: LoginComponent},
@@ -16,7 +17,8 @@ const routes: RouterConfig = [
   { path: 'aplicativos', component: ListAppsComponent},
   { path: 'tipos-de-perfil', component: ListProfiles},
   { path: 'tipos-de-postagem', component: ListPostTypes},
-  { path: 'hashtags', component: ListHashtags}
+  { path: 'hashtags', component: ListHashtags},
+  { path: 'alterar-senha', component: UpdatePassComponent}
 ];
 
 export const appRouterProviders = [

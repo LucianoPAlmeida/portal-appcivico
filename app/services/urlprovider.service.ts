@@ -65,6 +65,9 @@ class URLProvider {
         return this.personURL() + '/' + codPerson + '/perfil';
     }
 
+    public updatePassURL(codPerson: number){
+        return '/rest/pessoas/'+ codPerson+ '/definirNovaSenha';
+    }
 
     //Tipos de objeto
     public objectTypeURL(): string{

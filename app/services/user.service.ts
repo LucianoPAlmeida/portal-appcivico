@@ -18,8 +18,7 @@ class UserService {
     urlProvider: URLProvider = new URLProvider();
 
 
-    constructor(private http: Http, private cookieService: CookieService){
-    }
+    constructor(private http: Http, private cookieService: CookieService){}
 
     registerDeveloper(developer: Developer): Observable<number>{
       var body = {nomeUsuario: developer.name, email : developer.email, senha: developer.password, sexo: developer.genre};
@@ -68,6 +67,10 @@ class UserService {
           return;
         });
     }
+
+    // updatePassword(token: string, password: string, newPassword: string):Observable<void>{
+        
+    // }
 
     setLoggedUserSession(currentSession: UserSession){
         this.cookieService.putObject('user_session', currentSession);
