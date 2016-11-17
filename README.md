@@ -6,3 +6,12 @@ Mais detalhes em [CHANGELOG.md](#CHANGELOG.md).
 
 TODO: Terminar a implementação do alterar senha.
 
+# Running 
+
+Para executar basta apenas instalar o [npm](https://www.npmjs.com/).
+Executar o comando 
+
+`npm install` para baixar as dependências.
+e após isso executar o comando 
+
+`npm start` para iniciar a aplicação localmente.
